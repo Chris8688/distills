@@ -1,0 +1,3 @@
+DEPRECATED 2026-10-04
+All quantifiable rules (stock selection and trading) failed point-in-time backtests.
+See docs/02 and docs/03. Archive only; do not use for selection or trading.
