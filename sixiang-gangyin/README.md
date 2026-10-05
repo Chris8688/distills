@@ -1,7 +1,7 @@
 # 思想钢印 · 投资思路蒸馏 · 最终报告
 
-> **状态：已废弃（2026-10-04）。** 能量化的选股规则和交易规则都做了 point-in-time 回测，没有一条值得使用。
-> 本目录只作历史存档，**不要用于选股或交易**，也不构成任何投资建议。
+> 能量化的选股规则和交易规则都做了 point-in-time 回测，没有一条值得使用。
+> 不构成任何投资建议。
 
 ## 一、结论
 
@@ -92,7 +92,7 @@
 | `backtest_trading.py` | 交易规则回测 |
 | `backtest.py` / `backtest_cn.py` | 美股 / A股选股规则检验 |
 | `lib/` | 取数（TickFlow、yfinance、akshare）、SEC XBRL 单季 PIT 视图、判据函数 |
-| `SKILL.md` | 原 Claude Code skill 定义 |
+| `SKILL.md` | Claude Code skill 定义 |
 
 ## 八、复现
 
@@ -112,4 +112,4 @@ DISTILL_DATA=/path/to/data python3 sixiang-gangyin/backtest_cn.py --years   # A�
   - `wide_bars.json`：美股日K `{ticker: [{date, close, ...}]}`
   - `cn_*_fd.json` / `cn_fundamentals.json`：A股累计口径财报；`cn_*_px.json`：A股日K
 
-*蒸馏：2026-10-02；检验与废弃：2026-10-04；本报告：2026-10-05。*
+*蒸馏：2026-10-02；检验：2026-10-04；本报告：2026-10-05。*
