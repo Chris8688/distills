@@ -13,7 +13,7 @@
 
 ## 二、来源与方法
 
-- **源头**：知识星球「思想钢印」（51284144254414）。星主是雪球 2020 年十大影响力用户、私募基金经理，1996 年入市。
+- **源头**：知识星球「思想钢印」：<https://wx.zsxq.com/group/51284144254414>。星主是雪球 2020 年十大影响力用户、私募基金经理，1996 年入市。
 - **语料**：2020-10-04 至 2026-10-02 星主本人的全部 2161 帖（其中 1241 篇长文），约 510 万字，逐篇精读。原始语料是付费内容，不进 git。
 - **蒸馏**：按阶段整理框架，原文引用都带发帖日期；改过的观点单独列出；推断与原文分开标注。
 - **检验**：能写成公式的规则都做 PIT 回测；凡是主观打分、私有数据的指标，标为「不可复现」，不检验。
@@ -94,6 +94,22 @@
 | `lib/` | 取数（TickFlow、yfinance、akshare）、SEC XBRL 单季 PIT 视图、判据函数 |
 | `SKILL.md` | 原 Claude Code skill 定义 |
 
-复现方法见仓库根目录 [README](../README.md#复现)。
+## 八、复现
+
+在仓库根目录运行：
+
+```bash
+pip install numpy yfinance akshare
+python3 sixiang-gangyin/bands.py odds --price 12 --up 18 --down 8 --win 0.5   # 计算器，不需要数据
+python3 sixiang-gangyin/backtest_trading.py      # 交易规则：行情从 TickFlow / akshare 在线抓取
+DISTILL_DATA=/path/to/data python3 sixiang-gangyin/backtest.py --years      # 美股选股规则
+DISTILL_DATA=/path/to/data python3 sixiang-gangyin/backtest_cn.py --years   # A股选股规则
+```
+
+- 缓存默认放在 `~/.cache/distill/sixiang-gangyin/`，可用环境变量 `DISTILL_CACHE` 改。
+- 选股规则回测需要研究数据目录（不在本仓库），默认 `sixiang-gangyin/data/`，可用 `DISTILL_DATA` 指到别处。需要的文件：
+  - `fundamentals.jsonl.gz`：美股 SEC XBRL 财报，每行一条 `{ticker, concept, kind, start, end, filed, val}`
+  - `wide_bars.json`：美股日K `{ticker: [{date, close, ...}]}`
+  - `cn_*_fd.json` / `cn_fundamentals.json`：A股累计口径财报；`cn_*_px.json`：A股日K
 
 *蒸馏：2026-10-02；检验与废弃：2026-10-04；本报告：2026-10-05。*
