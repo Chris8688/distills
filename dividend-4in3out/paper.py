@@ -18,7 +18,7 @@
   · 分红再投入：税后分红买回派息的那只（一手取整）；该股本轮被卖 / 停牌 / 涨停 / 不足一手 → 留现金等补位。
 
 用法：
-  python3 paper.py init [--cash 10000000 --rules observed --slots 30]
+  python3 paper.py init [--cash 10000000 --rules observed --slots 15]
   python3 paper.py run [--dry-run] [--force]
   python3 paper.py status
   python3 paper.py notion-pending          # 给 Claude 看：还没同步到 Notion 的流水 / 净值 / 持仓
@@ -400,7 +400,7 @@ def main() -> None:
     pi = sub.add_parser("init")
     pi.add_argument("--cash", type=float, default=10_000_000)
     pi.add_argument("--rules", choices=("1.0", "observed", "strict"), default="observed")
-    pi.add_argument("--slots", type=int, default=30)
+    pi.add_argument("--slots", type=int, default=15)
     pr = sub.add_parser("run")
     pr.add_argument("--dry-run", action="store_true")
     pr.add_argument("--force", action="store_true")

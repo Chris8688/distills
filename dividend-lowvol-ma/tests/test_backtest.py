@@ -1,0 +1,105 @@
+"""backtest.py / improve.py 的规则状态机（不连网，合成 K 线）。运行：python3 -m pytest tests/"""
+from __future__ import annotations
+
+import datetime as dt
+import importlib.util
+import os
+
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))   # 本蒸馏目录
+spec = importlib.util.spec_from_file_location(
+    "dlm_backtest", os.path.join(ROOT, "backtest.py"))
+bt = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(bt)
+
+
+def _bars(closes):
+    d0 = dt.date(2020, 1, 1)
+    return [{"date": (d0 + dt.timedelta(days=i)).isoformat(), "open": c, "close": c,
+             "high": c, "low": c} for i, c in enumerate(closes)]
+
+
+def _path(ma=10):
+    # 缓涨（乖离 >1，不买）→ 跌破均线（买）→ 拉升超过均线 7%（卖）→ 再跌破（买）
+    return [1.0 + 0.01 * i for i in range(ma)] + [0.95] * 3 + [1.2] * 3 + [1.0] * 15 + [0.8] * 3
+
+
+def test_buy_below_ma_sell_above_7pct():
+    bars = _bars(_path())
+    tr, nav = bt.run(bars, ma=10, start=bars[0]["date"], end=bars[-1]["date"])
+    assert [t[1] for t in tr] == ["BUY", "SELL", "BUY"]
+    assert tr[0][0] == bars[10]["date"]               # 当日收盘信号 0.95/均线 ≤ 1
+    assert tr[1][0] == bars[13]["date"]               # 1.2 / 均线 > 1.07
+    assert len(nav) == len(bars)
+
+
+def test_next_open_fills_one_day_later():
+    bars = _bars(_path())
+    a, _ = bt.run(bars, ma=10, start=bars[0]["date"], end=bars[-1]["date"])
+    b, _ = bt.run(bars, ma=10, start=bars[0]["date"], end=bars[-1]["date"], fill="next_open")
+    idx = {x["date"]: i for i, x in enumerate(bars)}
+    assert [idx[t[0]] + 1 for t in a] == [idx[t[0]] for t in b]
+
+
+def test_pe_gate_blocks_buy():
+    bars = _bars(_path())
+    pe = {bars[0]["date"]: 25.0}                       # 前值填充 → 全程 25 > 20
+    tr, _ = bt.run(bars, ma=10, pe=pe, start=bars[0]["date"], end=bars[-1]["date"])
+    assert tr == []
+
+
+def test_trade_detail_marks_open_position():
+    bars = _bars(_path())
+    tr, _ = bt.run(bars, ma=10, start=bars[0]["date"], end=bars[-1]["date"])
+    det = bt.trade_detail(bars, tr)
+    assert det[0][3] > 0 and not det[0][5]              # 第一笔已平且盈利
+    assert det[-1][5]                                   # 最后一笔未平
+
+
+def test_author_trade_log_is_alternating():
+    rows = bt.author_trades()
+    assert len(rows) == 25
+    assert [r["side"] for r in rows] == ["BUY", "SELL"] * 12 + ["BUY"]
+
+
+# ---------------- improve.py（v2 波动率缩放） ----------------
+spec2 = importlib.util.spec_from_file_location(
+    "dlm_improve", os.path.join(ROOT, "improve.py"))
+im = importlib.util.module_from_spec(spec2)
+spec2.loader.exec_module(im)
+
+
+def _noisy(n=400, drift=0.0, amp=0.01, seed=1):
+    import random
+    rnd = random.Random(seed)
+    px, out = 1.0, []
+    for _ in range(n):
+        px *= 1 + drift + rnd.gauss(0, amp)
+        out.append(px)
+    return out
+
+
+def test_v2_without_tv_matches_original_signal_path():
+    bars = _bars(_noisy())
+    nav0, _, st0 = im.run(bars, fee=0)
+    tr, nav1 = bt.run(bars, fill="next_open", start=bars[182]["date"], end=bars[-1]["date"])
+    assert abs(nav0[-1][1] - nav1[-1][1]) < 1e-9          # tv=None、无费用 → 与原规则逐日一致
+    assert st0["signal"] == (1 if tr and tr[-1][1] == "BUY" else 0)
+
+
+def test_v2_scales_weight_down_when_vol_high():
+    bars = _bars(_noisy(amp=0.03))                          # 年化波动约 48%
+    _, _, st = im.run(bars, tv=0.12, buy=10.0, sell=99.0)   # 强制一直持有
+    assert st["signal"] == 1
+    assert 0.15 < st["target_weight"] < 0.40                # ≈ 12% / 48%
+
+
+def test_v2_full_weight_when_vol_low():
+    bars = _bars(_noisy(amp=0.002))
+    _, _, st = im.run(bars, tv=0.12, buy=10.0, sell=99.0)
+    assert st["target_weight"] == 1.0
+
+
+def test_v2_flat_means_zero_weight():
+    bars = _bars(_noisy())
+    _, _, st = im.run(bars, tv=0.12, buy=0.0)               # 乖离永远 > 0 → 从不买
+    assert st["signal"] == 0 and st["target_weight"] == 0.0

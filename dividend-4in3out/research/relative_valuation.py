@@ -37,6 +37,9 @@ from yield_trap import klines_cached  # noqa: E402
 TODAY = dt.date.today()
 FY0, FY1 = 2011, TODAY.year - 1
 COUNT = 3000
+UNIV_FY0 = 2015                              # 样本股：这一年起任一年满足连续分红 ≥4 年
+ROWS_FILE = "research_relval_rows.json"      # 月度指标落盘（backtest_exits 读它）
+REPORT = True                                # research/backtest_bear.py 只建数据、不出报告
 
 
 # ── 数据 ─────────────────────────────────────────────────────────────────────
@@ -116,7 +119,7 @@ def main() -> None:
             n += 1
         return n
 
-    universe = sorted({c for fy in range(2015, FY1 + 1) for c in ps[fy]
+    universe = sorted({c for fy in range(UNIV_FY0, FY1 + 1) for c in ps[fy]
                        if S.tradable(c, names.get(c, "")) and streak(c, fy) >= 4})
     print(f"… 样本股 {len(universe)} 只", file=sys.stderr, flush=True)
     sym = {PX.tf(c, "CN"): c for c in universe}
@@ -199,7 +202,9 @@ def main() -> None:
         r["xs"] = (r["ret"] - med[r["t"]]) if r["ret"] is not None else None
     print(f"… 股票·月 {len(rows)}（{rows and min(r['t'] for r in rows)} ~ {rows and max(r['t'] for r in rows)}）",
           file=sys.stderr, flush=True)
-    json.dump(rows, open(S._cpath("research_relval_rows.json"), "w"))   # 全部月份（回测用）
+    json.dump(rows, open(S._cpath(ROWS_FILE), "w"))   # 全部月份（回测用）
+    if not REPORT:
+        return
     rows = [r for r in rows if r["ret"] is not None]
     report(rows)
     report_combo(rows)

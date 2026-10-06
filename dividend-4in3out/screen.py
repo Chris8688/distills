@@ -565,7 +565,7 @@ def main() -> None:
     ap.add_argument("--rules", choices=("1.0", "observed", "strict"), default="1.0",
                     help="1.0 = 原作者公开的机械规则（缺省）；observed = 作者 2.0 实盘口径（扣非不挡买入，"
                          "扣非大跌只提示复核）；strict = 1.0 + 跟随者转述的 扣非>0、现金流/净利>0.6")
-    ap.add_argument("--slots", type=int, default=30, help="组合只数（等权，单只 = 1/slots，不超过 10%%）")
+    ap.add_argument("--slots", type=int, default=15, help="组合只数（等权，单只 = 1/slots，不超过 10%%）")
     ap.add_argument("--top", type=int, default=40, help="买入清单显示前 N 只")
     ap.add_argument("--hold", default="", help="持仓代码，逗号分隔：做体检并给换仓建议")
     ap.add_argument("--hold-file", default="", help="持仓文件（每行一个代码，# 注释）")

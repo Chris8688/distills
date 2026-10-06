@@ -30,6 +30,8 @@ from lib import prices as PX  # noqa: E402
 
 N, IND_CAP, COST = 30, 6, 0.0015
 START, END = "2018-06", "2026-09"
+ROWS_FILE = "research_relval_rows.json"            # research/backtest_bear.py 改成 2007 起的版本
+KL_FILE = "research_klines_forward_3000.json"
 
 
 def price_driven(r):
@@ -53,7 +55,7 @@ BUY_EXCLUDE_REL125 = {"V7 三出，买入排除相对PE≥1.25"}
 
 
 def load():
-    rows = json.load(open(S._cpath("research_relval_rows.json")))
+    rows = json.load(open(S._cpath(ROWS_FILE)))
     by_t: dict = {}
     by_c: dict = {}
     for r in rows:
@@ -68,7 +70,7 @@ def load():
             e1 = r["pf"] / r["pe"] if r["pe"] else None
             e0 = p["pf"] / p["pe"] if (p and p["pe"]) else None
             r["eps_yoy"] = (e1 / e0 - 1) if (e1 and e0 and e0 > 0) else None
-    kl = json.load(open(S._cpath("research_klines_forward_3000.json")))
+    kl = json.load(open(S._cpath(KL_FILE)))
     px = {}
     for sym, bars in kl.items():
         code = sym.split(".")[0]
