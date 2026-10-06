@@ -1,0 +1,250 @@
+# 口罩哥 K-Research「我们错了的信号 / 接下来盯什么」—— 带日期的检查点 + 常驻阈值
+#
+# 出处：docs/notes/K1~K3（研报日期 = src 里的 MM-DD，年份 2026）、P5_2026。
+# 用途：到期逐条回填 status / outcome，实测他「可证伪清单」的命中率（蒸馏笔记 §11 TODO）。
+#   status: pending（未到期或未核）/ hit（他的 BASE 或主判断成立）/ miss（被证伪）/ void（口径不可核、事件取消）
+#   due: 检查日（YYYY-MM-DD）；季度类取数据发布的大致日期
+# 只记他写死了阈值或日期的条目；三情景概率是模板化的，不录。
+
+checkpoints:
+  # ---------------- 存储 ----------------
+  - id: mem-q3-contract
+    due: 2026-10-15
+    theme: 存储
+    src: "K2 07-04 内存反噬 / K2 07-05 HBM挤干DRAM"
+    claim: "3Q26 DRAM 合约 +13~18% = BASE；≥+15% 助推 BULL；<+10% 触发 BEAR"
+    check: "TrendForce 3Q26 合约价实际结算值"
+    status: pending
+    outcome: ""
+  - id: mem-sk-hbm4-3x
+    due: 2026-10-25
+    theme: 存储
+    src: "K3 07-30 存储长协革命"
+    claim: "BEAR 触发：3Q26 服务器 DRAM 合约价 < +13%；验证：三星/SK 10 月财报 HBM4 收入环比 ≈3 倍"
+    check: "三星、SK 海力士 3Q26 财报与电话会"
+    status: pending
+    outcome: ""
+  - id: mem-micron-fq4
+    due: 2026-10-01
+    theme: 存储
+    src: "K3 08-02 存储十二个月轨迹"
+    claim: "美光 FQ4 毛利率 ≥85% 且库存天数 ≤130 = 中继；否则周期顶提前"
+    check: "美光 FQ4'26 财报（09-30 前后）"
+    status: hit
+    outcome: "FQ4'26 non-GAAP 毛利率 87.0%（≥85）、DIO 129 天（≤130，+9 天）→ 中继成立；但 DIO 距阈值仅 1 天（美光 2026-09-30 财报）"
+  - id: mem-q4-contract
+    due: 2027-01-10
+    theme: 存储
+    src: "K3 09-26 存储两座时钟 / 08-02"
+    claim: "4Q26 合约价守在 +3~8%（个位数）= BASE；重回双位数 = BULL；转负 = BEAR"
+    check: "TrendForce 4Q26 合约价实际值"
+    status: pending
+    outcome: ""
+  - id: mem-hbm4-2027-price
+    due: 2027-01-31
+    theme: 存储
+    src: "K1 06-23 DRAM倒挂HBM / K3 07-10 HBM4长约锁仓 / 08-02"
+    claim: "2027 HBM4 合约：BASE +40~60%；≥$3.5/Gb 中继确认；<$2.4/Gb 或提价 <1.5× 则证伪"
+    check: "2026Q4 敲定的 HBM4 年度合约价"
+    status: pending
+    outcome: ""
+  - id: mem-rubin-ultra-hbm
+    due: 2027-06-30
+    theme: 存储
+    src: "K3 08-07 HBM配额倒推芯片规格"
+    claim: "Rubin Ultra 单封装 HBM 最终落在 384~512GB"
+    check: "Rubin Ultra 规格表定案"
+    status: pending
+    outcome: ""
+  - id: mem-2027q2-verdict
+    due: 2027-07-15
+    theme: 存储
+    src: "K3 09-26 存储两座时钟"
+    claim: "最终裁决点：2027Q2 合约价环比；BASE（55%）通用存储 2027H2 见顶、2028 合约价 −20~40%"
+    check: "TrendForce 2Q27 合约价环比"
+    status: pending
+    outcome: ""
+  - id: mem-cxmt-share-2027
+    due: 2028-03-31
+    theme: 存储
+    src: "K3 07-11 国产DRAM份额窗口"
+    claim: "长鑫 2027 DRAM 位元份额 BASE 11~12%，天花板约 15%"
+    check: "TrendForce/Omdia 2027 全年份额（位元口径）"
+    status: pending
+    outcome: ""
+
+  # ---------------- 算力 / 硬件链 ----------------
+  - id: hw-intel-cpu-price
+    due: 2026-10-20
+    theme: 算力
+    src: "K3 09-27 Agent账单：CPU与载板"
+    claim: "第一道闸门：10-05 英特尔 PC CPU 涨价被执行 → 链条继续；被渠道抵制 → 全链条降杠杆"
+    check: "英特尔 10 月涨价执行率、渠道反馈"
+    status: pending
+    outcome: ""
+  - id: hw-tsmc-cpu-rev
+    due: 2026-10-20
+    theme: 算力
+    src: "K3 08-11 CPU偷走AI增量"
+    claim: "2027 台积电 CPU 相关营收 BASE 200~250 亿美元（伯恩斯坦 300 亿是牛市上端）；Q3 法说下调 CPU 叙事 = 证伪"
+    check: "台积电 Q3 法说会措辞"
+    status: pending
+    outcome: ""
+  - id: hw-tw-mature-node
+    due: 2026-11-10
+    theme: 算力
+    src: "K3 08-18 成熟制程涨价挑食"
+    claim: "成熟制程第三波涨价 5~10% 落地（低于宣称的 10~15%）；台系四家 10 月营收未超 9 月 = 证伪"
+    check: "台半/富鼎等台系四家 10 月营收（约 11-10 公布）"
+    status: pending
+    outcome: ""
+  - id: hw-nvda-buyback
+    due: 2026-11-25
+    theme: 算力
+    src: "K3 09-29 回购买的是悲观定价"
+    claim: "NVDA BASE 220~280 美元；证伪：实际回购年化 <$400 亿、单季 FCF <$150 亿、两家以上云厂下调 2027 capex"
+    check: "FY27Q3 财报实际回购额与 FCF"
+    status: pending
+    outcome: ""
+  - id: hw-glass-substrate
+    due: 2026-12-31
+    theme: 算力
+    src: "K3 09-28 玻璃基板真假局"
+    claim: "玻璃基板 2028 首批量产（BASE）；Absolics 年底可靠性延期/不过 = 偏 BEAR；A 股显示玻璃厂 2027 中报仍无收入"
+    check: "Absolics 年底可靠性结果"
+    status: pending
+    outcome: ""
+  - id: hw-abf-gap-2027
+    due: 2027-12-31
+    theme: 算力
+    src: "K3 07-14 合格载板面积撞墙 / 09-27"
+    claim: "2027 ABF 载板缺口 26~34%（09-27 版 27%）；110mm 级良率 2027 内 70~80%"
+    check: "Ibiden/欣兴/SEMCO 2027 产能与良率披露"
+    status: pending
+    outcome: ""
+  - id: hw-cpo-2028
+    due: 2028-06-30
+    theme: 算力
+    src: "K3 07-10 NPO光互连与磷化铟卡点"
+    claim: "CPO/NPO 迁移拐点在 2028；InP 缺口 2027 年底收敛"
+    check: "2027/2028 OFC、6 吋 InP 达产与良率"
+    status: pending
+    outcome: ""
+
+  # ---------------- 电力 / 设施 ----------------
+  - id: pw-gev-q3
+    due: 2026-10-25
+    theme: 电力
+    src: "K3 08-12 燃机产能配给制"
+    claim: "燃机配给制延续；GEV 三季报 125GW 未达或 backlog 不超 SRA = 订单簿质量恶化"
+    check: "GE Vernova 3Q26 财报"
+    status: pending
+    outcome: ""
+  - id: pw-hvac-q3
+    due: 2026-10-31
+    theme: 电力
+    src: "K3 08-17 液冷不是新CoWoS"
+    claim: "冷却订单强、交付慢，收入滞后 4~8 季（BASE）；开利/特灵数据中心订单同比转负 = 证伪"
+    check: "开利、特灵、江森 3Q26 财报"
+    status: pending
+    outcome: ""
+  - id: pw-ny-s10642
+    due: 2026-12-31
+    theme: 电力
+    src: "K3 07-15 纽约数据中心暂停令"
+    claim: "EO 62 于 2027 年中随 GEIS 收口解除、改收费站模式（BASE）；决策点是 12 月 Hochul 是否签 S10642"
+    check: "纽约州 S10642 签署情况"
+    status: pending
+    outcome: ""
+
+  # ---------------- 宏观 ----------------
+  - id: mx-qra-1104
+    due: 2026-11-05
+    theme: 宏观
+    src: "K3 08-17 全球长端买家消失"
+    claim: "11-04 QRA 削减 20/30Y = 发行人投降（长端抛售终局信号）；30Y UST 12 个月 BASE 4.90~5.40%"
+    check: "美财政部 11-04 季度再融资公告"
+    status: pending
+    outcome: ""
+  - id: mx-jgb-30y
+    due: 2026-12-31
+    theme: 宏观
+    src: "K3 08-18 长债买家葬礼"
+    claim: "引爆点：30Y JGB 站上 4.5%（寿险减值线）且法国评级二次下调 → 30Y UST BEAR 5.9~6.1%"
+    check: "30Y JGB 收益率；10-23 穆迪对法国复审"
+    status: pending
+    outcome: ""
+  - id: mx-usdjpy
+    due: 2026-12-31
+    theme: 宏观
+    src: "K3 08-05 美日联手买的不是日元"
+    claim: "USD/JPY BASE 155~160；H.4.1 FIMA 跳升超 200 亿美元 = 主论点证伪"
+    check: "USD/JPY 年末水平、H.4.1 FIMA"
+    status: pending
+    outcome: ""
+  - id: mx-csp-capex-2027
+    due: 2027-02-15
+    theme: 宏观
+    src: "K2 07-02 出租算力不是过剩自白 / K3 08-02"
+    claim: "2027 五大云 capex BASE 0.9~1.1 万亿美元；合计 < 9000 亿 = 存储/算力承重墙松动"
+    check: "四季报季各云厂 2027 capex 指引"
+    status: pending
+    outcome: ""
+
+# 常驻阈值：没有到期日，每周/每月对照一次（他称为「最快最便宜的证伪信号」）
+monitors:
+  - id: spot-ddr5
+    theme: 存储
+    src: "K3 08-02"
+    rule: "DDR5 16Gb 现货 < $45，或 DDR4 8Gb < $36，且连续 2 周净跌 → 周期顶信号（「空头有 6–8 周信息优势」）"
+    cadence: 每周三 TrendForce 现货
+  - id: spot-contract-gap
+    theme: 存储
+    src: "K3 09-26 / K2 07-08"
+    rule: "现货与合约价出现裂口（现货转负、合约仍涨）→ 撤出通用 DRAM/NAND/模组敞口；做空须同时见到原厂 capex 转投消费级净扩产"
+    cadence: 每周
+  - id: realization-ratio
+    theme: 存储
+    src: "K3 08-02"
+    rule: "实现率 = 公司 ASP 环比 ÷ 合约指数环比；连续三季 < 0.8x → 长约在吃上行（BEAR）"
+    cadence: 每季财报
+  - id: inventory-weeks
+    theme: 存储
+    src: "K1 06-23 / K3 08-02"
+    rule: "原厂库存从 2~5 周回到 8 周以上；客户 >10 周且供应商 >6 周 = BEAR"
+    cadence: 每季
+  - id: margin-ceiling
+    theme: 存储
+    src: "K3 09-26 / K1 06-23"
+    rule: "存储厂毛利率 ≥70% = 扩产动员令；美光毛利率连续两季环比下行（2018 模式：毛利先于营收见顶）"
+    cadence: 每季财报
+  - id: securitization
+    theme: 存储
+    src: "K3 09-26 / K2 07-07"
+    rule: "周期顶部的股权融资与证券化密度（12 个月已 5 起：SK ADR、CXMT、YMTC、Kioxia、Solidigm）；再出现大额 IPO/ADR = 顶部计时器加速"
+    cadence: 事件
+  - id: greenfield-share
+    theme: 存储
+    src: "K2 06-26"
+    rule: "capex 中绿地新晶圆占比（2027 从 22% 翻到 40% = 破纪律）；任一原厂绿地 PO（铠侠第三厂、三星 P5、龙仁加速）"
+    cadence: 每季
+  - id: ddr4-canary
+    theme: 存储
+    src: "K2 06-29 / 06-26"
+    rule: "金丝雀：DDR4 合约价环比转负；HBM 单片晶圆收入持续低于 DDR5 RDIMM → 产能回拨普通 DRAM"
+    cadence: 每月
+  - id: h100-rent
+    theme: 算力
+    src: "K2 07-02 / K3 08-02"
+    rule: "H100 一年期租金跌破 $1.70~1.80/小时；四家 RPO 环比转负；GPU 折旧改短并减值 —— 三者任一翻面再谈算力见顶"
+    cadence: 每月
+  - id: token-growth
+    theme: 算力
+    src: "K3 07-17"
+    rule: "token 年增速必须 > 4.3×（算法效率 3× × 硬件性价比 1.4×）英伟达净需求才增长"
+    cadence: 每季（Google 披露）
+  - id: oracle-cds
+    theme: 宏观
+    src: "K2 07-02 / 07-07"
+    rule: "信用端触发器：Oracle/neocloud 利差破 250bp、IG 科技利差 >120bp、表外 SPV 与折旧年限方向"
+    cadence: 每周
