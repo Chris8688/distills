@@ -123,3 +123,70 @@ def test_gate_blocks_new_buys_only():
     mid = bars[250]["date"]
     _, _, held = im.run(bars, buy=10.0, sell=99.0, gate=lambda d: d < mid)
     assert held["signal"] == 1
+
+
+# ---------------- paper.py（纸面账户，不连网） ----------------
+def _paper(monkeypatch, tmp_path):
+    monkeypatch.setenv("DISTILL_STATE", str(tmp_path))
+    spec3 = importlib.util.spec_from_file_location("dlm_paper", os.path.join(ROOT, "paper.py"))
+    pp = importlib.util.module_from_spec(spec3)
+    spec3.loader.exec_module(pp)
+    pp.PDIR = str(tmp_path / "paper")
+    pp.ACC, pp.TRD, pp.NAV, pp.NOTION = (os.path.join(pp.PDIR, x) for x in
+                                         ("account.json", "trades.csv", "nav.csv", "notion.json"))
+    monkeypatch.setattr(pp.I, "market_spread", lambda max_age_h=None: {"2000-01-01": 1.0})
+    monkeypatch.setattr(pp.I, "load_pe", lambda ix, max_age_h=None: None)
+    return pp
+
+
+def _feed(pp, monkeypatch, closes, split_at=None):
+    bars = _bars(closes)
+    raw = {b["date"]: dict(b) for b in bars}
+    if split_at is not None:                       # split_at 之前的不复权价 ×2（模拟 1 拆 2）
+        for b in bars[:split_at]:
+            for k in ("open", "close", "high", "low"):
+                raw[b["date"]][k] = b[k] * 2
+    state = {"n": len(bars)}
+    monkeypatch.setattr(pp, "_bars", lambda code: ({d: raw[d] for d in list(raw)[:state["n"]]}, bars[:state["n"]]))
+    monkeypatch.setattr(pp, "session_today", lambda: dt.date.fromisoformat(bars[state["n"] - 1]["date"]))
+    return state, bars
+
+
+def test_paper_fills_next_open_and_is_idempotent(monkeypatch, tmp_path):
+    pp = _paper(monkeypatch, tmp_path)
+    closes = _noisy(400, amp=0.002)
+    state, bars = _feed(pp, monkeypatch, closes)
+    state["n"] = 300
+    pp.init(1_000_000, "512890", 0.18)
+    monkeypatch.setattr(pp.I, "run", lambda fwd, **k: (None, None, {"signal": 1, "target_weight": 1.0, "dev": 0.99, "vol": 0.05}))
+    pp.run(False, False)
+    acc = pp._load()
+    assert acc["pending"]["target"] == 1.0 and acc["shares"] == 0          # 当天只挂单
+    pp.run(False, False)                                                   # 同一交易日重跑不动
+    assert pp._load()["shares"] == 0
+    state["n"] = 301
+    pp.run(False, False)
+    acc = pp._load()
+    px = bars[300]["open"]
+    assert acc["shares"] > 0 and acc["shares"] % 100 == 0                  # 下一个交易日开盘成交，整百
+    assert acc["cash"] >= 0 and acc["cash"] < px * 100 + 50
+    t = pp._rows(pp.TRD)
+    assert t[0]["side"] == "BUY" and abs(float(t[0]["price"]) - px) < 1e-4
+
+
+def test_paper_split_adjusts_shares(monkeypatch, tmp_path):
+    pp = _paper(monkeypatch, tmp_path)
+    closes = _noisy(400, amp=0.002)
+    state, bars = _feed(pp, monkeypatch, closes, split_at=302)
+    monkeypatch.setattr(pp.I, "run", lambda fwd, **k: (None, None, {"signal": 1, "target_weight": 1.0, "dev": 0.99, "vol": 0.05}))
+    state["n"] = 300
+    pp.init(1_000_000, "512890", 0.18)
+    pp.run(False, False)
+    state["n"] = 301
+    pp.run(False, False)
+    sh = pp._load()["shares"]
+    state["n"] = 303                                                       # 跨过拆分日
+    pp.run(False, False)
+    acc = pp._load()
+    assert abs(acc["shares"] - sh * 2) < 1e-6
+    assert pp._rows(pp.TRD)[-1]["side"] == "ADJ"

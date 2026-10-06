@@ -53,16 +53,21 @@ TV3 = 0.18            # v3 缺省目标波动（有估值闸门后缩仓只作�
 SPREAD_MIN = -1.0     # v3 估值闸门：上证 A 股股息率 − 10 年国债收益率 ≥ 这个值（百分点）才允许买入
 
 
-def load_pe(index: str) -> dict[str, float]:
+def load_pe(index: str, max_age_h: float | None = None) -> dict[str, float]:
     """日期 → PE(TTM)。蛋卷 2016 起周频；上证红利再并上乐咕乐股 2005 起月度（akshare stock_index_pe_lg）。"""
     out: dict[str, float] = {}
     p = os.path.join(B.CACHE, f"pe_{index}.json")
-    if not os.path.exists(p):
+    if _stale(p, max_age_h):
         import urllib.request
         req = urllib.request.Request(
             f"https://danjuanfunds.com/djapi/index_eva/pe_history/{index}?day=all",
             headers={"User-Agent": "Mozilla/5.0"})
-        open(p, "wb").write(urllib.request.urlopen(req, timeout=30).read())
+        try:
+            open(p, "wb").write(urllib.request.urlopen(req, timeout=30).read())
+        except Exception as e:      # noqa: BLE001
+            if not os.path.exists(p):
+                raise
+            print(f"  ⚠️ PE {index} 刷新失败，沿用旧缓存：{type(e).__name__}", file=sys.stderr)
     for r in json.load(open(p))["data"]["index_eva_pe_growths"]:
         out[dt.datetime.fromtimestamp(r["ts"] / 1000 + 8 * 3600, dt.UTC).strftime("%Y-%m-%d")] = r["pe"]
     lg = os.path.join(B.CACHE, "pe_lg_上证红利.csv")
@@ -77,23 +82,33 @@ def load_pe(index: str) -> dict[str, float]:
     return out
 
 
-def _daily_series(fname: str, col: str, fetch) -> tuple[list[str], list[float]]:
+def _stale(p: str, max_age_h: float | None) -> bool:
+    import time
+    return not os.path.exists(p) or (max_age_h is not None and time.time() - os.path.getmtime(p) > max_age_h * 3600)
+
+
+def _daily_series(fname: str, col: str, fetch, max_age_h: float | None = None) -> tuple[list[str], list[float]]:
     p = os.path.join(B.CACHE, fname)
-    if not os.path.exists(p):
-        fetch().to_csv(p, index=False)
+    if _stale(p, max_age_h):
+        try:
+            fetch().to_csv(p, index=False)
+        except Exception as e:      # noqa: BLE001  抓不到就用旧缓存（没有旧缓存才报错）
+            if not os.path.exists(p):
+                raise
+            print(f"  ⚠️ {fname} 刷新失败，沿用旧缓存：{type(e).__name__}", file=sys.stderr)
     rows = [(r["日期"][:10], float(r[col])) for r in csv.DictReader(open(p)) if r.get(col) not in (None, "", "nan")]
     rows.sort()
     return [d for d, _ in rows], [v for _, v in rows]
 
 
-def market_spread() -> dict[str, float]:
+def market_spread(max_age_h: float | None = None) -> dict[str, float]:
     """日期 → 上证 A 股股息率 − 中国 10 年国债收益率（百分点）。
     股息率：乐咕乐股（akshare stock_a_gxl_lg，2005 起日频）；国债：akshare bond_zh_us_rate（2005 起）。
     红利指数自身的股息率历史没有免费来源（蛋卷要登录），这里用全市场的「股债性价比」作估值闸门。"""
     import akshare as ak
-    dd, dv = _daily_series("market_dy_sh.csv", "股息率", lambda: ak.stock_a_gxl_lg(symbol="上证A股"))
+    dd, dv = _daily_series("market_dy_sh.csv", "股息率", lambda: ak.stock_a_gxl_lg(symbol="上证A股"), max_age_h)
     bd, bv = _daily_series("cn10y.csv", "中国国债收益率10年",
-                           lambda: ak.bond_zh_us_rate(start_date="20050101")[["日期", "中国国债收益率10年"]])
+                           lambda: ak.bond_zh_us_rate(start_date="20050101")[["日期", "中国国债收益率10年"]], max_age_h)
     out, j = {}, -1
     for i, d in enumerate(dd):
         while j + 1 < len(bd) and bd[j + 1] <= d:
