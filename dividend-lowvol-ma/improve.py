@@ -17,8 +17,12 @@
   仓位偏离 >10 个百分点或每 5 个交易日（偏离 >2pp）再平衡；空仓/建仓/清仓照原信号次日开盘。
   —— 没有开关阈值，参数单调（目标波动越低越保守），在 5 只上同向改善回撤。
 
+v3（2026-10-06，docs/04）：v2 + 估值闸门「上证 A 股股息率 − 10 年国债收益率 ≥ −1.0pp 才允许新买入」，缩仓目标放宽到 18%。
+  闸门只在泡沫期关（2007~2011、2015、2017~2018 部分时间），2019 年后从未关闭；510880 的 2008 年 −14% → −2%。
+
 用法：
-  python3 improve.py signal         # 今日：6 只（含 563020）原规则状态 + v2 目标仓位
+  python3 improve.py signal         # 今日：股债差闸门状态 + 6 只（含 563020）信号与 v3 目标仓位
+  python3 improve.py gate           # 估值闸门网格（股息率 / 股债差，docs/04）
   python3 improve.py compare        # 5 只 × {买持, 原规则, 原规则+PE, v2(8/10/12/15/18%)}，含费用
   python3 improve.py oos            # 2018 年底前（510880/159905）看 → 2019 起全部 5 只验
   python3 improve.py year 510880    # v2 与原规则逐年对比
@@ -45,6 +49,8 @@ ETFS = {   # 代码: (名称, 蛋卷指数代码)
 }
 FEE = 0.0003          # 单边佣金+冲击（ETF 免印花税），按换手计
 TV = 0.12             # v2 缺省目标波动
+TV3 = 0.18            # v3 缺省目标波动（有估值闸门后缩仓只作兜底，见 docs/04）
+SPREAD_MIN = -1.0     # v3 估值闸门：上证 A 股股息率 − 10 年国债收益率 ≥ 这个值（百分点）才允许买入
 
 
 def load_pe(index: str) -> dict[str, float]:
@@ -71,6 +77,43 @@ def load_pe(index: str) -> dict[str, float]:
     return out
 
 
+def _daily_series(fname: str, col: str, fetch) -> tuple[list[str], list[float]]:
+    p = os.path.join(B.CACHE, fname)
+    if not os.path.exists(p):
+        fetch().to_csv(p, index=False)
+    rows = [(r["日期"][:10], float(r[col])) for r in csv.DictReader(open(p)) if r.get(col) not in (None, "", "nan")]
+    rows.sort()
+    return [d for d, _ in rows], [v for _, v in rows]
+
+
+def market_spread() -> dict[str, float]:
+    """日期 → 上证 A 股股息率 − 中国 10 年国债收益率（百分点）。
+    股息率：乐咕乐股（akshare stock_a_gxl_lg，2005 起日频）；国债：akshare bond_zh_us_rate（2005 起）。
+    红利指数自身的股息率历史没有免费来源（蛋卷要登录），这里用全市场的「股债性价比」作估值闸门。"""
+    import akshare as ak
+    dd, dv = _daily_series("market_dy_sh.csv", "股息率", lambda: ak.stock_a_gxl_lg(symbol="上证A股"))
+    bd, bv = _daily_series("cn10y.csv", "中国国债收益率10年",
+                           lambda: ak.bond_zh_us_rate(start_date="20050101")[["日期", "中国国债收益率10年"]])
+    out, j = {}, -1
+    for i, d in enumerate(dd):
+        while j + 1 < len(bd) and bd[j + 1] <= d:
+            j += 1
+        if j >= 0:
+            out[d] = dv[i] - bv[j]
+    return out
+
+
+def spread_gate(spread: dict[str, float], th: float = SPREAD_MIN):
+    """返回 gate(day) -> bool：最近一个有数据日的股债差 ≥ th 才放行买入（数据开始前放行）。"""
+    days = sorted(spread)
+    import bisect
+
+    def gate(day: str) -> bool:
+        i = bisect.bisect_right(days, day) - 1
+        return True if i < 0 else spread[days[i]] >= th
+    return gate
+
+
 def sma(x: list[float], n: int) -> list[float | None]:
     out, s = [], 0.0
     for i, c in enumerate(x):
@@ -92,8 +135,9 @@ def realized_vol(c: list[float], n: int = 60) -> list[float | None]:
 
 
 def run(bars, *, ma=182, buy=1.0, sell=1.07, pe=None, pe_max=20.0,
-        tv=None, vol_n=60, band=0.10, rebal=5, fee=FEE, start=None, end=None):
-    """返回 (nav, 年均换手, 最新状态)。tv=None → 原规则（满仓/空仓）；tv=x → v2 波动率缩放。
+        tv=None, vol_n=60, band=0.10, rebal=5, fee=FEE, start=None, end=None, gate=None):
+    """返回 (nav, 年均换手, 最新状态)。tv=None → 原规则（满仓/空仓）；tv=x → 波动率缩放（v2/v3）。
+    gate(day) -> bool：额外的买入闸门（v3 = 股债差闸门），只拦新买入，不影响持仓与卖出。
     信号按当日收盘算，次日开盘调到目标仓位。"""
     c = [b["close"] for b in bars]
     m = sma(c, ma)
@@ -102,7 +146,7 @@ def run(bars, *, ma=182, buy=1.0, sell=1.07, pe=None, pe_max=20.0,
     for b in bars:
         if pe and b["date"] in pe:
             pe_now = pe[b["date"]]
-        pe_ok.append(pe is None or pe_now is None or pe_now <= pe_max)
+        pe_ok.append((pe is None or pe_now is None or pe_now <= pe_max) and (gate is None or gate(b["date"])))
     start = start or bars[ma]["date"]
     end = end or bars[-1]["date"]
     eq, w, sig, pend, nav, turn = 1.0, 0.0, 0, None, [], 0.0
@@ -133,6 +177,16 @@ def run(bars, *, ma=182, buy=1.0, sell=1.07, pe=None, pe_max=20.0,
     return nav, turn / yrs, state
 
 
+_GATE = None
+
+
+def _gate():
+    global _GATE
+    if _GATE is None:
+        _GATE = spread_gate(market_spread())
+    return _GATE
+
+
 def _row(nav):
     st = B.stats(nav)
     return st["cagr"], st["mdd"], st["cagr"] / abs(st["mdd"]) if st["mdd"] else float("nan")
@@ -144,7 +198,10 @@ def _data():
 
 CONFIGS = [("买持", None), ("原规则", {}), ("原规则+PE≤20", {"pe": True}),
            ("v2 目标波动8%", {"tv": 0.08}), ("v2 10%", {"tv": 0.10}), ("v2 12%（缺省）", {"tv": 0.12}),
-           ("v2 15%", {"tv": 0.15}), ("v2 18%", {"tv": 0.18}), ("v2 12% + PE≤20", {"tv": 0.12, "pe": True})]
+           ("v2 15%", {"tv": 0.15}), ("v2 18%", {"tv": 0.18}), ("v2 12% + PE≤20", {"tv": 0.12, "pe": True}),
+           ("原规则+PE+闸门", {"pe": True, "gate": True}),
+           ("v3 18%+PE+闸门", {"tv": 0.18, "pe": True, "gate": True}),
+           ("v3 12%+PE+闸门", {"tv": 0.12, "pe": True, "gate": True})]
 
 
 def _eval(data, cfg, start=None, end=None):
@@ -158,6 +215,8 @@ def _eval(data, cfg, start=None, end=None):
             kw = dict(cfg)
             if kw.pop("pe", False):
                 kw["pe"] = pe
+            if kw.pop("gate", False):
+                kw["gate"] = _gate()
             nav, t, _ = run(bars, start=s, end=end, **kw)
         out[k] = (*_row(nav), t)
     return out
@@ -210,23 +269,63 @@ def cmd_year(code="510880"):
 
 
 def cmd_signal():
-    """今日：原规则状态 + v2 目标仓位（重抓行情；563020 用自身 K 线、PE 用红利低波指数）。"""
+    """今日：原规则状态、股债差闸门、v3 目标仓位（重抓行情；563020 用自身 K 线、PE 用红利低波指数）。"""
+    sp = market_spread()
+    last = max(sp)
+    gate = spread_gate(sp)
+    print(f"估值闸门：{last} 上证 A 股股息率 − 10 年国债 = {sp[last]:+.2f}pp（≥ {SPREAD_MIN:+.1f} 才允许新买入）→ "
+          f"{'开' if sp[last] >= SPREAD_MIN else '关'}\n")
     rows = dict(ETFS)
     rows["563020"] = ("红利低波 易方达（作者建议实盘）", "CSIH30269")
-    print(f"{'代码':<8}{'名称':<18}{'日期':<12}{'乖离':>7}{'60日波动':>9}{'原规则':>8}{'v2 目标仓位':>12}")
+    print(f"{'代码':<8}{'名称':<18}{'日期':<12}{'乖离':>7}{'60日波动':>9}{'信号':>6}{'v3 目标仓位':>12}")
     for code, (name, ix) in rows.items():
         bars = B.P.klines(code, 600, "forward")
         if len(bars) < 250:
             print(f"{code:<8}{name:<18}K 线不足（{len(bars)}）")
             continue
-        _, _, st = run(bars, tv=TV, pe=load_pe(ix))
+        _, _, st = run(bars, tv=TV3, pe=load_pe(ix), gate=gate)
         print(f"{code:<8}{name:<18}{st['date']:<12}{st['dev']:>7.3f}{(st['vol'] or 0):>9.1%}"
-              f"{('持有' if st['signal'] else '空仓'):>8}{st['target_weight']:>12.0%}")
-    print(f"\n规则：乖离=收盘/MA182，≤1.000 买、>1.070 卖（买入另需指数 PE≤20）；"
-          f"v2 持有时仓位 = min(1, {TV:.0%}/60日波动)。信号按收盘算，次日开盘执行。")
+              f"{('持有' if st['signal'] else '空仓'):>6}{st['target_weight']:>12.0%}")
+    print(f"\n规则（v3）：乖离=收盘/MA182，≤1.000 且指数 PE≤20 且股债差 ≥{SPREAD_MIN:+.1f} 才买，>1.070 卖；"
+          f"持有时仓位 = min(1, {TV3:.0%}/60日波动)。信号按收盘算，次日开盘执行。")
+    print("（行情已重抓；股息率 / 国债收益率读缓存，要最新先删 market_dy_sh.csv、cn10y.csv）")
+
+
+def cmd_gate():
+    """估值闸门网格：股息率绝对值 / 自身 3 年中位 / 股债差，叠在原规则与 v2 上（docs/04）。"""
+    import bisect
+    import statistics as stt
+    import akshare as ak
+    dd, dv = _daily_series("market_dy_sh.csv", "股息率", lambda: ak.stock_a_gxl_lg(symbol="上证A股"))
+    sp = market_spread()
+
+    def dy_ge(th):
+        return lambda d: (lambda i: True if i < 0 else dv[i] >= th)(bisect.bisect_right(dd, d) - 1)
+
+    def dy_rel(d):
+        i = bisect.bisect_right(dd, d)
+        lo = bisect.bisect_left(dd, str(int(d[:4]) - 3) + d[4:])
+        w = dv[lo:i]
+        return True if len(w) < 250 else dv[i - 1] >= stt.median(w)
+    gates = {"无闸门": None, "股息率≥1.5": dy_ge(1.5), "股息率≥2.0": dy_ge(2.0), "股息率≥2.5": dy_ge(2.5),
+             "股息率≥3.0": dy_ge(3.0), "股息率≥自身3年中位": dy_rel}
+    for th in (-2.0, -1.5, -1.0, -0.5):
+        gates[f"股债差≥{th:+.1f}"] = spread_gate(sp, th)
+    data = _data()
+    codes = list(ETFS)
+    for tv in (None, TV):
+        print(f"\n#### {'原规则' if tv is None else f'v2 {tv:.0%}'} + PE≤20 + 闸门（年化 / 最大回撤）")
+        print(f"{'闸门':<14}" + "".join(f"{c:>16}" for c in codes) + "   2018 前 510880 / 159905   2019 后 5 只均值")
+        for name, g in gates.items():
+            full = [_row(run(data[c][0], tv=tv, pe=data[c][1], gate=g)[0])[:2] for c in codes]
+            pre = [_row(run(data[c][0], tv=tv, pe=data[c][1], gate=g, end="2018-12-31")[0])[:2] for c in ("510880", "159905")]
+            post = [_row(run(data[c][0], tv=tv, pe=data[c][1], gate=g,
+                             start=max("2019-01-01", data[c][0][182]["date"]))[0])[0] for c in codes]
+            print(f"{name:<14}" + "".join(f"{a:+.1%}/{m:.0%}".rjust(16) for a, m in full)
+                  + f"   {pre[0][0]:+.1%}/{pre[0][1]:.0%}  {pre[1][0]:+.1%}/{pre[1][1]:.0%}   {sum(post) / len(post):+.1%}")
 
 
 if __name__ == "__main__":
     a = sys.argv[1:] or ["compare"]
-    {"compare": cmd_compare, "oos": cmd_oos, "signal": cmd_signal,
+    {"compare": cmd_compare, "oos": cmd_oos, "signal": cmd_signal, "gate": cmd_gate,
      "year": lambda: cmd_year(*(a[1:2] or ["510880"]))}[a[0]]()

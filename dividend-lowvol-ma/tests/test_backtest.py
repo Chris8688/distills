@@ -103,3 +103,23 @@ def test_v2_flat_means_zero_weight():
     bars = _bars(_noisy())
     _, _, st = im.run(bars, tv=0.12, buy=0.0)               # 乖离永远 > 0 → 从不买
     assert st["signal"] == 0 and st["target_weight"] == 0.0
+
+
+# ---------------- v3 估值闸门 ----------------
+
+def test_spread_gate_threshold_and_asof():
+    g = im.spread_gate({"2020-01-01": -2.0, "2020-01-10": 0.5}, -1.0)
+    assert g("2019-12-31") is True            # 数据开始前放行
+    assert g("2020-01-05") is False           # 用最近一个有数据日（−2.0 < −1.0）
+    assert g("2020-01-10") is True and g("2020-02-01") is True
+
+
+def test_gate_blocks_new_buys_only():
+    bars = _bars(_noisy())
+    _, _, open_ = im.run(bars, buy=10.0, sell=99.0, gate=lambda d: True)
+    _, _, shut = im.run(bars, buy=10.0, sell=99.0, gate=lambda d: False)
+    assert open_["signal"] == 1 and shut["signal"] == 0
+    # 已持仓后闸门关闭不触发卖出
+    mid = bars[250]["date"]
+    _, _, held = im.run(bars, buy=10.0, sell=99.0, gate=lambda d: d < mid)
+    assert held["signal"] == 1
