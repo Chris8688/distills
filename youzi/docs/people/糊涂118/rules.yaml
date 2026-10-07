@@ -1,0 +1,75 @@
+person: 糊涂118
+data_note: "无 trades/；仅 58位·中册·第12章（二手问答）"
+rules:
+  - id: HT-01
+    category: 买点
+    rule: 熊市/震荡市大反弹后，绝对龙头第一次见顶后 3-7 个交易日跌 20%-25% 时左侧介入，搏反抽前高
+    quote: 往往3-7个交易日内出现20%-25%左右的下跌，这个时候左侧介入绝佳机会
+    source: text/58位·中册·第12章.md#page-134
+    evidence: 二手
+    codable: true
+    signal: "龙头 = 前一波上涨中板块涨幅第 1；见顶 = 收盘创 60 日新高后首次收盘 < MA5；当 3 ≤ 见顶后天数 ≤ 7 且 收盘/见顶最高价 - 1 ∈ [-25%, -20%] → 买；目标 = 前高 × 0.95"
+    data_check: "无"
+  - id: HT-02
+    category: 选股
+    rule: 只做绝对龙头，只做见顶后的第一次回撤（二次及以后不做）
+    quote: 注意事项一定是绝对龙头，一定是见顶的第一次
+    source: text/58位·中册·第12章.md#page-134
+    evidence: 二手
+    codable: true
+    signal: "回撤计数：自 60 日新高起，收盘跌破 MA10 的独立回撤段编号 = 1 才允许"
+    data_check: "无"
+  - id: HT-03
+    category: 买点
+    rule: 趋势股 12 日均线可低吸；破 20 日线小心；急杀约 20% 是好买点
+    quote: 趋势股一般12天均线可低吸，破20天均线就要小心，急杀20%附近就应该是好买点
+    source: text/58位·中册·第12章.md#page-134
+    evidence: 二手
+    codable: true
+    signal: "趋势股（MA12 > MA20 > MA60 且 MA20 上行）：最低价 ≤ MA12 × 1.01 且 收盘 ≥ MA20 → 低吸；收盘 < MA20 → 不新开；5 日跌幅 ≥ 20% → 急杀买点"
+    data_check: "无"
+  - id: HT-04
+    category: 环境
+    rule: 左侧交易要等大盘与个股左侧共振的临界点，对大盘要有把握
+    quote: 左侧交易的精髓就是等待大盘和个股左侧的共振形成的短线机会
+    source: text/58位·中册·第12章.md#page-134
+    evidence: 二手
+    codable: false
+    signal: "待核：原文未定义共振；可近似为 上证与个股同日出现 5 日跌幅 ≥ 阈值 后的首个缩量日"
+    data_check: "无"
+  - id: HT-05
+    category: 止损
+    rule: 小资金止损设约 3 个点；大资金可做 T 自救
+    quote: 止损我一般设在三个点左右。小资金必须止损，大资金可以运用做t的手段自救
+    source: text/58位·中册·第12章.md#page-135
+    evidence: 二手
+    codable: true
+    signal: "收盘 < 买价 × 0.97 → 次日卖出"
+    data_check: "无"
+  - id: HT-06
+    category: 卖点
+    rule: 埋伏：非热点时进，成为热点时出
+    quote: 不是热点的时候进去，是热点的时候就出来
+    source: text/58位·中册·第12章.md#page-136
+    evidence: 二手
+    codable: true
+    signal: "所属行业进入当日涨停家数前 3 或 个股首次涨停 → 卖出"
+    data_check: "无"
+  - id: HT-07
+    category: 止损
+    rule: 买错先认错，不盲目杀跌，反抽时离场
+    quote: 我肯定选择反抽后走人，尽量减少损失
+    source: text/58位·中册·第12章.md#page-136
+    evidence: 二手
+    codable: true
+    signal: "判错后：等首个日内反抽至分时均价上方时卖出（与 HT-05 冲突时以 HT-05 硬止损为准，原文未给优先级）"
+    data_check: "无"
+  - id: HT-08
+    category: 仓位
+    rule: 中线底仓与短线热点资金并行，中线品种不加速就继续拿
+    quote: 中线布局的品种不加速就可以拿着，手里留着资金做热点，两不误
+    source: text/58位·中册·第12章.md#page-135
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无"

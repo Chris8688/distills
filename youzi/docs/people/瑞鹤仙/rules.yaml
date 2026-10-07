@@ -1,0 +1,147 @@
+person: 瑞鹤仙
+data_note: "trades/ 24 段 OCR（2012-09~2017-01，自贴展示单），配对率 78%；段首笔：打板 12.5% / 半路 50% / 平盘 20.8% / 低吸 16.7%；另按 205 笔买入成交逐笔对日线"
+rules:
+  - id: RHX-01
+    category: 环境
+    rule: 稳定盈利必须在熊市里做到；熊市是练技术、积累信心的时机
+    quote: 如果要持续稳定的盈利，那么必然要求在熊市中做到
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-6
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: "2012（熊市）9 段自称 1 月 26.8 万 → 11 月 200 万（精华帖#page-44），交割单仅为片段，无法核验总额"
+  - id: RHX-02
+    category: 选股
+    rule: 只做交易活跃的强势股，回避不活跃股
+    quote: 坚决回避交易不活跃的股票……我只操作强势的股票
+    source: text/58位·中册·第02章.md#page-45
+    evidence: 二手
+    codable: true
+    signal: "排除：20 日日均换手率 < 1% 或 20 日成交额排名后 50%；保留：近 20 日涨幅 > 0 且 收盘 > MA20"
+    data_check: "部分：强势股（近10日有板或10日涨>10%）仅 62.5%，T-1 收 > MA10 70.8%；对象含大盘价值股（沪主板 58.3%），强度门槛低于乔帮主/rxybgb"
+  - id: RHX-03
+    category: 买点
+    rule: 涨停股次日不追高
+    quote: 涨停的股票第二天不能去追买
+    source: text/58位·中册·第02章.md#page-45
+    evidence: 二手
+    codable: true
+    signal: "T-1 涨停 → T 日禁止在 ≥ 开盘价 且 ≥ +5% 处买入"
+    data_check: "基本一致：T-1 涨停的 6 段首笔买价全部低于当日开盘价（-0.2%~-5.4%）"
+  - id: RHX-04
+    category: 买点
+    rule: 低吸买在空头衰竭那一刻（右侧确认），不是跌了就买
+    quote: 低吸，不是跌了就买……关键在于空头衰竭的那一刻
+    source: text/58位·中册·第02章.md#page-52
+    evidence: 二手
+    codable: true
+    signal: "分时：急跌后 N 分钟不再创新低 且 量能萎缩后首次放量上行（需 1 分钟线）"
+    data_check: "无法检验（无分时）"
+  - id: RHX-05
+    category: 买点
+    rule: 买点精选到当天收盘即有浮盈，收盘不持浮亏股
+    quote: 买的时候要确信自己买了当天就能浮盈
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-11
+    evidence: 原文
+    codable: true
+    signal: "评估指标：T 日收盘 / 首笔买价 - 1 > 0 的比例（目标接近 100%）"
+    data_check: "冲突：首笔买入当日收盘高于买价仅 45.8%（11/24）"
+  - id: RHX-06
+    category: 止损
+    rule: 单笔亏损控制在 2% 以内
+    quote: 亏损我一般严格控制在2%以内
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-8
+    evidence: 原文
+    codable: true
+    signal: "单笔亏损额 ≤ 账户资产 × 2%（重仓时 ≈ 个股跌幅 2% 止损）"
+    data_check: "冲突（口径近似）：亏损段中位 -2.6%，>-2% 的仅 40%，最差 -11.5%（凤凰光学）"
+  - id: RHX-07
+    category: 仓位
+    rule: 主升浪中低吸重仓、高抛轻仓滚动做 T（非加速段专用）
+    quote: 大部分低吸都是重仓（60万元以上）而高抛是轻仓（30万元）
+    source: text/瑞鹤仙交割单图文解读1-熊市中走出的英雄.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "持仓期间：日内跌至 VWAP 下方 ≥2% → 加仓 x；冲高至 VWAP 上方 ≥2% → 减仓 x/2；加速段（连续 2 根大阳）停止做 T 满仓持有"
+    data_check: "一致（个案）：沧州大化 2012-09-27~10-22 买单 20-50 万、高抛单为小量，10-12 一次卖出 60300 股"
+  - id: RHX-08
+    category: 空仓
+    rule: 用逆回购控制节奏；大涨大跌日重仓逆回购，等低吸机会
+    quote: 逆回购很重要，是控制自己节奏心态以及对市场理解的重要手段
+    source: text/瑞鹤仙交割单图文解读1-熊市中走出的英雄.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "上证 |日涨跌幅| > 2% 的当日：股票仓位 ≤ 50%，余额做逆回购，次日再择机低吸"
+    data_check: "无法检验（交割单未含逆回购行）"
+  - id: RHX-09
+    category: 仓位
+    rule: 防守靠选股和仓位；"想买又要谨慎"用降低仓位化解
+    quote: 又要买股票，又要谨慎是矛盾的怎么办呢？用仓位来化解
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-88
+    evidence: 原文
+    codable: true
+    signal: "不确定期（上证 < MA20 或 判断次日方向置信不足）：单票 ≤ 30%、总仓 ≤ 50%"
+    data_check: "部分：2015-02-06 尾盘分三票（东财/乐视/汉得 200/200/400 万）买入，与同日'用仓位化解'一致（干货合集#page-88）"
+  - id: RHX-10
+    category: 空仓
+    rule: 弱市不清仓但降仓，股票只低吸不追涨，主战场转期货
+    quote: 没有清仓，只是仓位比较低，主战场在期货里，在股票里面基本都是低吸，很少追涨
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-158
+    evidence: 原文
+    codable: true
+    signal: "弱市（上证 < MA60 且 MA20 下行）：股票总仓 ≤ 30%，仅允许首笔买价 < T-1 收盘 的低吸，禁止半路/打板"
+    data_check: "样本不足：2016 年仅 4 笔买入，低吸金额占比 64.9%（方向一致）"
+  - id: RHX-11
+    category: 环境
+    rule: 熊市中不参与拉升（死亡之涨），除龙头外跟风者易吃瘪
+    quote: 这种拉升，我是不参与的，因为是熊市
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-170
+    evidence: 原文
+    codable: true
+    signal: "熊市 且 当日板块指数 +3% 以上拉升 → 不追（非龙头）；超跌板块大涨后不再超跌 → 预期继续下跌"
+    data_check: "无法检验"
+  - id: RHX-12
+    category: 止损
+    rule: 止损受伤后当日不再交易，收盘后复盘
+    quote: 不是当日急于回本再去买入一个股票，而是就地休息
+    source: text/瑞鹤仙交割单图文解读1-熊市中走出的英雄.md#page-8
+    evidence: 原文
+    codable: true
+    signal: "当日出现一笔亏损 > 2% 的卖出 → 当日禁止新开仓"
+    data_check: "待核（OCR 多无时间）"
+  - id: RHX-13
+    category: 买点
+    rule: 复盘后决策次日买入为主；盘中临时决策是亏损根源
+    quote: 复盘后分析决策次日买的占绝大多数，盘中临时决策是亏损的根源
+    source: text/瑞鹤仙心法总结.md#page-9
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无法检验"
+  - id: RHX-14
+    category: 买点
+    rule: 低吸先看博弈对手：其他资金也恐慌跟杀时不低吸（会越吸越低）
+    quote: 假如其他游资也脆弱到跟风杀跌，那低吸就会越吸越低，是绝对不能做的
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-54
+    evidence: 原文
+    codable: true
+    signal: "近似：龙虎榜卖出前 5 席位中 ≥2 家游资席位同日净卖 → 次日不低吸；仅单一席位砸盘且盘口无跟风 → 允许低吸"
+    data_check: "无法检验"
+  - id: RHX-15
+    category: 心态
+    rule: 减少回撤最重要，不追求单日爆阳
+    quote: 減少回撤，这是最重要的。至于追求单日爆阳大赚，则并不是必须
+    source: text/淘县大师传之--瑞鹤仙干货合集 PDF文章206页_纯图版.md#page-87
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: "利润集中：东方财富一段（105 天）占净利 71%，属牛市 beta，与'碎步复利'自述不同"
+  - id: RHX-16
+    category: 仓位
+    rule: （给新手）别融资、别满仓一只股
+    quote: 别融资炒股，别满仓一个股
+    source: text/58位·中册·第02章.md#page-53
+    evidence: 二手
+    codable: true
+    signal: "杠杆 = 0；单票 ≤ 50%"
+    data_check: "自身冲突：2012 年'打满仓位''分三批买入105w满仓'（图文解读1#page-5/13）"

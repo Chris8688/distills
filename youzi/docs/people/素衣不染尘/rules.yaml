@@ -1,0 +1,84 @@
+person: 素衣不染尘
+note: 原文仅 #page-4/6/7 少量跟帖；其余为公众号作者对比赛贴图的二手图解（挑选案例）；无 trades/
+rules:
+  - id: SY-01
+    category: 选股
+    rule: 不看技术指标，只判断市场资金流向
+    quote: 不看任何指标 只关心市场资金走向，平时就是思考市场资金走向
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-7
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据
+  - id: SY-02
+    category: 买点
+    rule: 极弱市时尾盘先手买入预判次日会修复的板块
+    quote: 尾盘在目前这种极度弱市下可行 预判明天修复板块尾盘先进行先手
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-7
+    evidence: 原文
+    codable: true
+    signal: "T 日 涨停家数 < 30 且 跌停家数 > 涨停家数（极弱）→ 14:30 后买入 T 日跌幅前列板块中前 5 日涨幅最高者"
+    data_check: 无成交数据
+  - id: SY-03
+    category: 选股
+    rule: 选当下热门题材方向的趋势强势小盘票，20cm 为主，少做核心龙头/中军
+    quote: 最近热门题材方向的趋势强势图形，小盘票偏多
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-8
+    evidence: 二手
+    codable: true
+    signal: "所属概念近 5 日涨停数排名前 3 且 个股 20 日涨幅前 20% 且 流通市值 < 50 亿 且 代码 300/688 优先"
+    data_check: 无成交数据
+  - id: SY-04
+    category: 买点
+    rule: 强势股回踩关键均线或均线上企稳再启动时，开盘或上午直接买入，很少打板
+    quote: 回踩关键均线，或均线上企稳判断有再启动就直接上了…很少打板
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-8
+    evidence: 二手
+    codable: true
+    signal: "满足 SY-03 且 T-1 收盘距 MA5/MA10 ≤ 3% 且 T-1 未涨停 → T 日 09:30-11:30 买入，买价 < 涨停价"
+    data_check: 无成交数据
+  - id: SY-05
+    category: 卖点
+    rule: 买入次日开盘即卖，不追分时
+    quote: 次日几乎全是开盘就走
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-38
+    evidence: 二手
+    codable: true
+    signal: "T+1 09:25 竞价或 09:30-09:40 卖出全部"
+    data_check: 无成交数据
+  - id: SY-06
+    category: 止损
+    rule: 不及预期次日竞价无条件割
+    quote: 错了几乎全是竞价割
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-36
+    evidence: 二手
+    codable: true
+    signal: "T 日收盘浮亏 → T+1 集合竞价卖出"
+    data_check: 无成交数据
+  - id: SY-07
+    category: 仓位
+    rule: 基本梭哈单票，盈利定期出金
+    quote: 他基本梭哈，取米心理压力会小很多
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-12
+    evidence: 二手
+    codable: true
+    signal: "单票仓位 ≈ 100%；账户超过初始本金部分定期转出"
+    data_check: "比赛页显示 存入取出 -17.0W（初始 12.4W，#page-2），与取米一致"
+  - id: SY-08
+    category: 心态
+    rule: 买点靠盘感，接受约六七成命中率
+    quote: 都是盘感…也经常失误买在半山腰，六七开个人感觉
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-7
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据
+  - id: SY-09
+    category: 选股
+    rule: （编者归纳）退潮老题材与杂毛低吸是亏损主因，应只做主流最强方向
+    quote: 主要的面来自老题材退潮或杂毛的低吸
+    source: text/素衣不染尘交割单图文解读-2023年25倍.md#page-18
+    evidence: 二手
+    codable: true
+    signal: "所属概念 5 日涨停数较峰值回落 > 50% → 退潮，禁止低吸"
+    data_check: 无成交数据

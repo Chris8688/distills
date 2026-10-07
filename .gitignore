@@ -9,3 +9,5 @@ __pycache__/
 **/paper/
 **/logs/
 **/launchd/
+# 本地编译的 OCR 工具（swiftc -O ocrpdf.swift -o ocrpdf）
+youzi/pipeline/ocrpdf

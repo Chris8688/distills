@@ -1,0 +1,135 @@
+person: 小睿睿
+rules:
+  - id: XRR-01
+    category: 环境
+    rule: 板块指数单日涨幅 >3% 视为板块第一次爆发，当天或次日介入核心龙头
+    quote: 如果这个板块指数涨幅大于 3%，甚至到 4%、5%的情况，很明显板块属于第一次爆发
+    source: text/58位·下册·第02章.md#page-12
+    evidence: 原文
+    codable: true
+    signal: 「概念板块指数 T 日涨幅 > 3% 且 T-20 内无同类 >3% 日 → 首次爆发；T 或 T+1 买该板块涨停力度最强者」
+    data_check: 无法检验（profile 未接板块指数）
+  - id: XRR-02
+    category: 环境
+    rule: 板块涨停家数 >8 家基本判为当下主流
+    quote: 看板块里有个涨停家数，如果他是大于 8 家的，那基本上也能判断出来这个板块是当下的主流板块
+    source: text/58位·下册·第02章.md#page-12
+    evidence: 原文
+    codable: true
+    signal: 「T 日概念内涨停家数 > 8 → 主流板块；只在主流板块内选股」
+    data_check: 无法检验
+  - id: XRR-03
+    category: 环境
+    rule: 板块指数持续趋势新高为主流加分项
+    quote: 板块的一个指数，如果是持续性的趋势新高，那也相当于是一个加分项目
+    source: text/58位·下册·第02章.md#page-12
+    evidence: 原文
+    codable: true
+    signal: 「板块指数收盘 = 近 60 日最高 且 MA5 > MA20 → 加分」
+  - id: XRR-04
+    category: 环境
+    rule: 行情软件新增板块指数说明主流资金关注，是持续性加分项
+    quote: 同花顺或者通达信这种给他新加了一个板块指数……代表市场上的一些主流资金在注意到这个板块了
+    source: text/58位·下册·第02章.md#page-12
+    evidence: 原文
+    codable: true
+    signal: 「概念板块上线日期距 T ≤ 10 交易日 → 加分」
+  - id: XRR-05
+    category: 选股
+    rule: 主流连板龙头是 20cm 就只做 20cm，是 10cm 就只做 10cm
+    quote: 如果主流是 20 厘米的，我们就只参与 20 厘米的票，如果是 10 厘米的，我们就只参与 10 厘米的票
+    source: text/58位·下册·第02章.md#page-13
+    evidence: 原文
+    codable: true
+    signal: 「T-1 最高连板股所在板（创业板/科创板=20cm，主板=10cm）→ 候选只保留同类涨跌幅限制」
+  - id: XRR-06
+    category: 环境
+    rule: 板块中军可以不大涨但不能大跌，中军大跌则板块持续性打折
+    quote: 它可以不大涨，但是它不能大跌，板块中军如果大跌，代表这个板块的持续性也要打折扣
+    source: text/58位·下册·第02章.md#page-14
+    evidence: 原文
+    codable: true
+    signal: 「板块内成交额第一的个股 T 日跌幅 ≥ 5% → 该板块降级，禁止新开仓」
+  - id: XRR-07
+    category: 买点
+    rule: 板块爆发后第 1-2 天分歧时再次介入，博第 3-4 天回流
+    quote: 一般板块爆发之后的第一到第二天，主流分歧的时候，那就是你再次介入主流板块的很好的一个时机
+    source: text/58位·下册·第02章.md#page-14
+    evidence: 原文
+    codable: true
+    signal: 「XRR-01 爆发日 D 后 D+1/D+2 板块涨停家数较 D 下降 ≥ 40% → 买板块空间龙头，持有至 D+4」
+  - id: XRR-08
+    category: 买点
+    rule: 趋势龙头主升浪中回踩 5 日线或低开急跌时低吸
+    quote: 只要趋势主升浪的情况下回踩五日线，或者低开、急跌的情况下，往往是一个比较好的参与机会
+    source: text/58位·下册·第02章.md#page-15
+    evidence: 原文
+    codable: true
+    signal: 「近 20 日涨幅 ≥ 30% 且 MA5 上行 且 T 日最低价 ≤ MA5×1.01 → 在 MA5 附近买」
+    data_check: 低吸 3 段，胜率 33%，平均 +15.8%，PF 5.65（样本太少）
+  - id: XRR-09
+    category: 买点
+    rule: 20cm 投机核心两根大阳后第三天急杀到 -7%~-8% 或回踩 5 日线时低吸
+    quote: 连续拉了 2 根阳线以后，第三天他急杀杀跌比如说到-7，-8 回踩五日线，那也是很好的低吸机会
+    source: text/58位·下册·第02章.md#page-15
+    evidence: 原文
+    codable: true
+    signal: 「创业板/科创板 且 T-1、T-2 涨幅均 ≥ 10% 且 T 日盘中跌幅达 -7% 或 最低 ≤ MA5 → 买入」
+  - id: XRR-10
+    category: 买点
+    rule: 题材爆发首日烂板/炸板的票，次日带量超预期高开弱转强时买入
+    quote: 第一天没有封住的板，或者烂板，第二天又是超预期高开，就是带量高开……弱转强
+    source: text/58位·下册·第02章.md#page-16
+    evidence: 原文
+    codable: true
+    signal: 「T-1 最高 = 涨停价 且 收盘 < 涨停价（炸板）且 板块为 XRR-01 爆发 → T 日开盘涨幅 ≥ 3% 且 竞价量 ≥ T-1 竞价量×2 → 买」
+  - id: XRR-11
+    category: 买点
+    rule: 有逻辑的一字板连板股首次开板时参与
+    quote: 一字板开板的，第一次开板也是一个比较好的参与机会
+    source: text/58位·下册·第02章.md#page-15
+    evidence: 原文
+    codable: true
+    signal: 「T-1 及之前连续 ≥ 2 个一字涨停（开=收=涨停）且 T 日最低 < 涨停价 → 首次开板买入」
+  - id: XRR-12
+    category: 卖点
+    rule: 主流核心首次炸板先锁一部分，等回封，回封后再破板则卖出
+    quote: 第一次炸板我觉得尽量是可以锁一锁的……回封如果再封不住的话，再破板那就可能是一个卖点
+    source: text/58位·下册·第02章.md#page-16
+    evidence: 原文
+    codable: false
+  - id: XRR-13
+    category: 卖点
+    rule: 核心个股跌破 5 日线卖出
+    quote: 核心的个股跌破 5 日线了，可能也是一个卖点
+    source: text/58位·下册·第02章.md#page-16
+    evidence: 原文
+    codable: true
+    signal: 「收盘 < MA5 → 次日开盘卖出」
+    data_check: 无法检验（71% 持仓段持有 1 天即平，未到 5 日线触发）
+  - id: XRR-14
+    category: 卖点
+    rule: 板块跟风小弟跟不上时注意风险、减仓
+    quote: 板块小弟都跟不上的情况下，也要注意一下风险
+    source: text/58位·下册·第02章.md#page-16
+    evidence: 原文
+    codable: true
+    signal: 「持仓为板块最高标 且 板块涨停家数较前日减少 ≥ 50% → 减仓」
+  - id: XRR-15
+    category: 选股
+    rule: 无涨跌幅新股阶段赚钱效应好时，研究并参与有特色、盘子股价适合炒作的次新
+    quote: 无涨跌幅新股，赚钱效应不错，我就研究了，主要有一段时间在研究这个东西
+    source: text/58位·下册·第02章.md#page-17
+    evidence: 原文
+    codable: true
+    signal: 「上市 ≤ 5 日（创业板注册制无涨跌幅期）且 同期次新指数 5 日涨幅 > 0 → 候选」
+    data_check: 一致：14 段中 7 段为 N/C 新股，净利前两段（N3桶 +72.9 万、N月网 +49.5 万）均为新股
+  - id: XRR-16
+    category: 卖点
+    rule: 超短持仓隔日即走（实盘反推）
+    quote: （实盘反推，无原文）
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 「持有 1 交易日，次日 10:00-11:30 卖出」
+    data_check: 持有中位 1 天，71.4% 为 1 天；卖出 56.2% 在 10:00-11:30

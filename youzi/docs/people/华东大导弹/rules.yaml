@@ -1,0 +1,145 @@
+person: 华东大导弹
+rules:
+  - id: HD-01
+    category: 环境
+    rule: 只在两个情绪节点出手——冰点转强、回调后再确认强度走主升
+    quote: 比较好的能把握的节点就两个。第一就是情绪周期一直往下到底了，然后冰点转强
+    source: text/58位·下册·第08章.md#page-121
+    evidence: 二手
+    codable: true
+    signal: 冰点 = T-1 连板家数 ≤ 3 且 最高连板 ≤ 3 且 跌停家数 ≥ 20；冰点转强 = T 日 连板家数 > T-1 且 昨日涨停股今日平均溢价 > 0
+    data_check: 文内表：2023-02~03 连板极冰期（全市场 2~3 个连板）出手 4 笔亏 3 笔，3-31 转做 20cm 趋势后盈利，部分一致；无 trades/
+  - id: HD-02
+    category: 环境
+    rule: 买点前置——当市场普遍说退潮要管住手时，往往已接近冰点
+    quote: 等到大家都说退潮期不要交易…实际上市场已经基本情绪基本快见底了
+    source: text/58位·下册·第08章.md#page-122
+    evidence: 二手
+    codable: true
+    signal: 跌停家数 5 日均值处于近 60 日 90% 分位以上 且 当日跌停家数较前日下降 → 预备冰点转强
+    data_check: 无 trades/
+  - id: HD-03
+    category: 选股
+    rule: 只买板块内辨识度最高、有主动性的龙头；一进二本质是买板块龙头
+    quote: 选二板只是结果，本质上是去买这个板块的龙头
+    source: text/58位·下册·第08章.md#page-124
+    evidence: 二手
+    codable: true
+    signal: 买入标的 = 当日所属概念内首个封板 或 连板高度最高者
+    data_check: 冲突——图文解读作者称其多做人气小盘庄股，AI 总龙头几乎未参与（图文解读#page-18）
+  - id: HD-04
+    category: 选股
+    rule: 题材要有可发展性——出圈成社会话题、官媒持续推
+    quote: 已经超出了我们炒股的这个圈子，已经成为了社会现象的一种话题
+    source: text/58位·下册·第08章.md#page-122
+    evidence: 二手
+    codable: false
+  - id: HD-05
+    category: 空仓
+    rule: 被动空仓——每天有预选，预设走势不出现就不买
+    quote: 我不会主动去空仓，都是被动空仓的
+    source: text/58位·下册·第08章.md#page-124
+    evidence: 二手
+    codable: true
+    signal: 空仓率 = 无持仓交易日 ÷ 总交易日
+    data_check: 一致——编者统计 199 日中空仓 145 日（73%），最长连续 17 日（心法+交割单#page-15）
+  - id: HD-06
+    category: 买点
+    rule: 用自己的交割单复盘 80/20，砍掉亏钱的低吸，只保留打板
+    quote: 我还是打板赚的比较舒服，赚的也多，然后其他亏钱一般都是低吸
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-6
+    evidence: 原文
+    codable: true
+    signal: 首笔买价 = 涨停价 → 打板；首笔买价 < T-1 收盘 → 低吸；统计两类占比
+    data_check: 一致——文内表 40 笔中打板+扫板 31 笔、低吸 1 笔
+  - id: HD-07
+    category: 买点
+    rule: 以扫板为主，排板只是迫不得已
+    quote: 我主要还是扫板，排版有的时候只是迫不得已
+    source: text/58位·下册·第08章.md#page-123
+    evidence: 二手
+    codable: true
+    signal: 首笔买入时刻 = 首次触及涨停的分钟 → 扫板；买入时已封板 → 排板
+    data_check: 文内表标注打板 25、扫板 6（口径可能不同，待核）
+  - id: HD-08
+    category: 买点
+    rule: 主做弱转强 2~5 板、N 型（双响炮）2~3 板、趋势加速大阳尾盘
+    quote: 弱转强接力…N型连板接力…趋势加速
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-16
+    evidence: 二手
+    codable: true
+    signal: 弱转强 = T-1 烂板/尾盘板/炸板 且 T 日开盘后快速封板；N 型 = 近 10 日内有 ≥1 板、断板后再连板；趋势加速 = MA5>MA10>MA20 且 T 日涨幅 ≥ 7% 尾盘买
+    data_check: 文内表：弱转强 7、N 型 5、趋势加速 5（OCR 粗计）
+  - id: HD-09
+    category: 仓位
+    rule: 满仓单票出击，心里有疑虑时才降仓
+    quote: 从大导弹出击的仓位就对这笔交易内心有疑虑，不是以往的满仓出击
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-22
+    evidence: 二手
+    codable: true
+    signal: 单笔仓位 ≥ 90% 且 同时持仓 1 只
+    data_check: 一致——文内表 40 笔中 34 笔仓位 ≥ 90%
+  - id: HD-10
+    category: 卖点
+    rule: 次日不及预期（低开低走、冲高破均线）立即卖；一字锁仓，开板/板砸即走
+    quote: 开板第一时间卖出，将10%利润落袋
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-21
+    evidence: 二手
+    codable: true
+    signal: 持有中 T+1 开盘 < T 收盘 且 开盘后 15 分钟新低 → 卖；一字开盘则持有至首次开板
+    data_check: 一致——亏损 14 笔均 -4.08%，盈利 26 笔均 +11.39%（编者统计）
+  - id: HD-11
+    category: 止损
+    rule: 大亏或大赚后出金，逐步撤回本金只留利润操作，不加钱翻本
+    quote: 大亏后的大导弹，非常冷静的进一步出金了将近17万
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-22
+    evidence: 二手
+    codable: true
+    signal: 单笔亏损 ≤ -8% 或 本金未撤完 → 下一笔前降低账户规模
+  - id: HD-12
+    category: 仓位
+    rule: 永不加杠杆（2015 配资爆仓教训）
+    quote: 首先我就给自己立下一规矩，以后再也不碰杠杆
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-4
+    evidence: 原文
+    codable: true
+    signal: 融资余额 = 0
+  - id: HD-13
+    category: 心态
+    rule: 没把握就双手离开键盘，觉得市场不好就关掉交易软件只看行情
+    quote: 建议你双手离开键盘，直接收手
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-11
+    evidence: 原文
+    codable: false
+  - id: HD-14
+    category: 心态
+    rule: 不公开个股观点以免被立场绑架，做跟随市场的墙头草
+    quote: 我们短线选手最需要的品质就是墙头草，要去跟随市场
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-10
+    evidence: 原文
+    codable: false
+  - id: HD-15
+    category: 心态
+    rule: 赚的是模式的钱不是个股的钱，错过牛股不追悔
+    quote: 我们挣的是模式的钱，而不是个股的钱
+    source: text/58位·下册·第08章.md#page-125
+    evidence: 二手
+    codable: false
+  - id: HD-16
+    category: 买点
+    rule: 偏好周五出手 2~4 板，借周末发酵
+    quote: 发现大导弹很喜欢在周五这个节点出手一些2/3/4板
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-19
+    evidence: 二手
+    codable: true
+    signal: 买入日 weekday = 周五 且 T-1 连板数 ∈ [1,3]
+    data_check: 一致——持仓收益列表 38 笔中 13 笔为周五（约 34%，基准 20%）
+  - id: HD-17
+    category: 环境
+    rule: 连板接力极冰时，转做主线 20cm 趋势票的尾盘加速
+    quote: 发现全面注册制后新的赚钱效应方向在20cm趋势票上
+    source: text/华东大导弹-十个月十倍心法+交割单.md#page-27
+    evidence: 二手
+    codable: true
+    signal: 全市场连板家数 ≤ 2 连续 3 日 → 切换到 创业板/科创板 MA 多头 且 当日涨幅 ≥ 10% 的尾盘买入
+    data_check: 文内表：2023-03-31 云从科技 +17.3%，之后 5 笔趋势尾盘 2 盈 3 亏

@@ -1,0 +1,69 @@
+person: 创世纪888888
+data_window: 无成交数据（只有 58位·上册·第24章，二手）
+rules:
+  - id: CS-01
+    category: 选股
+    rule: 提前预测板块，只做板块前排一两只，错过了当天就休息
+    quote: 只做板块前排的一两只，错过了当天就休息
+    source: text/58位·上册·第24章.md#page-254
+    evidence: 二手
+    codable: true
+    signal: 买入标的的封板时间排在所属概念当日涨停股的前 2 名，否则不买
+    data_check: 无数据
+  - id: CS-02
+    category: 选股
+    rule: 当天没打到前排、有盈利的硬票之前，不做后排
+    quote: 没有打到前排有盈利的硬票，不能轻易做后排
+    source: text/58位·上册·第24章.md#page-256
+    evidence: 二手
+    codable: false
+  - id: CS-03
+    category: 环境
+    rule: 弱势的定义：涨停指数长期在 2% 以内，当日涨停数与炸板数之比 ≤ 2，炸板指数跌幅超过 1.5%
+    quote: 当日涨停数和炸板数维持2比1以内，炸板指数跌幅1.5开外，那定义为弱势
+    source: text/58位·上册·第24章.md#page-254
+    evidence: 二手
+    codable: true
+    signal: 弱势 = (昨日涨停池今日均涨幅 的 5 日均值 < 2%) 且 (今日涨停数 / 今日炸板数 ≤ 2) 且 (昨日炸板池今日均涨幅 ≤ -1.5%)
+    data_check: 无数据；阈值未经回测
+  - id: CS-04
+    category: 仓位
+    rule: 弱势时总仓位不超过 5 成，单票不超过 1-2 成
+    quote: 在弱势对于我来说不超过5成，每个票的单仓不超过1-2成
+    source: text/58位·上册·第24章.md#page-254
+    evidence: 二手
+    codable: true
+    signal: CS-03 为真 → 总目标仓位 ≤ 0.5，单票 ≤ 0.2
+    data_check: 无数据
+  - id: CS-05
+    category: 空仓
+    rule: 弱势中首次亏损就降仓、盘中少下单；再次亏损就空仓休息一天
+    quote: 再次出现亏损一定要空仓休息一天先
+    source: text/58位·上册·第24章.md#page-255
+    evidence: 二手
+    codable: true
+    signal: CS-03 为真 且 账户日盈亏连续 2 日 < 0 → 次日目标仓位 = 0
+    data_check: 无数据
+  - id: CS-06
+    category: 仓位
+    rule: 盘中按当天账户状态调节：第一只封死就放开打，第一只被狙击就收手
+    quote: 第一只封死后面接着放开打，反之第一只被狙击掉，那就要谨慎
+    source: text/58位·上册·第24章.md#page-255
+    evidence: 二手
+    codable: true
+    signal: 当日首笔打板收盘未封 → 当日剩余新开仓上限减半
+    data_check: 无数据
+  - id: CS-07
+    category: 卖点
+    rule: 出货时保持账户整体盈利；账户没有大盈利时，不对没卖的票赌
+    quote: 在账户没有大的盈利情况最好不要对一只没卖的股票进行赌
+    source: text/58位·上册·第24章.md#page-255
+    evidence: 二手
+    codable: false
+  - id: CS-08
+    category: 心态
+    rule: 不扳本；节奏踏错就停手休息
+    quote: 不要一亏损就总想着扳回损失，这是不可取的
+    source: text/58位·上册·第24章.md#page-256
+    evidence: 二手
+    codable: false

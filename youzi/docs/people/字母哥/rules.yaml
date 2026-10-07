@@ -1,0 +1,111 @@
+person: 字母哥
+period: 2019-03 交割单复盘（帖子发表于 2019-11-05），约 62 笔；无 trades/
+rules:
+  - id: ZM-01
+    category: 环境
+    rule: 题材活跃期做龙头异动；大盘/题材集体大跌时半路多数失败，应回避
+    quote: 龙头异动，题材活跃期，成功率极高
+    source: text/字母哥-个人交割单全方位回顾.md#page-13
+    evidence: 原文
+    codable: true
+    signal: 指数 T 日跌幅 > 1.5% 或 所属题材当日下跌家数占比 > 70% → 不做半路（阈值待定）
+    data_check: 无 trades；自评失败 22 笔中 3 笔归因大盘/题材集体大跌（p31-33）
+  - id: ZM-02
+    category: 选股
+    rule: 先看日线形态：龙头首阴、涨停+一阳（大额成交）、上影线小平台、沿 5 日线趋势、二波预期
+    quote: 大金融热点中分行分之龙头，做龙头首阴，一般热点活跃期，龙头只要异动符合强势，反包概率极大
+    source: text/字母哥-个人交割单全方位回顾.md#page-10
+    evidence: 原文
+    codable: true
+    signal: 龙头首阴 = T-1 前有 ≥2 连板 且 T-1 收阴；涨停+一阳 = T-2 涨停 且 T-1 收阳；沿 5 日线 = 近 10 日收盘均 > MA5
+    data_check: 无法检验（无盈亏数据）
+  - id: ZM-03
+    category: 选股
+    rule: 日线无形态的票不做，除非分时盘整完美
+    quote: 非模式股，日线无形态，且分时波动大，无形态股必须是完美盘整方可考虑介入
+    source: text/字母哥-个人交割单全方位回顾.md#page-63
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 自评失败中 5 笔为日线形态问题（无形态/压力位/衰竭）
+  - id: ZM-04
+    category: 买点
+    rule: 必须先出现异动拉升（如两波合计 >3%）才考虑半路
+    quote: 两波拉升幅度过3%，盘整期间和第一波拉升勾头的低点形成小双底……遂在突破前的第一时间跟随进入
+    source: text/字母哥-个人交割单全方位回顾.md#page-7
+    evidence: 原文
+    codable: true
+    signal: 分钟线：开盘后累计涨幅 ≥ 3%（相对开盘或昨收），之后回撤 < 一半且形成双底 → 突破前高时买
+    data_check: 无法检验（无分钟数据）
+  - id: ZM-05
+    category: 买点
+    rule: 异动后必须充分盘整（波动小、不破均价线），在突破前或再上均价线时跟进
+    quote: 分时拉升太急，盘整时间不够充分
+    source: text/字母哥-个人交割单全方位回顾.md#page-8
+    evidence: 原文
+    codable: true
+    signal: 分钟线：异动高点后 ≥15 分钟振幅 < 2% 且 价格始终 ≥ 均价线 → 盘整合格（阈值待定）
+    data_check: 自评失败中 9 笔为分时急拉急回/盘整不足/V形盘整
+  - id: ZM-06
+    category: 买点
+    rule: 没达到异动标准就介入算违规
+    quote: 违规操作，没有达到异动标准介入
+    source: text/字母哥-个人交割单全方位回顾.md#page-46
+    evidence: 原文
+    codable: true
+    signal: 同 ZM-04 的反面
+    data_check: 自评违规 3 笔
+  - id: ZM-07
+    category: 买点
+    rule: 开盘水下太深再拉起的票，半路要谨慎
+    quote: 开盘水下太深，一般水下太深拉升上来，半路需谨慎
+    source: text/字母哥-个人交割单全方位回顾.md#page-22
+    evidence: 原文
+    codable: true
+    signal: 当日最低价 / 昨收 - 1 < -3%（且发生在 10:00 前）→ 回避半路
+    data_check: 自评失败 2 笔（沪电股份、恺英网络）
+  - id: ZM-08
+    category: 买点
+    rule: 急拉急回、高开太多后急回调、盘整中连续 V 形（筹码松动）→ 放弃
+    quote: 机构品种急拉+急回调大概率没戏
+    source: text/字母哥-个人交割单全方位回顾.md#page-65
+    evidence: 原文
+    codable: true
+    signal: 分钟线：5 分钟内涨幅 >3% 后 5 分钟内回落 >2% → 回避
+    data_check: 无法检验
+  - id: ZM-09
+    category: 买点
+    rule: 大额成交股冲高后回落到 +1% 附近可低吸，博尾盘拉回
+    quote: 大幅冲高回落到1%上下，基本上向下再杀的可能性不大了，故低吸介入博尾盘拉回
+    source: text/字母哥-个人交割单全方位回顾.md#page-21
+    evidence: 原文
+    codable: true
+    signal: 当日最高涨幅 ≥5% 且 现价涨幅 ∈ [0, 2%] 且 成交额排名前列 → 低吸
+    data_check: 无法检验
+  - id: ZM-10
+    category: 买点
+    rule: 例外：大盘下跌时逆势放量拉升的票可直线追；连续大跌 3 天后的急拉也可追
+    quote: 直线追进的原因在于，大盘当时在下跌过程中，它逆势大盘放量拉升，故追进
+    source: text/字母哥-个人交割单全方位回顾.md#page-30
+    evidence: 原文
+    codable: true
+    signal: 指数当日 < 0 且 个股涨幅 > 3% 且 量比 > 2
+    data_check: 无法检验
+  - id: ZM-11
+    category: 选股
+    rule: 前一日下影线过长或阳线实体过大的票不做半路
+    quote: 失败原因：前一日阳线实体太大，异动拉升后盘整波动较大，盘整时间偏短
+    source: text/字母哥-个人交割单全方位回顾.md#page-54
+    evidence: 原文
+    codable: true
+    signal: T-1 (close-open)/preclose > 6% 或 T-1 下影线 / 振幅 > 0.5 → 回避（阈值待定）
+    data_check: 无法检验
+  - id: ZM-12
+    category: 卖点
+    rule: 隔日早盘卖出；趋势品种不急卖，可以等冲高
+    quote: 趋势品种，一般不下跌，可等冲高
+    source: text/字母哥-个人交割单全方位回顾.md#page-60
+    evidence: 原文
+    codable: true
+    signal: T+1 10:00 前卖出（趋势股例外）
+    data_check: 交割单可见 45 笔卖单中集合竞价 7、09:30-10:00 34、10:00 后 4 —— 一致

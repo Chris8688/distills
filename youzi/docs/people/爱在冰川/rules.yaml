@@ -1,0 +1,138 @@
+person: 爱在冰川
+note: 2017 年前后公众号/淘股吧长文合集（原文）；无交割单、无 trades/；自述统计为点评样本非实盘
+rules:
+  - id: AZ-01
+    category: 买点
+    rule: 前一晚复盘选出待涨逻辑股，次日开盘买入
+    quote: 前一晚复盘看好。当天开盘买入。当天浮盈若干。第二天开盘直接获利了结
+    source: text/爱在冰川干货合集.md#page-78
+    evidence: 原文
+    codable: true
+    signal: "T-1 收盘后入选股票池 → T 日 09:25 竞价或 09:30 开盘价买入"
+    data_check: 无成交数据
+  - id: AZ-02
+    category: 卖点
+    rule: 逻辑发酵则第二天按时间节点分批获利了结
+    quote: 根据浮盈的多少，去制定，开盘卖多少，到了十点卖多少，10 点半卖多少，尾盘卖多少
+    source: text/爱在冰川干货合集.md#page-79
+    evidence: 原文
+    codable: true
+    signal: "T+1 浮盈 > 0：09:30/10:00/10:30/14:50 四个时间点分批卖出（比例按浮盈预设）"
+    data_check: 无成交数据
+  - id: AZ-03
+    category: 止损
+    rule: 逻辑失败第二天开盘直接割
+    quote: 若失败，第二天开盘直接割了
+    source: text/爱在冰川干货合集.md#page-79
+    evidence: 原文
+    codable: true
+    signal: "T 日收盘浮亏 → T+1 开盘卖出"
+    data_check: "自述违规一例：三孚股份 -7% 未割反补，最终 -16%（#page-82~84）"
+  - id: AZ-04
+    category: 止损
+    rule: 亏损超过 5% 无条件清仓；龙回头低吸破前日最低价或收盘破 10 日线止损
+    quote: 若失败止损位：亏损超过5%无脑清仓
+    source: text/爱在冰川干货合集.md#page-171
+    evidence: 原文
+    codable: true
+    signal: "(现价/成本 - 1) < -5% → 清仓；或 最低价 < T-1 最低价；或 收盘 < MA10"
+    data_check: 无成交数据
+  - id: AZ-05
+    category: 卖点
+    rule: 看好新目标时卖出现有持仓换股
+    quote: 这就是卖出模型中的另一条，看好新目标时，卖出现有持仓
+    source: text/爱在冰川干货合集.md#page-172
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据
+  - id: AZ-06
+    category: 买点
+    rule: 低吸必须以低于分时均价线的价格买入
+    quote: 所以，在我的系统内，只有低于均价线的价格，才叫做低吸
+    source: text/爱在冰川干货合集.md#page-155
+    evidence: 原文
+    codable: true
+    signal: "买价 < 当日分时 VWAP → 低吸（需分钟数据；日线近似：买价 < (最高+最低+收盘)/3）"
+    data_check: 无成交数据
+  - id: AZ-07
+    category: 买点
+    rule: 一字板开板后在横盘分歧区出现缩量下影线、箱底缩量十字星或等量反包阳线时低吸
+    quote: 1：缩量下影线。2：箱体底部的缩量十字星。3：等量的反包阳线
+    source: text/爱在冰川干货合集.md#page-92
+    evidence: 原文
+    codable: true
+    signal: "近 10 日内有 ≥2 个一字涨停后首次开板；开板后 N 日收盘在开板日高低区间内；T 日 量 < 5 日均量×0.7 且 下影线 > 实体 → 次日低吸"
+    data_check: 无成交数据
+  - id: AZ-08
+    category: 环境
+    rule: 昨日涨停指数长时间在水下说明打板资金亏钱，情绪弱，不宜打板
+    quote: 意思就是昨天的打板的人，目前处于亏钱的阶段
+    source: text/爱在冰川干货合集.md#page-108
+    evidence: 原文
+    codable: true
+    signal: "T-1 涨停股 T 日平均涨幅 < 0 → 情绪弱，当日不打板"
+    data_check: 无成交数据
+  - id: AZ-09
+    category: 卖点
+    rule: 连板股单日成交额达到作顶资金（迷你盘约 10 亿、小盘约 20 亿、中盘约 40 亿）而不封板视为见顶
+    quote: 迷你盘股作顶资金在 10 亿左右 小盘股的作顶资金在 20 亿左右 中盘股的作顶资金在 40 亿左右
+    source: text/爱在冰川干货合集.md#page-6
+    evidence: 原文
+    codable: true
+    signal: "连板 ≥ 3 且 当日成交额 ≥ 阈值(按流通市值分档，2017 口径，需按全市场成交额归一) 且 收盘未涨停 → 见顶卖出"
+    data_check: 无成交数据
+  - id: AZ-10
+    category: 买点
+    rule: 情绪逆转或逼空日不追上午高潮板块的跟风，等下午踏空资金发动的新热点
+    quote: 所以宁可等资金在下午发动新热点的是，去跟随新热点
+    source: text/爱在冰川干货合集.md#page-168
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据
+  - id: AZ-11
+    category: 买点
+    rule: 不打情绪最燃时刻的板、不打属性不明的板、不打历史股性差的板
+    quote: 不要打情绪最燃时刻的板…不要打属性不明的板
+    source: text/爱在冰川干货合集.md#page-188
+    evidence: 原文
+    codable: true
+    signal: "股性：该股过去 1 年涨停次日平均溢价 < 0 → 不打板"
+    data_check: 无成交数据
+  - id: AZ-12
+    category: 选股
+    rule: 突发题材按流通市值从小到大选，优先叠加次新、低价、填权
+    quote: 打开问财搜相关概念，直接按流通市值由小到大排序
+    source: text/爱在冰川干货合集.md#page-186
+    evidence: 原文
+    codable: true
+    signal: "概念成分股按流通市值升序取前 5；加分：上市 < 1 年、股价 < 10 元"
+    data_check: 无成交数据
+  - id: AZ-13
+    category: 环境
+    rule: 下跌通道中大部分个股完成反弹后，就是下一波下跌的开始
+    quote: 在下跌通道中，当大部分的股，都完成反弹后，就是下一波下跌的开始
+    source: text/爱在冰川干货合集.md#page-185
+    evidence: 原文
+    codable: true
+    signal: "指数 MA60 下行 且 近 10 日内自 20 日低点反弹 > 10% 的个股占比 > 60% → 反弹充分，减仓"
+    data_check: 无成交数据
+  - id: AZ-14
+    category: 卖点
+    rule: 妖股多走双顶，出现 M 顶/双针探顶形态速度卖出
+    quote: 大部分的妖股，都是不会走尖顶的，大概率是双顶
+    source: text/爱在冰川干货合集.md#page-169
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据
+  - id: AZ-15
+    category: 心态
+    rule: 一致看好即大热即死，重视预期差
+    quote: 当一个个股所有人都看好的时候，那他肯定不能上，大热即死
+    source: text/爱在冰川干货合集.md#page-174
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无

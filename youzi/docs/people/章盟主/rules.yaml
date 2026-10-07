@@ -1,0 +1,86 @@
+person: 章盟主
+note: >
+  全部为二手：传记体自媒体文 + 无出处语录；「耐心+顺势而为+知行合一」与职业炒手语录串用；
+  58位第19章后半「超短最重要的核心部分」疑为他人文章（归属待核）。事件数据（龙虎榜金额）可信度高于语录。无 trades/。
+rules:
+  - id: ZMZ-01
+    category: 环境
+    rule: 下降通道里赚钱是偶然的，只在上升通道操作
+    quote: "在一个下降通道赚钱是偶然的，亏钱是必然的！趋势错了，赚到是运气"
+    source: text/章盟主-大神之路.md#page-8
+    evidence: 二手
+    codable: true
+    signal: "close < MA60 且 MA60 下行 → 禁止新开仓（通道定义为编码假设）"
+    data_check: "无数据"
+  - id: ZMZ-02
+    category: 空仓
+    rule: 必须学会空仓
+    quote: "不会空仓的人，他永远不会战斗"
+    source: text/章盟主-大神之路.md#page-9
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无数据"
+  - id: ZMZ-03
+    category: 止损
+    rule: 必须会止损（未给阈值）
+    quote: "一个不会止损的人，死路一条"
+    source: text/章盟主-大神之路.md#page-9
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "冲突（龙虎榜事件）：中国联通「血亏31个点」、中信证券多次反扑后「损失2亿多」（#page-6）"
+  - id: ZMZ-04
+    category: 卖点
+    rule: 强势上升股反复做T降低成本，一般翻倍才止盈
+    quote: "不断做t降低成本，从低位做到高位一般翻倍才会止盈出局"
+    source: text/章盟主-大神之路.md#page-8
+    evidence: 二手
+    codable: true
+    signal: "持仓段累计收益 ≥ +100% → 止盈；之前按日内高抛低吸维持底仓"
+    data_check: "无数据"
+  - id: ZMZ-05
+    category: 买点
+    rule: 大资金主封龙头，不做一日游，持股好几天
+    quote: "敢于大资金参与封板，不一样的是章盟主不会一日游，一般都会格局好几天"
+    source: text/章盟主-大神之路.md#page-8
+    evidence: 二手
+    codable: true
+    signal: "首板买入后 hold_td ≥ 3"
+    data_check: "方向一致：北辰实业 38 个交易日营业部 14 次上榜；招商轮船 7 日 10 次上榜（#page-3~4）"
+  - id: ZMZ-06
+    category: 空仓
+    rule: 没有持续赚钱氛围、没有灵魂龙头时，或灵魂龙头见顶后的集体回调期，把资金放进逆回购
+    quote: "最简单粗暴还有效的方式就是将资金强制操作逆回购"
+    source: text/58位·中册·第19章.md#page-190
+    evidence: 二手
+    codable: true
+    signal: "连板高度 ≤ 2 持续 3 日，或 最高板个股自高点回撤 ≥ 20% 后 5 日内 → 现金/逆回购"
+    data_check: "归属待核（疑他人文章）；无数据"
+  - id: ZMZ-07
+    category: 买点
+    rule: 情绪转折成功时的转折先锋板值得参与，失败的转折股是炮灰
+    quote: "成功的转折点会产生一个转折先锋板，具备高溢价，值得参与"
+    source: text/58位·中册·第19章.md#page-190
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "归属待核"
+  - id: ZMZ-08
+    category: 心态
+    rule: 盲目冲动和频繁交易是亏损的主要原因
+    quote: "盲目的冲动和频繁的交易是造成亏损的主要原因"
+    source: text/章盟主-大神之路.md#page-9
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无数据"
+  - id: ZMZ-09
+    category: 仓位
+    rule: （反面教材，行为反推）与公募正面对决的超大单票强封是大回撤来源
+    quote: "最终章盟主在此战损失2亿多人民币"
+    source: text/章盟主-大神之路.md#page-6
+    evidence: 二手
+    codable: true
+    signal: "单票成本 / 账户 > 30% 且 标的为大市值权重 → 风险标记"
+    data_check: "事件：中信 -2 亿、联通 -31%、万科强封失败（#page-5~7）"

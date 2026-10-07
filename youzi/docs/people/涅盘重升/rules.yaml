@@ -1,0 +1,251 @@
+person: 涅盘重升
+# 实盘帖 Word 版无页码：source 用 #L<行号> = 该楼层头行（引文在其后数行内）
+# 通用记号（日频，涨停池/日线可算）：
+#   ZT=收盘涨停家数  DT=收盘跌停家数  ZB=曾涨停未封家数  ZBR=ZB/(ZT+ZB)
+#   H=最高连板高度  LB=连板(≥2)家数  P1=昨日涨停股今日平均涨幅(同花顺「昨日涨停表现」)
+#   P2=昨日连板股今日平均涨幅(「昨日连板表现」)  BR=上涨家数/(上涨+下跌)  IDX=上证或中证全指收盘
+#   HI=T-1 连板≥3 的高位股集合
+rules:
+  - id: NP-01
+    category: 环境
+    rule: 短线投机的总纲是赚钱效应（情绪）的延续，资金跟着赚钱效应走
+    quote: 投机做的到底是什么？赚钱效应（情绪）的延续，对资金的吸引，赚钱资金来，亏钱资金走
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-3
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无 trades/
+  - id: NP-02
+    category: 环境
+    rule: 投机情绪由涨停数量、连板数量、连板高度、炸板率四项构成
+    quote: 投机情绪（涨停数量，连板数量，连板高度，炸板率）
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-3
+    evidence: 二手
+    codable: true
+    signal: "投机情绪分 S = mean(pct250(ZT), pct250(LB), pct250(H), 1-pct250(ZBR))；pct250=滚动250日分位"
+    data_check: 2017 自记日志 96 天 ZT 十分位 [9,12,15,19,21,22,26,29,38]（2017 市场口径）
+  - id: NP-03
+    category: 环境
+    rule: 市场情绪看指数强度与涨跌比
+    quote: 市场情绪（指数强度，涨跌比）
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-3
+    evidence: 二手
+    codable: true
+    signal: "市场情绪强 = BR>0.5 且 IDX>MA20；弱 = BR<0.42 或 IDX<MA20 且 MA20 下行（0.42 来自其 2017 自评情绪差日 BR 中位 0.41，待校准）"
+    data_check: 2017 自记日志：自评情绪差日 BR 中位 0.41，情绪好日 0.55
+  - id: NP-04
+    category: 环境
+    rule: 阶段投机情绪强化 = 涨停溢价递增；弱化 = 炸板负溢价递增
+    quote: 涨停板溢价越来越高强化。炸板的负溢价越来越高弱化
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-4
+    evidence: 二手
+    codable: true
+    signal: "强化 = MA3(P1) 连续 2 日上升且 P1>0；弱化 = 昨日炸板股今日均涨幅 MA3 连续 2 日下降且 <0"
+    data_check: 无 trades/；2017 日志 23 天有 P1，中位 +1.6%
+  - id: NP-05
+    category: 仓位
+    rule: 大周期只看情绪股（连板/主流）与指数：指数上升+连板高+有大主流→一直大仓位；指数弱+板高上不去+核心滞涨→小仓位
+    quote: 大周期就看两个，情绪股（连板和主流）和指数
+    source: text/涅盘重升实盘2019年下半年.md#L3870
+    evidence: 原文
+    codable: true
+    signal: "大周期强 = IDX>MA20 且 MA20 上行 且 max(H,20日)≥5（待校准）→ 仓位上限高；大周期弱 = IDX<MA20 或 max(H,10日) < max(H,前20日) → 仓位上限低"
+    data_check: 无 trades/
+  - id: NP-06
+    category: 空仓
+    rule: 情绪下降周期（不是情绪后期）要么空仓，要么只做低位板块效应点前排套利
+    quote: 情绪下降周期不是情绪后期，你要么空仓，要么每天做低位板块效应点前排做套利
+    source: text/涅盘重升实盘2020年.md#L2819
+    evidence: 原文
+    codable: true
+    signal: "下降周期（见 NP-07）→ 目标仓位≤20%，且只允许 T-1 未涨停、当日板块内涨停≥3 的首板"
+    data_check: 2017 日志反证：自评情绪差日平均买入约 95 万 vs 情绪好日约 48 万（粗统计，说做不一）
+  - id: NP-07
+    category: 空仓
+    rule: 补跌周期识别：连板股接连大面后继续杀，强的一转弱就大跌；此时别碰情绪票，除非和指数共振大阳线
+    quote: 连板各种大面，大面后还要不断杀跌，强的只要一转弱就大跌，基本就是补跌周期
+    source: text/涅盘重升实盘2020年.md#L1894
+    evidence: 原文
+    codable: true
+    signal: "补跌周期 = 连续 2 日 P2 < -3%（待校准）且 HI 中跌幅>7% 的占比 ≥50%，且当日 H < 前 10 日 H 峰值；例外 = 指数当日涨幅≥1.5%"
+    data_check: 二手图解 #page-45 读数 2019-05-24：P1=-1.5 P2=-3.4 ZT=40，其后其自述回撤 500W
+  - id: NP-08
+    category: 卖点
+    rule: 指数滞涨 + 高位情绪股开始杀跌 + 高位一字集体开板 → 收缩仓位，卖掉所有情绪化品种
+    quote: 这几天已经指数滞涨，高位情绪股逐渐开始杀跌…所有情绪化的票都要卖掉
+    source: text/涅盘重升实盘2020年.md#L755
+    evidence: 原文
+    codable: true
+    signal: "IDX 5 日涨幅 <0.5% 且 HI 当日均涨幅<-3% 且 T-1 一字涨停股当日开板率≥50% → 情绪股持仓清零"
+    data_check: 无 trades/
+  - id: NP-09
+    category: 环境
+    rule: 冰点是相对的，靠次日强势股反包确认；继续杀跌就还有冰点
+    quote: 冰点只是相对的。比如今天如果强势股直接走反包，那么冰点就是昨天尾盘
+    source: text/涅盘重升实盘2019年上半年.md#L6961
+    evidence: 原文
+    codable: true
+    signal: "冰点候选 T = P1<0 且 HI 当日均涨幅<-5% 且 ZT≤pct250 的 20 分位；确认 = T+1 的 HI 均涨幅>0 且 P1>0；否则候选顺延"
+    data_check: 无 trades/
+  - id: NP-10
+    category: 环境
+    rule: 高位股无法再拓展空间，一般就是大周期顶点
+    quote: 基本看强势股好了，高位无法拓展空间了一般都是大周期顶点
+    source: text/涅盘重升实盘2019年上半年.md#L4993
+    evidence: 原文
+    codable: true
+    signal: "顶点预警 = 当前最高板断板 且 max(H,近5日) < max(H,近20日)（空间板高度不再创新高）"
+    data_check: 无 trades/
+  - id: NP-11
+    category: 买点
+    rule: 行情末期机会多、做错代价大，大仓位只留给打板
+    quote: 以后到了末期阶段，机会很多而做错代价也大的时候，一定一定，要把大仓位留给打板
+    source: text/涅盘重升实盘2018年上半年.md#L942
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无 trades/
+  - id: NP-12
+    category: 买点
+    rule: 提高确定性：打板，做核心（预判点、走强点；要么位置，要么人气股性）
+    quote: 一是打板，二是做核心（预判点，走强点，打的板要么位置，要么人气股性）
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-5
+    evidence: 二手
+    codable: true
+    signal: "打板 = 首笔买价≥涨停价-0.01；核心 = 该股为当日其板块内首个涨停或最高板"
+    data_check: 无 trades/；其自述盈利最多为首板（实盘2019年下半年#L4954）
+  - id: NP-13
+    category: 选股
+    rule: 下降趋势不做，只做主升
+    quote: 下降趋势不做，只做主升，主升品种容错率最高
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-5
+    evidence: 二手
+    codable: true
+    signal: "候选股 T-1 收盘 > MA10 且 MA10 上行；否则剔除或仓位减半"
+    data_check: 无 trades/
+  - id: NP-14
+    category: 买点
+    rule: 情绪不好时不扫板，一封也要小心，主流板块龙头除外
+    quote: 情绪不好的情况下，千万不能扫板，即使一封打板都要小心，除非是主流板块的龙头
+    source: text/涅盘重升实盘2016年.md#L100
+    evidence: 原文
+    codable: true
+    signal: "若 P1(T)<0 或 ZBR(T)>0.35（待校准），禁止打非『板块内最高板』的涨停"
+    data_check: 无 trades/
+  - id: NP-15
+    category: 选股
+    rule: 龙头与龙二位差太大（龙头涨停时龙二才 2 个点），板块难起来
+    quote: 龙头涨停的时候龙二才两个点，位差太大，板块很难起来
+    source: text/涅盘重升实盘2017年上半年.md#L1403
+    evidence: 原文
+    codable: true
+    signal: "板块龙头封板时刻，板块内涨幅第 2 名 < +5%（待校准）→ 板块不可做"
+    data_check: 无 trades/（需分时）
+  - id: NP-16
+    category: 选股
+    rule: 板块走强点 = 板块个股集体拉升
+    quote: 板块个股集体拉升
+    source: text/涅盘重升实盘2019年上半年.md#L6803
+    evidence: 原文
+    codable: true
+    signal: "日频代理：板块内涨停≥3 且 涨幅>5% 的成分股占比≥30%（待校准）"
+    data_check: 无 trades/
+  - id: NP-17
+    category: 卖点
+    rule: 高潮一般不接力；情绪极强时可做主流换手连板
+    quote: 高潮不接力看情况的，一般情况下都不要接力，坑多
+    source: text/涅盘重升实盘2020年.md#L545
+    evidence: 原文
+    codable: true
+    signal: "高潮日 = ZT≥pct250 的 90 分位 且 BR>0.7；高潮日次日不新开 T-1 涨停股的接力仓"
+    data_check: 无 trades/
+  - id: NP-18
+    category: 环境
+    rule: 最危险的时候是涨停连板很多但开始各种坑、情绪周期很短的时候
+    quote: 每天涨停板，连板很多，看似很多机会，但总感觉开始各种坑了
+    source: text/涅盘重升实盘2020年.md#L1601
+    evidence: 原文
+    codable: true
+    signal: "ZT 处于高分位（≥70 分位）但 P1 的 5 日均值转负 → 『多坑』预警"
+    data_check: 无 trades/
+  - id: NP-19
+    category: 环境
+    rule: 情绪好而指数阴跌，一旦情绪走弱容易补出大跌
+    quote: 某一段时间情绪非常好，但指数阴跌…可能要走弱的时候，那么可能就大跌了
+    source: text/涅盘重升实盘2020年.md#L2801
+    evidence: 原文
+    codable: true
+    signal: "背离 = 投机情绪分 S≥70 分位 且 IDX<MA20 且 MA20 下行；背离期内 S 回落 20 分位 → 降仓"
+    data_check: 无 trades/
+  - id: NP-20
+    category: 选股
+    rule: 不在情绪转差时重仓自认为低风险的非主流冷门
+    quote: 非主流冷门，自认为低风险而重仓，往往因为情绪转差的时候才往那里思考，反倒亏损很大
+    source: text/涅盘重升_情绪演变的认知_纯图版.md#page-6
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无 trades/
+  - id: NP-21
+    category: 仓位
+    rule: 有大阳线预期才上大仓
+    quote: 有大阳预期我才上大仓
+    source: text/涅盘重升实盘2018年下半年.md#L815
+    evidence: 原文
+    codable: true
+    signal: "事后代理：当日 IDX 涨幅≥1.5% 才允许总仓位>50%（预期本身不可编码）"
+    data_check: 无 trades/
+  - id: NP-22
+    category: 仓位
+    rule: 行情好时第一笔确定性机会就上大仓
+    quote: 行情好时，仓位一定要给出去，第一笔确定性机会就要放大仓
+    source: text/涅盘重升实盘2019年上半年.md#L828
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 其 2019 年终自评「上半年行情好不敢重仓推仓位」（实盘2019年下半年#L7354），说做冲突
+  - id: NP-23
+    category: 仓位
+    rule: 全仓就必须学会空仓，做不到就分仓
+    quote: 全仓就一定要学会空仓，注意节奏，多看看退神的交易。做不到还是分仓
+    source: text/涅盘重升实盘2019年上半年.md#L5618
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无 trades/
+  - id: NP-24
+    category: 选股
+    rule: 有大主流时一直做主流，调整时在主流内部去弱留强；没大主流就轮动做预期差
+    quote: 行情好，有大主流，就一直搞主流就行了，不用预期差，情绪调整阶段就是主流内部去弱留强
+    source: text/涅盘重升实盘2019年下半年.md#L5086
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无 trades/
+  - id: NP-25
+    category: 心态
+    rule: 复盘写「模式内应该操作」（按 1、2、3 步骤写的操作思路）并与自身操作对照
+    quote: 知道我的复盘中最有价值的地方在哪么，就是每天“模式内应该操作”那一块
+    source: text/涅盘重升实盘2019年下半年.md#L4927
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无 trades/
+  - id: NP-26
+    category: 买点
+    rule: 逆势时尽量不追高，有追高机会也要等盘面走出确定性
+    quote: 逆势做股票，尽量不追高，因为风险大，第二天容易补跌
+    source: text/涅盘重升实盘2017年上半年.md#L557
+    evidence: 原文
+    codable: true
+    signal: "IDX<MA20 时禁止半路（首笔涨幅 3%~涨停前）买入，只允许打板或低吸"
+    data_check: 无 trades/
+  - id: NP-27
+    category: 环境
+    rule: 强势股集体补跌后，次日如果还有恐慌杀跌，大概率见底；没有恐慌，就按情绪逐步给仓位
+    quote: 强势股补跌，集体杀跌，那么明天如果还能恐慌杀一波大概率底部
+    source: text/涅盘重升实盘2018年下半年.md#L297
+    evidence: 原文
+    codable: true
+    signal: "T 日 HI 均涨幅<-5%；T+1 盘中 HI 再跌（DT 继续上升）→ 标『恐慌底候选』，配合 NP-09 确认"
+    data_check: 无 trades/

@@ -1,0 +1,147 @@
+person: 明王
+data_note: "无 trades/；语料为 2008 年前后（大小非时期）帖子摘编 + 58位二手问答；全部规则仅原文主张，未经实盘或回测校验"
+rules:
+  - id: MW-01
+    category: 环境
+    rule: 大盘在 5 日线下方视为左侧（下跌），上方视为右侧
+    quote: 在我的系统里面，大盘在5日线下方，即视为左侧。在上方则是右侧
+    source: text/明王心法_熊市生存之道_纯图版.md#page-8
+    evidence: 原文
+    codable: true
+    signal: "左侧 = 上证收盘 < MA5(收盘)；右侧 = 收盘 ≥ MA5"
+    data_check: "无成交数据；建议对照臂：MA20 / MA60（MA5 翻转频繁，成本拖累需实测）"
+  - id: MW-02
+    category: 仓位
+    rule: 大盘 5 日线下，总持仓不超过 20%
+    quote: 5日线下不持仓超过20%
+    source: text/明王心法_熊市生存之道_纯图版.md#page-15
+    evidence: 原文
+    codable: true
+    signal: "if 上证收盘 < MA5: 总敞口上限 = 20%"
+    data_check: "无"
+  - id: MW-03
+    category: 仓位
+    rule: 成交量处于衰减状态时不重仓
+    quote: 成交量处于衰减状态下时，即无力难振，不重仓
+    source: text/58位·上册·第06章.md#page-119
+    evidence: 二手
+    codable: true
+    signal: "量能衰减 = 两市成交额 MA5 < MA20 且 MA5 较 5 日前下降 → 总敞口上限 = 40%（'不重仓'阈值为本笔记假设）"
+    data_check: "无"
+  - id: MW-04
+    category: 环境
+    rule: 见底三信号（收复 5 日线、量能由缩转放、持续走强板块出现）同时成立才翻多
+    quote: 记住反弹三定律：1.成交量逆转 2.5日线收复 3.强势板块出现
+    source: text/明王心法_熊市生存之道_纯图版.md#page-8
+    evidence: 原文
+    codable: true
+    signal: "① 上证收盘 > MA5；② 成交额 MA5 自近 20 日最低点回升 ≥ 15% 且 当日成交额 > MA20（缩→放）；③ 存在行业指数连续 3 日跑赢上证 且 5 日涨幅 ≥ 上证 + 5pp → 三者齐备：解除 20% 上限"
+    data_check: "无"
+  - id: MW-05
+    category: 仓位
+    rule: 强/中/弱三态：牛市不弱势即持仓，熊市不强势即轻仓
+    quote: 牛市趋向于前两者，即不弱势即持仓。熊市趋向于后二者，即不强势即轻仓
+    source: text/58位·上册·第06章.md#page-118
+    evidence: 二手
+    codable: true
+    signal: "强 = 收盘 > MA5 > MA20；弱 = 收盘 < MA5 < MA20；其余为中。牛（MA60 上行）：强/中 → 满额，弱 → 轻；熊（MA60 下行）：强 → 满额，中/弱 → 轻（≤20%）"
+    data_check: "无"
+  - id: MW-06
+    category: 环境
+    rule: 熊市判别：板块反弹涨幅级差递减（一倍/60%/30%）；牛市普涨轮涨
+    quote: 熊市里面的板块起落是反弹。你涨一倍，我涨60%，他涨30%，呈现级差递减规律
+    source: text/58位·上册·第06章.md#page-119
+    evidence: 二手
+    codable: true
+    signal: "反弹段（上证自低点 +10% 以上）内，行业指数涨幅排序第 1、第 3、第 10 名之比：若 第3/第1 < 0.65 且 第10/第1 < 0.35 → 熊市反弹；若 涨幅 >0 的行业占比 > 80% 且 前十名差距小 → 牛市普涨"
+    data_check: "无"
+  - id: MW-07
+    category: 仓位
+    rule: 下跌周期中首次铺仓不超过四成，防止一旦失守无力反击
+    quote: 首次铺仓太广，一旦失守，无力反击=仓位不宜超过四成
+    source: text/明王心法_熊市生存之道_纯图版.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "上证 MA20 下行期间的第一次建仓：单次 ≤ 40%，后续加仓需 MW-04 至少 2 条成立"
+    data_check: "无"
+  - id: MW-08
+    category: 止损
+    rule: 轻仓被套不贸然补仓；每轮下行 20-30%，拉开空间后再补；先锋不解套后队不进
+    quote: 每轮高点下行通常是20-30%波段，在拉开空间之后再补仓，不可跌一点补一点
+    source: text/58位·上册·第06章.md#page-119
+    evidence: 二手
+    codable: true
+    signal: "补仓条件：持仓自建仓价回撤 ≥ 20%（或自波段高点下行 ≥ 20%）且 MW-04 至少 1 条成立；首笔浮亏中禁止开新标的"
+    data_check: "无"
+  - id: MW-09
+    category: 选股
+    rule: 反弹只做最近的热点板块（曾经牛过、自己熟悉的），买其中昔日灵魂股（前三甲）
+    quote: 元气板块中多以昔日灵魂股为首，至少是前三甲=低吸灵魂股大旗
+    source: text/明王心法_熊市生存之道_纯图版.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "板块 = 前一波上涨中 60 日涨幅前 3 的行业；个股 = 该行业前一波涨幅前 3 的个股"
+    data_check: "无"
+  - id: MW-10
+    category: 买点
+    rule: 下跌中继在第一日低吸，第二日（确认日）低吸往往继续跌
+    quote: 下跌中继第二日-确认日低吸不妥，后面继续跌=下跌中继第一日低吸
+    source: text/明王心法_熊市生存之道_纯图版.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "下跌中继第一日 = 横盘 ≥ 3 日后首次放量跌破平台低点当日 → 尾盘低吸；次日再跌不加"
+    data_check: "无"
+  - id: MW-11
+    category: 卖点
+    rule: 以大盘为最高标准：反弹获利即走，不反弹的平仓走，资金留到更低位
+    quote: 以大盘走势为最高标准，反弹获利走，不反弹的平仓走，尽量把资金留到更低位
+    source: text/明王心法_熊市生存之道_纯图版.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "熊市低吸仓：T+1~T+3 内任一日浮盈 ≥ 5% → 卖；T+3 未反弹（收盘 < 买价）→ 平仓"
+    data_check: "无"
+  - id: MW-12
+    category: 卖点
+    rule: 弱势反弹常见幅度 15%-22%（旗手/龙头可到 40%+），到常见幅度即兑现
+    quote: 一般集中在15%---22%之间，为品种常见反弹涨幅
+    source: text/明王心法_熊市生存之道_纯图版.md#page-3
+    evidence: 原文
+    codable: true
+    signal: "熊市反弹仓：自买入或自低点涨幅 ≥ 15% 分批卖，≥ 22% 清仓（龙头除外）"
+    data_check: "无（2008 年语境，数字不可外推）"
+  - id: MW-13
+    category: 买点
+    rule: 抄底不投重兵；右侧确认后买，少赚的 N% 是购买确定性的代价
+    quote: 这N%就是购买确定性所付出的代价。贪心的人要这N%，可能输得更多
+    source: text/58位·上册·第06章.md#page-116
+    evidence: 二手
+    codable: true
+    signal: "MW-01 为左侧时：单笔 ≤ 10%（试探）；右侧确认后才按正常仓位"
+    data_check: "无"
+  - id: MW-14
+    category: 止损
+    rule: 被套的票同样要走（除非一字跌停），不因持仓成本区别对待
+    quote: 可是套住的不能走吗？除非是一字跌停
+    source: text/58位·上册·第06章.md#page-118
+    evidence: 二手
+    codable: true
+    signal: "风险信号触发（如 MW-01 转左侧）→ 盈利仓与亏损仓同等减仓"
+    data_check: "无"
+  - id: MW-15
+    category: 仓位
+    rule: 下跌末期加大仓位，去除恐惧
+    quote: 下跌未末期加大仓位=去除心理恐惧，顽强坚决
+    source: text/明王心法_熊市生存之道_纯图版.md#page-4
+    evidence: 原文
+    codable: false
+    signal: "待核：原文未定义'下跌末期'；可近似为 强势股补跌（前期龙头 5 日跌幅 > 20%）+ MW-04 中 ② 出现"
+    data_check: "无"
+  - id: MW-16
+    category: 环境
+    rule: 牛市、震荡市、熊市用不同战法
+    quote: 你在熊市用牛市的战法，可能输光。你在牛市用熊市的战法，可能薄利
+    source: text/58位·上册·第06章.md#page-116
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无"

@@ -1,0 +1,57 @@
+person: bike770
+# 注意：无本人心法文本，全部规则为委托单反推（本代理对 OCR 文本的临时解析，待 trades/ 正式画像复核）
+rules:
+  - id: BK-01
+    category: 买点
+    rule: 以涨停价打板为主，连板接力多于首板
+    quote: （委托单行）证券买入 + 委托价 = 当日涨停价
+    source: text/bike770__19梦想杯.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: 首笔买入委托价 = round(T-1 收盘 × 1.10, 2) → 打板；且 T-1 收盘 = T-1 涨停价 → 连板接力，否则首板
+    data_check: 2019-01~04 可对上日线的 64 个日×票：打板 55（86%，其中连板 33、首板 22）、平盘 5、低吸 4；待 trades/ 复核
+  - id: BK-02
+    category: 买点
+    rule: 主要在 10:00-11:30 盘中出手，竞价买入极少
+    quote: （委托时间列）
+    source: text/bike770__19梦想杯.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: 买入委托时刻 ∈ [10:00, 11:30] 占比
+    data_check: 全年 2628 条买入委托：竞价 4%、09:30-10:00 26%、10:00-11:30 39%、13:00-14:30 23%、14:30 后 8%
+  - id: BK-03
+    category: 卖点
+    rule: 打板后多为隔日卖出
+    quote: （同代码买入日 → 卖出日）
+    source: text/bike770__19梦想杯.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: 持有天数 = 卖出交易日序号 − 首次买入交易日序号；统计 = 1 的占比
+    data_check: 2019-01~04 可配对 36 段中 18 段持有 1 日（50%）
+  - id: BK-04
+    category: 空仓
+    rule: 闲置资金每日尾盘做隔夜逆回购
+    quote: 融券 204001 GC001
+    source: text/bike770__19梦想杯.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: 14:55 后 卖出 GC001/R-001 数量 = 可用资金
+    data_check: 全文 334 条逆回购相关委托
+  - id: BK-05
+    category: 选股
+    rule: 只做当期热点题材股，换股率极高
+    quote: （2019 春季高频标的：东方通信、中信建投、复旦复华、新疆交建等）
+    source: text/bike770__19梦想杯.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: 买入标的 T-1 或 T 日所属概念涨停家数排名前 5
+    data_check: 全年约 663 个不同代码；概念归属未核
+  - id: BK-06
+    category: 买点
+    rule: 同价反复挂撤单排板/扫板
+    quote: （同一价格连续多笔买入委托，状态已撤/已成交替）
+    source: text/bike770__19梦想杯.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: 同日同票同价买入委托 ≥ 3 笔
+    data_check: 全文 已撤 1175 / 已成 3015 / 部撤 29

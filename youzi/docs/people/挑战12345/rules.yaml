@@ -1,0 +1,93 @@
+person: 挑战12345
+note: "唯一语料为 58位·下册·第05章（二手合集转引其两篇帖子）；标题「零回测」应为「零回撤」；战绩均为自报/编者；无 trades/。"
+rules:
+  - id: TZ-01
+    category: 仓位
+    rule: 正常收盘仓位约2成
+    quote: "关键是低仓位取得的（正常收盘持仓2成左右）"
+    source: text/58位·下册·第05章.md#page-90
+    evidence: 二手
+    codable: true
+    signal: "close_exposure 目标 ≈ 0.2（上限 0.3）"
+    data_check: "无数据；自报「每年日收益回撤超过一个点累计大概3个交易日」与 2 成仓位数学相容"
+  - id: TZ-02
+    category: 仓位
+    rule: 逆情绪动态仓控：行情强时可加仓，情绪高涨、风险来临时迅速减仓，情绪低落时果断加仓
+    quote: "一旦情绪高涨，风险来临时，要迅速减仓，等情绪低落时，再果断的进行加仓"
+    source: text/58位·下册·第05章.md#page-91
+    evidence: 二手
+    codable: true
+    signal: "情绪代理 = 涨停家数 20 日分位；分位 > 90% → exposure_cap 下调一档；分位 < 10% → 上调一档"
+    data_check: "无数据"
+  - id: TZ-03
+    category: 仓位
+    rule: 分散买入，一次10来只，最多一天23只
+    quote: "我很多时候买股都买10来只，最多时一天买二十三只股票"
+    source: text/58位·下册·第05章.md#page-92
+    evidence: 二手
+    codable: true
+    signal: "单票 ≤ 账户 5%；同时持仓 ≥ 10（注意同因子）"
+    data_check: "无数据"
+  - id: TZ-04
+    category: 买点
+    rule: 上升趋势中首次回踩10日线是最佳低吸点，其次20日线和首次回踩30日线（10周线）；二次碰同一均线支撑减弱
+    quote: "3200终于有效跌破5日线，第一次触碰10日线，是一个绝佳的买点"
+    source: text/58位·下册·第05章.md#page-95
+    evidence: 二手
+    codable: true
+    signal: "MA5>MA10>MA20 且 自突破以来首次 low ≤ MA10 且 close ≥ MA10 → 买；同一均线第 2 次触碰不买，转看 MA20；首次 low ≤ MA30 → 大级别买点"
+    data_check: "无数据（可用本项目回测检验）"
+  - id: TZ-05
+    category: 买点
+    rule: 连续3天站上5日线算突破有效，之后沿5日线买下影线
+    quote: "连续三天站上5日线突破有效…只能沿着5日线进行低吸，正常手法就是买下影线"
+    source: text/58位·下册·第05章.md#page-95
+    evidence: 二手
+    codable: true
+    signal: "close > MA5 连续 3 日 → 趋势有效；之后 low ≤ MA5×1.01 且 收下影线 → 买"
+    data_check: "无数据"
+  - id: TZ-06
+    category: 环境
+    rule: 有效跌破10周均线即进入下跌趋势
+    quote: "接着股价依托10周线上升后直到见顶回落，有效跌破10周均线。进入下跌趋势"
+    source: text/58位·下册·第05章.md#page-96
+    evidence: 二手
+    codable: true
+    signal: "周收盘 < MA10(周) 且 次周未收回 → 下跌趋势，停用 TZ-04/05"
+    data_check: "无数据"
+  - id: TZ-07
+    category: 买点
+    rule: 下跌趋势中逐级做反抽：远离5日线轻仓买、首碰5日线卖；再背离加仓、首碰10日线卖；依次到20日线、30日线（10周线）结束
+    quote: "首次远离5日线…趋势刚坏，仓位要轻，卖点就是首碰5日线附近"
+    source: text/58位·下册·第05章.md#page-96
+    evidence: 二手
+    codable: true
+    signal: "下跌趋势中 (MA5-close)/MA5 ≥ k（k 未给）→ 轻仓买，high ≥ MA5 → 卖；第 n 次背离买，卖点依次 MA10/MA20/MA30"
+    data_check: "无数据"
+  - id: TZ-08
+    category: 选股
+    rule: 不打板
+    quote: "我不会打板（这几年唯一亏钱的一个月就是去打板了）"
+    source: text/58位·下册·第05章.md#page-93
+    evidence: 二手
+    codable: true
+    signal: "首笔买价 < 涨停价×0.98"
+    data_check: "无数据"
+  - id: TZ-09
+    category: 环境
+    rule: 节奏比仓控更重要：踏准板块轮动，拉A时卖A买B
+    quote: "拉次新股时卖次新，买资源。第二天拉资源卖资源，次新调整时买次新股"
+    source: text/58位·下册·第05章.md#page-92
+    evidence: 二手
+    codable: false
+    signal: "（需板块轮动判定）两板块日收益负相关期，涨者卖、跌者买"
+    data_check: "无数据"
+  - id: TZ-10
+    category: 环境
+    rule: 用细分指数（创小票/创50、远端/近端次新、上证50与其他）判断节奏，不只看上证
+    quote: "现在还看上证指数进行指导交易的，我只能说是股评家们了"
+    source: text/58位·下册·第05章.md#page-92
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无数据"

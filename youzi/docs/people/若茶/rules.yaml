@@ -1,0 +1,48 @@
+person: 若茶
+note: 只有交割单，无任何心法原文；全部规则为实盘反推（OCR 交割单，配对率 65%，统计区间仅 2013-09-10~2014-02-18）
+rules:
+  - id: RC-01
+    category: 卖点
+    rule: 买入后次一交易日卖出，不论盈亏
+    quote: "（无原文）20131125 卖云意电气同日买掌趣科技，20131126 卖掌趣买共达电声"
+    source: text/若茶10个月20倍交割单.md#page-9
+    evidence: 实盘反推
+    codable: true
+    signal: "hold_td == 1 的段占比；规则：T 日买入 → T+1 必卖"
+    data_check: "一致：profile 持有 1 天占 90%，中位 1 天；剩余 10%（云意电气 12 天）为 OCR 配对伪影，原文为 4 次 1 日往返"
+  - id: RC-02
+    category: 仓位
+    rule: 全仓单票，卖旧当日即买新，日终现金接近 0
+    quote: "20131126 002655 共达电声 证券买入 -325147.52 剩余 527.80"
+    source: text/若茶10个月20倍交割单.md#page-9
+    evidence: 实盘反推
+    codable: true
+    signal: "买入后剩余资金 / 总资产 < 2% → 满仓；同时持仓数 ≤ 1"
+    data_check: "一致：profile 同时持仓中位 1 只、最多 2 只；有建仓的交易日平均新开 1.11 段"
+  - id: RC-03
+    category: 选股
+    rule: 选股集中在创业板/中小板题材活跃股
+    quote: "（无原文）中青宝、掌趣科技、朗玛信息、全通教育、赢时胜等"
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: "代码前缀 300 占比 ≥ 60%"
+    data_check: "一致：创业板 70.0%，深主板 30.0%（10 段样本）"
+  - id: RC-04
+    category: 选股
+    rule: 反复轮做同一只人气股，熟票多次进出
+    quote: "300052 中青宝 证券买入/证券卖出（6~9 月反复出现）"
+    source: text/若茶10个月20倍交割单.md#page-3
+    evidence: 实盘反推
+    codable: true
+    signal: "同一代码在 60 个交易日内被建仓 ≥ 3 次"
+    data_check: "无法用 profile 检验（中青宝段落在统计区间外）；原文 #page-3、#page-6 人工可见十余次"
+  - id: RC-05
+    category: 止损
+    rule: 单笔亏损靠次日离场控制在 -5% 以内
+    quote: "（无原文）"
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: "单段收益 < -5% 的比例"
+    data_check: "一致：平均亏损段 -2.2%，最差 -5.2%（且该段为配对伪影），最长连亏 1 段"

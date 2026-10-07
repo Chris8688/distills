@@ -1,0 +1,156 @@
+person: 善行天助
+period_trades: 2019-01-02 ~ 2019-07-01（224 段；另 1 段 2018 OCR）
+rules:
+  - id: SX-01
+    category: 环境
+    rule: 炒作气氛好才积极打板（好则可炒两三天）；气氛转差轻仓/空仓两三天
+    quote: 气氛转差时，轻仓空仓得两三天
+    source: text/善行天助贴子合集201804-201906.md#page-406
+    evidence: 原文
+    codable: true
+    signal: 气氛差 ≈ T-1 炸板率高 / 昨日涨停今日溢价 < 0 / 连板晋级率低（需全市场涨停池，待定义阈值）
+    data_check: 无法严格检验——2019 上半年每日都有持仓；敞口 1-2 月约 100-130 万、3-6 月约 880-910 万，随行情放大
+  - id: SX-02
+    category: 选股
+    rule: 选热点板块里「箱放突创」（箱体/放量/突破创新高/反包）、位置低、流通盘小的强势股
+    quote: 我最喜欢炒 K 线图是「箱放突创」型的，即：箱体型，放量型，突破或创新高型和反包形态等
+    source: text/58位·下册·第07章.md#page-112
+    evidence: 二手
+    codable: true
+    signal: 近 60 日振幅 < 30% 的箱体 且 T 日收盘 > 箱体上沿 且 量比 > 2（阈值待定）
+    data_check: 未检验（需定义箱体）
+  - id: SX-03
+    category: 选股
+    rule: 非热点板块不接力
+    quote: 非热点板块的接力容易吃面
+    source: text/58位·下册·第07章.md#page-115
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验（无板块热度数据）
+  - id: SX-04
+    category: 买点
+    rule: 气氛好时尽量十点前买
+    quote: 指数气氛好时，尽量在十点前买股，这样容易买到龙头牛股
+    source: text/善行天助贴子合集201804-201906.md#page-6
+    evidence: 原文
+    codable: true
+    signal: 首笔买入时间 < 10:00
+    data_check: 冲突——首笔在 10:00 前仅 42%（打板段 35%）；09:30-35 PF 3.91 最好，09:35-10:00 PF 0.95 最差，10:00-11:30 PF 2.22
+  - id: SX-05
+    category: 买点
+    rule: 有把握的在七八个点提前扫板；没把握打回封/烂板；没把握的放弃
+    quote: 综合几个方面评估考虑，有把握的提前扫，七八个点就扫
+    source: text/善行天助贴子合集201804-201906.md#page-551
+    evidence: 原文（OCR 分栏，句子完整，楼主身份待核）
+    codable: true
+    signal: 首笔买价涨幅 ∈ [6%, 涨停) → 提前扫（enrich 归为「半路」）；买价 = 涨停价 → 打板
+    data_check: 一致——「半路」48 段首笔涨幅中位 8.7%，当日封板 70.8%；封住胜率 70.6% vs 未封 7.1%；涨幅占涨停幅度 60-80% 的 15 段 PF 19.2，>80% 的 32 段 PF 0.45
+  - id: SX-06
+    category: 买点
+    rule: 首板约 2/3、连板约 1/3
+    quote: 追首板的占三分之二，追连板的占三分之一吧
+    source: text/善行天助贴子合集201804-201906.md#page-6
+    evidence: 原文
+    codable: true
+    signal: 打板段中 T-1 连板数 = 0 的占比
+    data_check: 大体一致——打板 152 段：首板 58.6%、二板 35.5%、三板+ 5.9%
+  - id: SX-07
+    category: 仓位
+    rule: 好行情单股 ≤1/3；差行情总仓 ≤5 成、单股 1/5~1/6；首板分仓 2-3 只
+    quote: 在行情气氛不好时……或者为了防止停牌，持仓两三只是最佳的
+    source: text/善行天助贴子合集201804-201906.md#page-27
+    evidence: 原文（58位 p112-113 同）
+    codable: true
+    signal: 过夜持仓只数、最大单只占敞口比
+    data_check: 部分冲突——2019 过夜持仓多为 3-6 只（5 只最常见），最大一只占敞口中位 44.5%（略超 1/3）
+  - id: SX-08
+    category: 卖点
+    rule: 不连板就清
+    quote: 不连板涨停的我坚决清掉
+    source: text/58位·下册·第07章.md#page-115
+    evidence: 二手
+    codable: true
+    signal: 持仓日 T 收盘 ≠ 涨停价 → T+1 卖出；T 封板 → 继续持有
+    data_check: 高度一致——T+1 未封的 165 段 91.5% 于 T+1 卖出；T+1 封板的 59 段 83% 继续持有；多日段 73% 卖在首个断板日
+  - id: SX-09
+    category: 卖点
+    rule: 强势控盘就留，弱势破位（跌破均价线/拉升起点）就抛
+    quote: 卖股就：强控则留，弱破则抛
+    source: text/善行天助贴子合集201804-201906.md#page-36
+    evidence: 原文
+    codable: false
+    signal: 需分时：价格 < 分时均价线 且 跌破拉升波起点 → 卖
+    data_check: 无法检验（无分时数据）
+  - id: SX-10
+    category: 卖点
+    rule: 炸板股次日早盘尽早卖，腾出资金买龙头
+    quote: 炸板的我喜欢早盘迟早卖掉，不然会影响买股，容易错失龙头好股
+    source: text/善行天助贴子合集201804-201906.md#page-511
+    evidence: 原文
+    codable: true
+    signal: T 日打板但收盘 ≠ 涨停价 → T+1 10:00 前卖出
+    data_check: 一致——首板炸板 22 段胜率 9%（-72 万），二板炸板 6 段全亏（-82 万）；亏损段 65% 在 10:00 前卖出（盈利段仅 41%）
+  - id: SX-11
+    category: 止损
+    rule: 气氛差时，低开的票 10 分钟内出；高开 4-5 个点后 2 分钟内翻绿的必须出
+    quote: 气氛差时，低开的，尽量十分钟内出
+    source: text/善行天助贴子合集201804-201906.md#page-573
+    evidence: 原文
+    codable: true
+    signal: T+1 开盘 < T 收盘 → 09:40 前卖出
+    data_check: 部分一致——次日低开且 T+1 卖出的 83 段中 46% 在 09:40 前卖出；亏损段 38% 在 09:40 前卖出
+  - id: SX-12
+    category: 空仓
+    rule: 大回撤后减少操作天数、降低仓位，只在行情强时出手
+    quote: 我每次大回撤后，尽量会减少操作天数，降低仓位
+    source: text/58位·下册·第07章.md#page-113
+    evidence: 二手
+    codable: true
+    signal: 近 N 日实现亏损 > X% → 次日起仓位减半/停手
+    data_check: 部分一致——亏后下一段规模 1.05 倍（赢后 1.24 倍），连亏 2 段后 1.07 倍；大亏(<-7%)后空仓间隔中位 0 天（没有停手）
+  - id: SX-13
+    category: 环境
+    rule: 炒作气氛不好时不碰位置高、风险大的高位股；持仓不要全是高位股
+    quote: 以后炒作气氛不好时，千万别碰位置高，风险大的高位股
+    source: text/善行天助贴子合集201804-201906.md#page-41
+    evidence: 原文
+    codable: true
+    signal: T-1 连板数 ≥ 2 → 高位，气氛差时回避
+    data_check: 一致（不分气氛）——三板 4 段 PF 0.50，四板+ 5 段 PF 0.43，合计净 -21 万
+  - id: SX-14
+    category: 买点
+    rule: 以首板与 1 进 2 为主，1 进 2 是主要利润来源
+    quote: 2018 下半年开始尝试主打连板股，结果经历了一场大败
+    source: text/58位·下册·第07章.md#page-109
+    evidence: 二手
+    codable: true
+    signal: T-1 连板数 = 1 且 T 日打板 → 1进2
+    data_check: 一致——二板 54 段 PF 2.32、净 211 万（占净利 42%）；首板 89 段 PF 2.06、净 134 万
+  - id: SX-15
+    category: 买点
+    rule: 打板的盈亏几乎完全由当日封板与否决定（实盘反推）
+    quote: ""
+    source: trades/entry_types.md
+    evidence: 实盘反推
+    codable: true
+    signal: T 日收盘 == 涨停价
+    data_check: 当日封住率 80%；首板封住 66 段 PF 5.35（+207 万），二板封住 48 段 PF 4.73（+292 万）；炸板合计 31 段 -189 万
+  - id: SX-16
+    category: 卖点
+    rule: 1 天段整体亏，利润全部来自拿住的连板段（实盘反推）
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 持有天数 ≥3 的段
+    data_check: 持有 ≥3 天的段占 10.7%，贡献净利 103%（PF 84）；≤1 天段 PF 0.35
+  - id: SX-17
+    category: 仓位
+    rule: 使用融资（约 18% 买入金额）（实盘反推）
+    quote: ""
+    source: src/原始成交/历史成交.xls
+    evidence: 实盘反推
+    codable: true
+    signal: 操作 = 融资买入
+    data_check: 融资买入 77 笔约 500 万 / 全部买入约 2788 万

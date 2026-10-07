@@ -1,0 +1,84 @@
+person: 御剑飞鱼
+data_note: "无 trades/；仅 58位·上册·第23章（二手访谈要点）；'熊市出英雄'只是 2022Q1 比赛战绩标签，方法属情绪周期/龙头流派"
+rules:
+  - id: YJ-01
+    category: 空仓
+    rule: 行情退潮期不交易
+    quote: 遇到行情退潮期，不交易就是最好的交易，一定要管住手
+    source: text/58位·上册·第23章.md#page-248
+    evidence: 二手
+    codable: true
+    signal: "退潮（见 YJ-02）当日及次日：新开仓 = 0"
+    data_check: "无"
+  - id: YJ-02
+    category: 环境
+    rule: 退潮期定义：核心人气股集体跌停/天地板，次日再一字跌停
+    quote: 很多核心人气股都跌停，或者天地板，第二天再一字跌停，对市场情绪影响很大
+    source: text/58位·上册·第23章.md#page-249
+    evidence: 二手
+    codable: true
+    signal: "T-1 时连板数 ≥ 3 的个股中，T 日跌停占比 ≥ 30% 或 出现天地板（盘中触及涨停、收盘跌停）≥ 1 只；且 T+1 其中 ≥1 只一字跌停 → 退潮"
+    data_check: "无"
+  - id: YJ-03
+    category: 仓位
+    rule: 冰点后的混沌期（无主线）分仓多方向试错，主线确认后集中加仓
+    quote: 退潮期后的混沌期，分仓试错，确认后就加仓
+    source: text/58位·上册·第23章.md#page-249
+    evidence: 二手
+    codable: true
+    signal: "混沌 = 退潮后 且 当日涨停数最多的行业涨停数 < 5 → 单票 ≤ 25%、≥3 个方向；某行业连续 2 日涨停数第一且出现 3 板 → 确认主线、加仓"
+    data_check: "无"
+  - id: YJ-04
+    category: 选股
+    rule: 龙头 5 连板后再做补涨；补涨选技术图形没大涨过、股价低的
+    quote: 最好是等龙头5连板之后再考虑做补涨，5连板之前的话，做补涨的意义不大
+    source: text/58位·上册·第23章.md#page-247
+    evidence: 二手
+    codable: true
+    signal: "主线龙头连板数 ≥ 5 → 同行业 60 日涨幅后 50% 且 股价低于行业中位数的个股首板可做"
+    data_check: "无"
+  - id: YJ-05
+    category: 环境
+    rule: 龙头天地板后不再做该方向
+    quote: 龙头天地板以后，一般就不去做了，因为极大的损伤了市场情绪
+    source: text/58位·上册·第23章.md#page-249
+    evidence: 二手
+    codable: true
+    signal: "主线龙头出现天地板 → 该行业禁止新开仓 N=10 个交易日（N 为本笔记假设）"
+    data_check: "无"
+  - id: YJ-06
+    category: 仓位
+    rule: 非核心票 1/4 仓，核心票可重仓；分仓让收益曲线更平滑
+    quote: 非核心票做四分之一，核心票可以重仓
+    source: text/58位·上册·第23章.md#page-250
+    evidence: 二手
+    codable: true
+    signal: "单票上限：非核心 25%、核心（主线龙头）≤ 100%"
+    data_check: "无"
+  - id: YJ-07
+    category: 止损
+    rule: 模式外的票次日就走；模式内看次日开盘，不及预期也走；再看好也不扛跌停
+    quote: 模式外的第二天就走，模式内的第二天看开盘的走势，如果不行还是要走
+    source: text/58位·上册·第23章.md#page-251
+    evidence: 二手
+    codable: true
+    signal: "模式外 → T+1 卖；模式内 → T+1 开盘 < T 收盘 且 30 分钟内未收复 → 卖；任一时刻触及跌停前卖"
+    data_check: "无"
+  - id: YJ-08
+    category: 空仓
+    rule: 卖出后用逆回购强制空仓；账户腰斩后休息
+    quote: 有时卖掉当天的股票后，会买国债逆回购，强制自己空仓。腰斩以后就最好休息
+    source: text/58位·上册·第23章.md#page-251
+    evidence: 二手
+    codable: true
+    signal: "账户自峰值回撤 ≥ 50% → 停止交易（他休息了一个半月）"
+    data_check: "无"
+  - id: YJ-09
+    category: 选股
+    rule: 有主流板块时只做主流，杂毛不看
+    quote: 有主流板块时，一定要做主流热点，杂毛没必要看
+    source: text/58位·上册·第23章.md#page-248
+    evidence: 二手
+    codable: true
+    signal: "主流 = 近 5 日涨停数累计第一的行业；非主流行业禁止开仓"
+    data_check: "无"

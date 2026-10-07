@@ -1,0 +1,139 @@
+person: 不颜不语
+# 全部来自 58位·下册·第09章（二手整理的第一人称自述）；trades/ 未生成，data_check 均为「无法检验」
+# 记号：H=最高连板高度  LEAD=当日最高板个股  HI=T-1 连板≥3 的高位股集合  IDX=上证指数
+rules:
+  - id: BY-01
+    category: 选股
+    rule: 有龙头直接干龙头，只看其高度，有高度就持有到断板
+    quote: 我只用想龙头的高度在哪，只要有高度，我就拿着，等他断板那一天
+    source: text/58位·下册·第09章.md#page-130
+    evidence: 二手
+    codable: true
+    signal: "持有 LEAD；首次收盘未涨停（断板）当日或次日竞价卖出"
+    data_check: 无法检验（trades/ 未生成）
+  - id: BY-02
+    category: 选股
+    rule: 龙头断板日：高位不恐慌→做次高位/中位股；高位恐慌→做低位补涨
+    quote: 如果高位恐慌，我就会去做补涨…高位没有恐慌，你去低位就错了
+    source: text/58位·下册·第09章.md#page-130
+    evidence: 二手
+    codable: true
+    signal: "LEAD 断板日 恐慌 = LEAD 当日跌幅≥7% 或 HI 中跌停占比≥30%（待校准）→ 候选=当日首板/二板；不恐慌 → 候选=T-1 连板数第 2、3 高的个股"
+    data_check: 无法检验
+  - id: BY-03
+    category: 买点
+    rule: 买点基本在涨停板，需要市场验证后才进
+    quote: 我交割单买点都在涨停板，因为我需要确定性，我需要把胜率做得很高
+    source: text/58位·下册·第09章.md#page-139
+    evidence: 二手
+    codable: true
+    signal: "首笔买价 ≥ 涨停价-0.01"
+    data_check: 无法检验（同章另述撬板、竞价、尾盘下杀买，见笔记 §4）
+  - id: BY-04
+    category: 买点
+    rule: 排板封单只有两三万手就撤，看到小弟/板块不跟也撤
+    quote: 如果看到封单加起来才两三万手，我就直接撤了，因为那种是封不住的
+    source: text/58位·下册·第09章.md#page-139
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验（需 L2）
+  - id: BY-05
+    category: 卖点
+    rule: 预判开盘下杀就竞价走；否则等轮动到题材高点（高潮）再卖
+    quote: 等轮动，题材高点的时候卖，就是你不高潮我不走，你不恐慌我不来那种
+    source: text/58位·下册·第09章.md#page-132
+    evidence: 二手
+    codable: true
+    signal: "持仓所在板块当日涨停数达其 10 日内最大值（板块高潮）→ 次日卖；T+1 竞价低开≤-3% → 竞价卖（阈值待校准）"
+    data_check: 无法检验
+  - id: BY-06
+    category: 选股
+    rule: 个股定位取决于启动时机：龙头在时启动=跟随；龙头断板日启动=补涨；大盘下跌反转日启动=共振
+    quote: 如果有龙头在时他启动，那么他在大家心目中就是跟随，而龙头断板那天去启动，大家对他印象就是补涨
+    source: text/58位·下册·第09章.md#page-138
+    evidence: 二手
+    codable: true
+    signal: "首板日标签：同题材 LEAD 当日涨停=跟随；LEAD 当日断板=补涨；IDX 前 3 日累跌≥3% 且当日涨≥1%=共振"
+    data_check: 无法检验
+  - id: BY-07
+    category: 环境
+    rule: 龙头断板后找补涨，空间高度逐级递减；无新周期则高度不断下降
+    quote: 龙头断板找补涨，然后高度会不断递减。如果补涨阶段或者补涨结束没有新周期，那高度就会不断往下降
+    source: text/58位·下册·第09章.md#page-144
+    evidence: 二手
+    codable: true
+    signal: "周期峰值序列：每次 LEAD 断板记录 H_peak；连续两次 H_peak 递减 → 退潮；出现新题材且 H 超过上一 H_peak → 新周期"
+    data_check: 无法检验
+  - id: BY-08
+    category: 环境
+    rule: 共振题材龙头高度由大盘反弹高度决定；下跌抱团高度由大盘跌幅决定，大盘企稳则抱团瓦解
+    quote: 共振题材龙头上涨的高度是由大盘的高度决定的，下跌抱团的股的高度，是由大盘下跌幅度决定的
+    source: text/58位·下册·第09章.md#page-144
+    evidence: 二手
+    codable: true
+    signal: "IDX 自 60 日低点反弹 ≥8% 期间，与 IDX 共振启动的题材 LEAD 不设高度上限；IDX 止跌（收盘>MA5 连 2 日）→ 下跌期抱团股减仓"
+    data_check: 无法检验
+  - id: BY-09
+    category: 空仓
+    rule: 没有把握直接空仓
+    quote: 没有把握的事情别干，直接空仓
+    source: text/58位·下册·第09章.md#page-133
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验
+  - id: BY-10
+    category: 仓位
+    rule: 单票梭哈，不分仓，因此极度看重胜率
+    quote: 像我这种单调梭哈的手法，非常看重自己的胜率
+    source: text/58位·下册·第09章.md#page-140
+    evidence: 二手
+    codable: true
+    signal: "同时持仓 = 1 只，仓位 100%"
+    data_check: 无法检验
+  - id: BY-11
+    category: 选股
+    rule: 补涨要选有辨识度的：早早涨停的，或与大盘共振拉起来的
+    quote: 如果他拉起来没有和大盘共振，那么他是没有辨识度的，这种情况我不会去碰
+    source: text/58位·下册·第09章.md#page-141
+    evidence: 二手
+    codable: true
+    signal: "补涨候选 = 当日最早封板的前 3 名 或 封板时刻 IDX 分时同步拉升（日线代理：当日 IDX 涨幅≥1%）"
+    data_check: 无法检验
+  - id: BY-12
+    category: 买点
+    rule: 无龙头、无补涨的轮动阶段才低吸套利；连板行情只打板
+    quote: 没有行情的时候，会做一点套利，也就是没有龙头、没有补涨，市场进入轮动阶段，我会选择低吸
+    source: text/58位·下册·第09章.md#page-142
+    evidence: 二手
+    codable: true
+    signal: "H≤3 且 近 5 日无连板≥4 → 轮动态，仅允许低吸；否则仅允许打板"
+    data_check: 无法检验
+  - id: BY-13
+    category: 买点
+    rule: 补涨断板后注意力回到龙头；龙头在补涨期间震荡不破即有二波基础
+    quote: 如果有二波，他在这期间会呈现震荡走势，这是二波的形态基础
+    source: text/58位·下册·第09章.md#page-145
+    evidence: 二手
+    codable: true
+    signal: "原 LEAD 断板后 N 日内收盘始终 ≥ 断板日最低价，且补涨股断板 → 原 LEAD 再度涨停时买（二波）"
+    data_check: 无法检验
+  - id: BY-14
+    category: 环境
+    rule: 情绪周期四段：混沌期→主升期→分歧期→退潮期（另一表述：主升→分歧→补涨→二波）
+    quote: 第 1 次看到的混沌期、主升期、分歧期、退潮期，于是自己开始研究情绪周期
+    source: text/58位·下册·第09章.md#page-127
+    evidence: 二手
+    codable: true
+    signal: "见 人物/涅盘重升/情绪周期_对照.md 的统一状态机"
+    data_check: 无法检验
+  - id: BY-15
+    category: 心态
+    rule: 少复盘少主观，盘中跟随，等市场验证
+    quote: 让自己笨一点，做更多的跟随
+    source: text/58位·下册·第09章.md#page-145
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验

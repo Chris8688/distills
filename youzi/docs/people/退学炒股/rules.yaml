@@ -1,0 +1,131 @@
+person: 退学炒股
+data_note: trades/ 2017-04-24~2017-08-28，49 段，配对率 86%，只覆盖 5 万→20 万阶段
+rules:
+  - id: TXCG-01
+    category: 买点
+    rule: 前一天巨量烂板，次日开盘走强（弱转强）时买入
+    quote: 比如前一天巨量烂板次日开盘走强、新龙头卡位、超预期加速板等这些情况买入时成功率是很高的
+    source: text/退学炒股_一万到千万的蜕变_纯图版.md#page-13
+    evidence: 原文
+    codable: true
+    signal: 「T-1 涨停 且 T-1 换手 ≥ 20%（或量 ≥ 5 日均量×2）且 T-1 盘中开板（最低 < 涨停×0.97）」且「T 日开盘 ≥ T-1 收盘」→ 开盘后 5 分钟内买入
+    data_check: 一致（方向）：首笔建仓 09:35 前 51%；半路 12 段全部在 10:00 前，买价中位 +4.9%
+  - id: TXCG-02
+    category: 买点
+    rule: 大题材龙头见顶调整、题材分支发酵时，买入卡位的新龙头
+    quote: 新龙头卡位
+    source: text/退学炒股_一万到千万的蜕变_纯图版.md#page-13
+    evidence: 原文
+    codable: false
+  - id: TXCG-03
+    category: 买点
+    rule: 超预期加速板：主流日内龙头次日环境分歧下本应低开，却高开快速缩量上板
+    quote: 常理第二天会低开然而出现高开快速缩量上板的情形
+    source: text/退学炒股交割单分解(修订本）.md#page-81
+    evidence: 二手
+    codable: true
+    signal: 「T-1 涨停 且 T 日 全市场跌停家数 ≥ 20（分歧）且 T 日开盘 ≥ T-1 收×1.03 且 T 日涨停 且 T 日量 < T-1 量」
+  - id: TXCG-04
+    category: 买点
+    rule: 次新股连续一字后开板放量（换手<50%），竞价走强且承接有量时介入
+    quote: 次新股，连续一字板，开盘放量换手率低于 50%；第二天开盘竞价明显走强，并且承接有量
+    source: text/退学炒股交割单分解(修订本）.md#page-21
+    evidence: 二手
+    codable: true
+    signal: 「上市 ≤ 60 日 且 开板前连续一字 ≥ 3」且「开板日换手 < 50%」且「次日开盘 ≥ 开板日收盘」
+    data_check: 方向一致、时点不同：12/49 段买在 T-1 ≥3 连板的次新上（最高 18 板），净利 4.9 万=33%；但多在开板当天开盘介入，而非开板次日
+  - id: TXCG-05
+    category: 买点
+    rule: 次日平开或低开后走强、穿越前一日收盘价时买入
+    quote: 买点在第二天平开或者低开后走强，穿越头一天收盘价
+    source: text/退学炒股交割单分解(修订本）.md#page-23
+    evidence: 二手
+    codable: true
+    signal: 「T 日开盘 ≤ T-1 收盘 且 盘中价格上穿 T-1 收盘」→ 买入
+  - id: TXCG-06
+    category: 买点
+    rule: 不拘泥打板/低吸/半路形式，只要确定性
+    quote: 对于我而言，要的是一个确定性，如果能确定它当天会涨停那我绝对不会在涨停去买了
+    source: text/退学炒股_一万到千万的蜕变_纯图版.md#page-8
+    evidence: 原文
+    codable: false
+    data_check: 一致：打板 34.7%/半路 24.5%/低吸 20.4%/平盘 14.3%/竞价 6.1%；打板封住率仅 65%
+  - id: TXCG-07
+    category: 止损
+    rule: 不及预期次日集合竞价割；破前一日收盘价割，破均线减一部分
+    quote: 止损：1.第二天集合割 2.破均线卖一部分；3，破头一天收盘价割
+    source: text/退学炒股交割单分解(修订本）.md#page-14
+    evidence: 二手
+    codable: true
+    signal: 「T+1 竞价 < 买价 → 竞价卖出」；「盘中 < T 日收盘 → 卖出」
+    data_check: 大体一致：亏损段 93% 持有 ≤1 天，其中 27% 在 09:25 竞价卖出
+  - id: TXCG-08
+    category: 止损
+    rule: 止损位设在巨量那根 K 线的最低价
+    quote: 特别是止损非常坚决，一般设置在巨量的最低点位置
+    source: text/退学炒股交割单分解(修订本）.md#page-40
+    evidence: 二手
+    codable: true
+    signal: 「价格 < 信号日（巨量日）最低价 → 卖出」
+  - id: TXCG-09
+    category: 卖点
+    rule: 弱转强后若强转更强就持有，强转弱就卖
+    quote: 弱转强后，观察如果强转更强就持有；强转弱就卖出
+    source: text/退学炒股交割单分解(修订本）.md#page-77
+    evidence: 二手
+    codable: true
+    signal: 「T+1 涨停 → 持有；T+1 未涨停且收 < 开 → 卖出」
+  - id: TXCG-10
+    category: 仓位
+    rule: 设回撤线（随资金高点移动，约 10%）；线上全仓，触线改分仓
+    quote: 设置一个回撤线，资金在回撤线之上则全仓，资金到了回撤线则分仓，回撤线根据资金最高点变动，大概10个点左右
+    source: text/58位·上册·第08章.md#page-135
+    evidence: 二手
+    codable: true
+    signal: 「权益 ≥ 历史高点×0.90 → 单票上限 100%；否则单票上限 50%」
+    data_check: 一致：同时持仓中位 1 只、最多 2 只
+  - id: TXCG-11
+    category: 仓位
+    rule: 连续失败一两笔就降低仓位或休息
+    quote: 一般连续失败一两笔就要降低仓位或者休息，冷静反思
+    source: text/58位·上册·第08章.md#page-136
+    evidence: 二手
+    codable: true
+    signal: 「最近 2 笔已平仓交易均亏损 → 下一笔仓位减半或停 1 日」
+    data_check: 无法直接检验（最长连亏 4 段，未与仓位对齐）
+  - id: TXCG-12
+    category: 空仓
+    rule: 没有自己的标的就不买，盘后复盘做计划次日出击
+    quote: 不管其他股涨不涨，没有自己的标的就不买，瞎买一个就会使自己陷入被动
+    source: text/58位·上册·第08章.md#page-137
+    evidence: 二手
+    codable: false
+  - id: TXCG-13
+    category: 止损
+    rule: 错了就割，不抱幻想；操作只论对错，盈亏交给市场
+    quote: 错了就割，千万不要抱有任何幻想，将操作和盈利分别看待
+    source: text/退学炒股_一万到千万的蜕变_纯图版.md#page-7
+    evidence: 原文
+    codable: false
+  - id: TXCG-14
+    category: 环境
+    rule: 短线不要带牛市思维，它会让人高估个股强度
+    quote: 牛市思维对于短线资金是致命的，它会让你从主观上高估个股的强度
+    source: text/退学炒股交割单分解(修订本）.md#page-36
+    evidence: 原文
+    codable: false
+  - id: TXCG-15
+    category: 心态
+    rule: 盈利不分贵贱，不为打板的成就感放弃更确定的标的
+    quote: 打板赚的比低吸赚的更有成就感，所以有时候会为了买入牛股而放弃自己较为确定的标的
+    source: text/退学炒股交割单分解(修订本）.md#page-58
+    evidence: 原文
+    codable: false
+  - id: TXCG-16
+    category: 心态
+    rule: 踏空、连胜、急于扳本三种情境最易非理性，需警醒
+    quote: 1看到别人都赚钱的时候，踏空心理；2当自己连续成功之后…3当自己大亏的时候，一心想要扳本
+    source: text/58位·上册·第08章.md#page-138
+    evidence: 二手
+    codable: true
+    signal: 「最近 3 笔连胜 或 账户单日亏损 ≥ 5% → 次日仓位上限减半」（实验假设）

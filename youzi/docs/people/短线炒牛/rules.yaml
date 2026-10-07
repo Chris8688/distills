@@ -1,0 +1,59 @@
+person: 短线炒牛
+rules:
+  - id: DXCN-01
+    category: 买点
+    rule: 在当日主攻题材上，等分时二次突破前高再半路上车
+    quote: 只看分时，8次出手5次分时突破
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-16
+    evidence: 二手
+    codable: true
+    signal: 分钟线：当日涨幅 3%~8%，价格突破当日前一个分时高点 且 所属概念当日涨停家数排名前 3 → 半路买
+    data_check: OCR 粗解析 39 笔带时间买入中竞价仅 3 笔、盘中/午后 36 笔，大体一致；无 trades/
+  - id: DXCN-02
+    category: 选股
+    rule: 半路前提是题材强度判断，做主流题材及其后排补涨
+    quote: 手法并非最重要的点，核心还是对题材炒作的理解力
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-11
+    evidence: 二手
+    codable: true
+    signal: 买入标的所属概念 T 日涨停家数 ≥ 5 且 概念龙头 T 日已封板
+  - id: DXCN-03
+    category: 止损
+    rule: 买错次日就卖，不在弱票上耗
+    quote: 错了第二天就走，不会耗在里面
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-8
+    evidence: 二手
+    codable: true
+    signal: T+1 收盘未涨停 且 浮亏 → T+1 卖出
+    data_check: OCR 粗解析 62 个持仓段中 55 个持有 1 日，一致（待管线复核）
+  - id: DXCN-04
+    category: 仓位
+    rule: 熊市分仓，靠控回撤做复利
+    quote: 2018年他是分仓比较稳的，回撤控制的更好
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 同日持仓只数 ≥ 2 且 单只 ≤ 50%
+    data_check: OCR 粗解析每个买入日中位 2 只，一致
+  - id: DXCN-05
+    category: 买点
+    rule: 强势形态（回踩再启动、大级别再起一浪）配分时突破成功率高；弱势形态追涨多为小面
+    quote: 炒牛兄两次做非常强势形态结合分时二次突破还是吃肉了的
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-11
+    evidence: 二手
+    codable: true
+    signal: 强势形态 = 近 20 日内有涨停 且 收盘 > MA20 且 MA20 向上；否则视为弱势形态不追
+  - id: DXCN-06
+    category: 卖点
+    rule: 利润主要来自少数连板，抓不到牛股就不耗
+    quote: 大部分利润都是这些连板贡献的，没抓到牛股一定不要在里面耗
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-16
+    evidence: 二手
+    codable: false
+  - id: DXCN-07
+    category: 买点
+    rule: 喜欢格局持有，在龙头上反复做 T
+    quote: 从图4这点看出，这是个喜欢格局的大佬
+    source: text/短线炒牛交割单图文解读-5年一万到一亿.md#page-3
+    evidence: 二手
+    codable: false

@@ -1,0 +1,192 @@
+person: 万战寻道
+note: 语料名为“交割单 高清1822页”，实为淘股吧 2022-06-20~10-14 共 73 篇每日复盘帖+楼主回复，无逐笔成交；trades/ 不存在，data_check 全部无法检验
+rules:
+  - id: WZXD-01
+    category: 环境
+    rule: 正向周期四读数——最高板继续打开高度、核按钮消失（0 跌停）、20cm 题材活跃、两市成交持续过万亿
+    quote: "1、中通客车继续打开市场高度。2、核按钮消失，0跌停 3、20cm题材活跃度提高 4、成交量持续过万亿"
+    source: text/万战寻道 交割单 高清1822页.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "跌停家数(非ST) ≤ 1 且 两市成交额 ≥ 1万亿 且 最高连板高度 ≥ T-1 最高连板高度 且 创业板/科创涨停家数 ≥ 近20日均值 → 正向周期"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-02
+    category: 环境
+    rule: 成交量回到 8000 亿以上并出现持续性主线之前，没有吃饭行情，不推仓位
+    quote: "市场成交量恢复到8000亿并且出现持续性的主线之前，是很难有吃饭行情的"
+    source: text/万战寻道 交割单 高清1822页.md#page-1633
+    evidence: 原文
+    codable: true
+    signal: "两市成交额 < 8000亿（2022 口径；市场扩容需按比例调整）且 近5日无同一题材连续3日涨停家数居首 → 弱市，短线仓位上限降档"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-03
+    category: 环境
+    rule: 主线龙头连续两个跌停、次日不立刻修复，判主线行情证伪，转逆向周期
+    quote: "龙头二连跌停，次日不立刻修复就会证伪行情"
+    source: text/万战寻道 交割单 高清1822页.md#page-368
+    evidence: 原文
+    codable: true
+    signal: "最高连板股(龙头) T-1、T 连续跌停 且 T+1 收盘涨幅 < 0 → 主线证伪/逆向周期开始"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-04
+    category: 环境
+    rule: 正向周期中第一次强分歧后，次日至少会有一次修复尝试（不一定成功），退潮在修复失败后才确认
+    quote: "正向趋势，第一次强分歧，次日往往都会修复，不一定修复成功。但是起码会有一次尝试"
+    source: text/万战寻道 交割单 高清1822页.md#page-367
+    evidence: 原文
+    codable: true
+    signal: "正向周期(WZXD-01) 中首次出现 跌停家数 ≥ 10 或 炸板率 ≥ 40% 的日子 = 强分歧；检验 T+1 是否出现 地天板/跌停翻红 或 炸板率下降"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-05
+    category: 空仓
+    rule: 高位连板全是一字或缩量板、一致性风险接近极致时，不接力加速
+    quote: "五板以上一共6个，不是一字板就是连续的缩量板……千万不要再无脑追加速了"
+    source: text/万战寻道 交割单 高清1822页.md#page-133
+    evidence: 原文
+    codable: true
+    signal: "5板以上个股中 (一字板 或 换手率 < 20%) 占比 ≥ 80% → 一致性风险极致，禁止 T+1 接力加速"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-06
+    category: 买点
+    rule: 分歧即买点，但只在大周期为正向时成立；逆向周期分歧后可以冰点再冰点
+    quote: "只有在大周期是正向周期的前提下，才会不断出现分歧买点"
+    source: text/万战寻道 交割单 高清1822页.md#page-55
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据，无法检验
+  - id: WZXD-07
+    category: 买点
+    rule: 正向有卖点缩量：正向周期下，个股某日盘中有红盘解套机会却缩量（锁仓），随后水下无卖点却放量（承接），视为好的筹码置换，低吸
+    quote: "逆向无卖点放量。正向有卖点缩量（剔除前日一字或者极度缩量）"
+    source: text/万战寻道 交割单 高清1822页.md#page-363
+    evidence: 原文
+    codable: true
+    signal: "周期=正向(WZXD-01) 且 T-1 非一字、非极度缩量 且 T 日 最高价 > T-1 收盘 且 T 成交量 < T-1 成交量 且 T+1 最高价 < T 收盘 且 T+1 成交量 > T 成交量 → T+1 尾盘低吸"
+    data_check: 无成交数据，无法检验；作者自称成功率 85%+（卖课文案，page-1812）
+  - id: WZXD-08
+    category: 选股
+    rule: 主线二波的二波龙往往出在二波启动当天的首板里
+    quote: "这个二波龙往往出现在二波启动当天的首板里"
+    source: text/万战寻道 交割单 高清1822页.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "某题材在 ≥3 日回调后重新出现涨停家数居首的当天 = 二波启动日；候选 = 该日该题材首板股"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-09
+    category: 选股
+    rule: 有主线时优先主线；但在主线可能分歧的节点，主线属性反而减分，改选与主线无关、走出独立性的暗线做跷跷板
+    quote: "有主线的时候，优先主线。"
+    source: text/万战寻道 交割单 高清1822页.md#page-7
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据，无法检验
+  - id: WZXD-10
+    category: 选股
+    rule: 大跌后低位长期盘整、筹码集中成单峰的个股，启动后爆发力更强（只作辅助判断）
+    quote: "低位筹码集中的个股更有爆发力……只是一种辅助判断，并非交易的逻辑"
+    source: text/万战寻道 交割单 高清1822页.md#page-366
+    evidence: 原文
+    codable: true
+    signal: "近 250 日收盘价 (最高-最低)/最低 < 40% 且 现价 ≤ 250 日最高价 × 0.7 → 低位盘整筹码集中（粗代理，无筹码分布数据）"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-11
+    category: 买点
+    rule: 做反核时避开当日主杀板块，买点尽量往尾盘放
+    quote: "反核不要做当日主杀……它的买点最好是滞后一点，就是尽可能是往尾盘去做"
+    source: text/万战寻道 交割单 高清1822页.md#page-367
+    evidence: 原文
+    codable: true
+    signal: "当日跌停家数最多的板块 = 主杀；反核候选剔除主杀板块成员"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-12
+    category: 买点
+    rule: 龙头跌停当天，低位敢逆势封涨停的个股封住概率大，是补涨龙候选
+    quote: "龙头跌停，低位如果能涨停封住概率大"
+    source: text/万战寻道 交割单 高清1822页.md#page-368
+    evidence: 原文
+    codable: true
+    signal: "T 日 最高连板股跌停 且 某个 ≤2 板个股 T 日涨停未炸 → 补涨候选；检验其 T+1 溢价"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-13
+    category: 买点
+    rule: 竞价 9:20 前集体整齐撤单是骗炮，规避；9:20~9:25 下杀带量或拉升带量，开盘后易冲高
+    quote: "竞价大幅撤单，容易出现坑杀。竞价下杀带量或者拉升带量，开盘后容易出现冲高"
+    source: text/万战寻道 交割单 高清1822页.md#page-363
+    evidence: 原文
+    codable: false
+    signal: "需集合竞价逐笔匹配量数据，日线不可算"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-14
+    category: 选股
+    rule: 前排被砸时逆势拉升的竞争标的（分时分离）更易卡位胜出
+    quote: "预判卡位看分时分离"
+    source: text/万战寻道 交割单 高清1822页.md#page-365
+    evidence: 原文
+    codable: false
+    signal: "需分时数据"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-15
+    category: 卖点
+    rule: 预期证伪即卖；套利品种开板就卖；核心品种第一次炸板不卖，回封后再被砸开才卖
+    quote: "预期证伪即卖点！"
+    source: text/万战寻道 交割单 高清1822页.md#page-95
+    evidence: 原文
+    codable: true
+    signal: "持有核心股：T 日 炸板→回封→再炸板 → 卖；持有非核心套利股：首次炸板或冲高 ≥5% → 卖"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-16
+    category: 卖点
+    rule: 老周期的修复和高潮偏向卖点而非买点，只有少数前排核心可以博弈
+    quote: "持续性存疑，往往高潮即卖点，只有少数前排核心可以博弈"
+    source: text/万战寻道 交割单 高清1822页.md#page-1006
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据，无法检验
+  - id: WZXD-17
+    category: 止损
+    rule: 在预算好的支撑位低吸，按单笔亏损 ≤3% 设计止损
+    quote: "这个位置介入，如果不被市场认可，亏损不会超过3个点……大不了明天割三个点"
+    source: text/万战寻道 交割单 高清1822页.md#page-69
+    evidence: 原文
+    codable: true
+    signal: "低吸成本 × 0.97 跌破 → 次日止损"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-18
+    category: 仓位
+    rule: 方向确定、个股不确定时，平铺同梯队多只
+    quote: "在方向整体正向预期的情况下，就没必要纠结个股必须只能选一个了……平铺策略才是最优解"
+    source: text/万战寻道 交割单 高清1822页.md#page-1005
+    evidence: 原文
+    codable: true
+    signal: "题材×梯队（如 2进3 芯片）候选 ≥2 只且无法分出强弱 → 等权分配"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-19
+    category: 仓位
+    rule: 逆向或混沌周期只在有利润垫时小仓或迷你仓试错；持续亏损时管住手
+    quote: "前期要有足够的利润垫支持你浪，如果是持续亏损的状态，那么这种环境我也一样会管住手"
+    source: text/万战寻道 交割单 高清1822页.md#page-1580
+    evidence: 原文
+    codable: true
+    signal: "周期=逆向 且 近 N 日账户累计收益 ≤ 0 → 仓位 0；周期=逆向 且 累计收益 > 0 → 单笔 ≤ 1 成"
+    data_check: 无成交数据，无法检验
+  - id: WZXD-20
+    category: 心态
+    rule: 逆向周期拼的是“苟”，做错一次要作对三四次才能弥补，宁可放弃机会
+    quote: "如果说疯狗浪拼的是头铁，那么逆向周期拼的就是苟了"
+    source: text/万战寻道 交割单 高清1822页.md#page-254
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据，无法检验
+  - id: WZXD-21
+    category: 环境
+    rule: 2022-08 异动停牌新规后连板高度天花板约 7~8 板，龙头到五六板后接力意愿下降
+    quote: "异动新规后，目前连板高度被限制在7到8板"
+    source: text/万战寻道 交割单 高清1822页.md#page-1200
+    evidence: 原文
+    codable: true
+    signal: "2022-08 之后样本：统计最高连板分布，检验 ≥8 板占比是否显著下降；5/6 板晋级率对比新规前"
+    data_check: 无成交数据，无法检验

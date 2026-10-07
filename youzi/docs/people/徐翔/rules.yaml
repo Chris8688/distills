@@ -1,0 +1,87 @@
+person: 徐翔
+note: >
+  可信度分层：七堂课=具名前员工（叶展）二手，描述泽熙机构流程；九大铁律=来源不明、疑托名；
+  心性之刀与 58位第01章问答=闽发论坛「心之刀」原文+现代评注，非徐翔（错误归属）。
+  语料外背景：2017 年因操纵证券市场罪获刑，泽熙业绩不能当作规则有效的证据。无 trades/。
+rules:
+  - id: XX-01
+    category: 止损
+    rule: 单票买入后跌超10%无条件止损，且不允许补仓
+    quote: "买入后不能下跌超过10%，否则无条件止损，不允许补仓"
+    source: text/我在泽熙学到的七堂课_徐翔_投机的心性_纯图版.md#page-5
+    evidence: 二手
+    codable: true
+    signal: "close/entry_px - 1 ≤ -10% → 全部卖出；持仓浮亏时禁止加仓"
+    data_check: "无数据（这是对研究员推荐的考核口径，非徐翔个人交易规则）"
+  - id: XX-02
+    category: 仓位
+    rule: 不加杠杆，行情好时分红降规模
+    quote: "我却没有见到泽熙加杠杆，相反，泽熙在年底大比例分红"
+    source: text/我在泽熙学到的七堂课_徐翔_投机的心性_纯图版.md#page-7
+    evidence: 二手
+    codable: true
+    signal: "gross_exposure ≤ 1.0；产品/账户年收益 > X → 分红出金"
+    data_check: "无数据"
+  - id: XX-03
+    category: 止损
+    rule: 黑天鹅连续跌停时，跌停第一次打开就全部卖出，之后再找低位抄底
+    quote: "在酒鬼酒跌停第一次打开的时候，泽熙基本出光了，然后是27元勇敢的抄底"
+    source: text/我在泽熙学到的七堂课_徐翔_投机的心性_纯图版.md#page-10
+    evidence: 二手
+    codable: true
+    signal: "持仓连续一字跌停后首日盘中开板 → 当日清仓"
+    data_check: "无数据"
+  - id: XX-04
+    category: 卖点
+    rule: 逆向：市场观点一致、股价凌厉上涨时出局；涨停板满屏时警惕
+    quote: "凡是行情最火爆，涨停板满屏的时候，总是心生寒意"
+    source: text/我在泽熙学到的七堂课_徐翔_投机的心性_纯图版.md#page-6
+    evidence: 二手
+    codable: true
+    signal: "全市场涨停家数 ≥ 250 日分位 95% → 风险标记（只作信息）"
+    data_check: "无数据"
+  - id: XX-05
+    category: 买点
+    rule: 利空出尽、连续跌停之后，情绪与基本面脱钩，可以博弈反弹
+    quote: "重庆啤酒不是股票，是彩票"
+    source: text/我在泽熙学到的七堂课_徐翔_投机的心性_纯图版.md#page-9
+    evidence: 二手
+    codable: false
+    signal: "（部分）连续 ≥5 个跌停后首次放巨量开板 → 观察；不建议编码"
+    data_check: "无数据"
+  - id: XX-06
+    category: 空仓
+    rule: 避免频繁交易，无确定性机会时经常保持空仓
+    quote: "一个成熟的交易者一定是经常保持空仓"
+    source: text/总舵主炒股九大铁律.md#page-2
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "来源不明、疑托名，不作为徐翔规则使用"
+  - id: XX-07
+    category: 卖点
+    rule: 换手率高于20%的个股要格外小心，加速后突然放到25%以上基本是资金出逃
+    quote: "换手率高于20%的个股要格外小心"
+    source: text/总舵主炒股九大铁律.md#page-2
+    evidence: 二手
+    codable: true
+    signal: "连续上涨后 turnover ≥ 25% → 减仓警示"
+    data_check: "来源不明、疑托名"
+  - id: XX-08
+    category: 心态
+    rule: 忘掉成本价；买入逻辑变化或趋势破位就止损
+    quote: "忘掉你的买入价，忘掉你的持仓成本，才能克服操盘中的侥幸心理"
+    source: text/总舵主炒股九大铁律.md#page-3
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "来源不明、疑托名"
+  - id: XX-09
+    category: 心态
+    rule: 心性大于招数（心之刀）
+    quote: "高手的刀，其实就是杰出的心性"
+    source: text/总舵主徐翔股市心性之刀--股道的探索.md#page-11
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "错误归属：闽发论坛「心之刀」原文（#page-13 自带「闽发论坛」），评注者提到知乎/直播/一买三买，非徐翔"

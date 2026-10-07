@@ -1,0 +1,77 @@
+person: 相城采莲路
+note: >
+  全部文字为二手（58位合集转引其帖子 + 第三方看图解读）；唯一一手为 19梦想杯委托流水（未解析，trades/ 未生成）。
+  MDD 数字自相矛盾：2019 梦想杯 23.27%，2020 梦想杯编者称 4.35%、本人称不足 5%。
+rules:
+  - id: XC-01
+    category: 心态
+    rule: 慢就是快：宁可牺牲一半进攻力，也要大幅压低回撤
+    quote: "进攻能力降为5分，回撤能力就能控制到-2的话…最终世界都是你的"
+    source: text/58位·下册·第06章.md#page-103
+    evidence: 二手
+    codable: true
+    signal: "参数选择目标函数 = CAGR s.t. MDD ≤ 5%（或最大化 CAGR/MDD），而非最大化 CAGR"
+    data_check: "冲突（二手数字）：2019 梦想杯 MDD 23.27%（#page-100）；2020-01~08 约 4.35%（编者）一致。trades/ 未生成"
+  - id: XC-02
+    category: 空仓
+    rule: 没有机会就空仓
+    quote: "没有机会，就空仓，空仓是为了更好的进攻"
+    source: text/58位·下册·第06章.md#page-104
+    evidence: 二手
+    codable: true
+    signal: "当日无满足买点条件的标的 → 收盘仓位 = 0（不为保持仓位而买）"
+    data_check: "待 trades/：空仓日占比"
+  - id: XC-03
+    category: 仓位
+    rule: 股市只放约10%的总资产，账户做大后出金，不追加本金
+    quote: "10%在高风报比投资比如股市"
+    source: text/58位·下册·第06章.md#page-105
+    evidence: 二手
+    codable: true
+    signal: "风险账户本金 ≤ 总资产 10%；账户净值翻倍（如 98 万）→ 出金约 30%（#page-99 98 万取出 30 万）"
+    data_check: "二手资金回顾与之一致（#page-99；图文解读#page-2）"
+  - id: XC-04
+    category: 空仓
+    rule: 大盘瀑布式暴跌时空仓一个星期
+    quote: "只有暴跌不能，所以必须空仓一个星期"
+    source: text/58位·下册·第06章.md#page-107
+    evidence: 二手
+    codable: true
+    signal: "指数单日跌幅 ≤ -3% 或 3 日累计 ≤ -6% → 之后 5 个交易日禁止开仓（阈值为编码假设）；归属待核（可能是编者或他人的话）"
+    data_check: "待 trades/"
+  - id: XC-05
+    category: 仓位
+    rule: 情绪差时轻仓或空仓，情绪好时重仓
+    quote: "情绪差时轻仓 或者空仓 情绪好时多做 情绪差时少做"
+    source: text/58位·下册·第06章.md#page-100
+    evidence: 二手
+    codable: true
+    signal: "情绪代理：昨日涨停今日平均收益 > 0 且 连板高度 ≥ 4 → exposure_cap 1.0；否则 0.3；冰点（涨停 < 30 家）→ 0"
+    data_check: "编者概括，非本人原话；待 trades/"
+  - id: XC-06
+    category: 买点
+    rule: 以打低位首板为主，辅以二板和连板回调低吸
+    quote: "本期10张图解，采莲路7个打低位首版，5次吃肉"
+    source: text/相城采莲路交割单图文解读-3年500倍.md#page-13
+    evidence: 二手
+    codable: true
+    signal: "首笔买价 = 涨停价 且 T-1 未涨停 且 近 20 日涨幅 < 30% → 低位首板打板"
+    data_check: "第三方看 10 张截图的结论，样本极小；待 trades/ + enrich"
+  - id: XC-07
+    category: 仓位
+    rule: 严格分仓（未给出份数）
+    quote: "采莲路其操作分仓严格，比赛期间回撤都很小"
+    source: text/相城采莲路交割单图文解读-3年500倍.md#page-7
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "待 trades/：同时持仓数、单段金额/净值"
+  - id: XC-08
+    category: 心态
+    rule: 以最悲观的心态寻找零星希望；把不及预期和超预期都当常态
+    quote: "要以最悲观的心态，去寻找那些零星的希望"
+    source: text/58位·下册·第06章.md#page-106
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""

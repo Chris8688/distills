@@ -1,0 +1,223 @@
+person: 92科比
+data_window: 2020-01-02 ~ 2020-03-31 百万杯交割单（本笔记自行解析 text/92科比百万杯交割单1-3月.md，92 段；trades/ 生成后应复核）
+rules:
+  - id: KB-01
+    category: 环境
+    rule: 用昨日涨停股的次日溢价区分赚钱周期和亏钱周期
+    quote: 比如这几天涨停后次日都没有议价的就是亏钱周期
+    source: text/92科比直播精选.md#page-2
+    evidence: 二手
+    codable: true
+    signal: 近 3 日「昨日涨停池今日开盘均溢价」均 ≤ 0 → 亏钱周期
+    data_check: 无法检验（需要全市场涨停池）
+  - id: KB-02
+    category: 环境
+    rule: 情绪周期分四阶段：低位震荡（试错）→ 主升 → 高位震荡 → 主跌
+    quote: 从低位震荡，到主升，到高位震荡，继而主跌阶段
+    source: text/92科比情绪周期.md#page-1；text/58位·上册·第15章.md#page-194
+    evidence: 原文
+    codable: true
+    signal: 以市场最高连板高度和昨日涨停溢价的方向做代理：高度创新高且溢价 > 0 → 主升；高度停滞且溢价转负 → 高位震荡；高标连续跌停 → 主跌；高度 ≤ 3 且首板溢价回正 → 低位试错
+    data_check: 无法检验
+  - id: KB-03
+    category: 仓位
+    rule: 高位震荡期轻仓，不博弈穿越（二波）
+    quote: 一般高位震荡阶段，我会选择轻仓去应对
+    source: text/92科比情绪周期.md#page-2
+    evidence: 原文
+    codable: false
+  - id: KB-04
+    category: 买点
+    rule: 主跌阶段连续第二天杀跌时，尾盘找买点，博第三天修复
+    quote: 第二天的杀跌，如果还是持续的话，尾盘就可以找买点。第三天肯定会有情绪的修复
+    source: text/92科比情绪周期.md#page-2
+    evidence: 原文
+    codable: true
+    signal: 连续 2 日 跌停家数 > 涨停家数 且 高标跌停 → T 日 14:30 后买入人气股
+    data_check: 无法检验
+  - id: KB-05
+    category: 选股
+    rule: 只做绝对高位龙头、绝对低位（首板、1 进 2）或切换，回避中位 3 进 4、4 进 5
+    quote: 切忌做中位股 3 进 4,4 进 5 的淘汰率应该是最高的
+    source: text/92科比直播精选.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 买入时 T-1 连板数 n ∈ {0, 1} → 低位；n ∈ {2, 3, 4} → 中位（回避）
+    data_check: 冲突：1 进 2 共 7 段，胜率 29%、净 -33 万；三四板 9 段，净 +199 万
+  - id: KB-06
+    category: 选股
+    rule: 首板候选：流通盘小、股价低、图形好、无明显庄家，盘后加自选，次日异动就打板
+    quote: 找流通盘不大的，股价不高的，图形可以的，没有明显庄家的加入自选
+    source: text/92科比直播精选.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 流通市值 < X 亿 且 股价 < 全市场中位 且 新闻关联当日热点 → 次日自选；次日涨速异动并触及涨停 → 买
+    data_check: 无法检验（盘后自选清单不可得）
+  - id: KB-07
+    category: 选股
+    rule: 首板看图形、题材、流通盘、股价
+    quote: 首板看图形，题材，流通盘，股价
+    source: text/92科比，日常交流贴带交割单.md#page-81
+    evidence: 原文
+    codable: false
+  - id: KB-08
+    category: 选股
+    rule: 补涨：大题材赚钱效应好时，做同属性的低位首板（常能吃到 2-3 个一字）
+    quote: 在大题材赚钱效应好的情况下，去做相同属性的首板通常会吃到 2-3 个一字板的收益
+    source: text/92科比直播精选.md#page-1
+    evidence: 二手
+    codable: false
+  - id: KB-09
+    category: 选股
+    rule: 切换：主线到高位拉不动板时，去做新题材的首板
+    quote: 在碳中和高位的时候，去做中医首板
+    source: text/92科比直播精选.md#page-1
+    evidence: 二手
+    codable: false
+  - id: KB-10
+    category: 选股
+    rule: 博弈回流时只选板块里辨识度最高的那只
+    quote: 博弈回流，一定要去板块辨识度最高的股票
+    source: text/92科比，日常交流贴带交割单.md#page-43
+    evidence: 原文
+    codable: false
+  - id: KB-11
+    category: 选股
+    rule: 单票成交额过大（>50 亿）难出高度
+    quote: 成交量高于 50 亿很难打出高度
+    source: text/92科比直播精选.md#page-1；text/58位·上册·第15章.md#page-192
+    evidence: 二手
+    codable: true
+    signal: 候选股 T 日成交额 > 50 亿 → 不做连板接力
+    data_check: 无法检验
+  - id: KB-12
+    category: 买点
+    rule: 主线日内前排在早盘前半小时直接扫板
+    quote: 早盘尤其是前半个小时，出现该板块，该方向的个股，我都会直接扫板
+    source: text/92科比干货分享.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 首笔打板时间 < 10:00 且 所属概念为当日涨停数第一的板块
+    data_check: 部分可查：首笔买入在 10:00 前的占 27.2%（全部类型）；板块归属未标注，无法细分
+  - id: KB-13
+    category: 买点
+    rule: 早盘无强逻辑的秒板、中高位缩量板，不扫，等换手后做回封
+    quote: 早盘秒板(尤其是没有强逻辑的)，中高位缩量板
+    source: text/92科比干货分享.md#page-3
+    evidence: 二手
+    codable: true
+    signal: 当日首次封板时间 < 09:35 且 封板前成交额 < 流通市值 × 1% → 等开板后回封再买
+    data_check: 无法检验（需要分时）
+  - id: KB-14
+    category: 买点
+    rule: 弱转强要开盘后放量被买上去，不要竞价高开
+    quote: 弱转强不喜欢竞价高开，竞价高开属于做盘的迹象太明显了
+    source: text/92科比直播精选.md#page-8；text/92科比全套资料-144页.md#page-14
+    evidence: 二手
+    codable: true
+    signal: T-1 为烂板 且 T 日开盘涨幅 ∈ [-2%, +2%] 且 开盘 15 分钟内放量拉升 → 弱转强
+    data_check: 无法检验
+  - id: KB-15
+    category: 买点
+    rule: 反包时买第二个板，不买第一个
+    quote: 反包一板容易次日闷杀，二板更有确定性
+    source: text/92科比直播精选.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 断板后再次涨停（反包一板）不买；次日再涨停（反包二板）→ 买
+    data_check: 无法检验（样本未标反包）
+  - id: KB-16
+    category: 仓位
+    rule: 小资金 3 只各约 33%，资金长大后每只 25%，计划降到 20%
+    quote: 保持曲线的稳定，分仓是基础。小资金，分333，资金成长了百分之25一个
+    source: text/92科比，日常交流贴带交割单.md#page-129
+    evidence: 原文
+    codable: true
+    signal: 单票首买金额 / 账户总资产 ∈ [0.20, 0.33]；收盘持仓只数 ∈ [2, 4]
+    data_check: 一致：平均首买 269 万，账户约 700-1300 万；收盘持仓只数中位 2，3 只的 15 天，4 只的 3 天
+  - id: KB-17
+    category: 仓位
+    rule: 不加杠杆，不梭哈一只
+    quote: 千万不要加杠杆，本人极度厌恶杠杆
+    source: text/58位·上册·第15章.md#page-193；text/92科比直播精选.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 总持仓市值 ≤ 账户总资产；单票 ≤ 1/3
+    data_check: Q1 一致；2020-07-06 帖子「最后的资金，梭哈省广集团」，王府井单票最高占 47%（持仓截图）→ 年中冲突
+  - id: KB-18
+    category: 卖点
+    rule: 开盘前给市场、板块、个股打分：三项里两项以上强就多等，两项以上弱就果断处理
+    quote: 市场弱，板块弱，个股弱，占据 2 个及以上，要果断及时处理
+    source: text/92科比干货分享.md#page-5
+    evidence: 二手
+    codable: true
+    signal: 弱 = 指数 MA 空头 / 板块涨停数下降 / 个股 T+1 竞价低于预期；弱的项数 ≥ 2 → 开盘卖出
+    data_check: 无法检验
+  - id: KB-19
+    category: 止损
+    rule: 非龙头开盘走势不好，尽量在 -2% 以内止损
+    quote: 非龙头，开盘和走势不好，一般会快速处理，尽可能在-2%以内解决战斗
+    source: text/92科比干货分享.md#page-6
+    evidence: 二手
+    codable: true
+    signal: 非龙头持仓 收益 ≤ -2% → 卖
+    data_check: 冲突：亏损 43 段，中位 -3.6%，74% 比 -2% 更差，40% 比 -5% 更差
+  - id: KB-20
+    category: 卖点
+    rule: 冲到 6 个点以上不能快速封板、行情又差时先出，大部分情况下冲高先减一部分
+    quote: 个股冲到 6 个点及以上，不能快速冲板，行情差都会先选择出局
+    source: text/92科比干货分享.md#page-7
+    evidence: 二手
+    codable: true
+    signal: 持仓日盘中涨幅 ≥ 6% 且 N 分钟内未封板 → 卖出全部或部分
+    data_check: 无法检验（需要分时）
+  - id: KB-21
+    category: 卖点
+    rule: 超短的纪律是隔日卖，除非隔日超预期
+    quote: 超短超短就是要做隔日，除非隔日超预期，不然超短的纪律就是隔日卖
+    source: text/92科比直播精选.md#page-2
+    evidence: 二手
+    codable: true
+    signal: T+1 开盘溢价 < +5% 且 非龙头 → T+1 卖
+    data_check: 基本一致：持有 1 天 70.7%；持有 ≥2 天 22 段，其中 15 段次日开盘 ≥ +5%，这 22 段贡献净利 105%（持有 ≤1 天的段合计 -28 万）
+  - id: KB-22
+    category: 卖点
+    rule: 龙头炸板不一定第二天走，一般的票要走；龙头和前排不急着出
+    quote: 龙头股炸板可能不会第二天走，一般票要走
+    source: text/92科比直播精选.md#page-5；text/92科比干货分享.md#page-7
+    evidence: 二手
+    codable: true
+    signal: 持仓 = 当期板块最高标 → 不执行 T+1 卖出规则；否则执行 KB-21
+    data_check: 一致：持有 ≥2 天、但次日开盘未超预期的 7 段里，4 段是星期六（当时网红主线龙头）
+  - id: KB-23
+    category: 止损
+    rule: 止损看走势是否低于预期，不看亏了几个点，不看成本
+    quote: 止损与否，和亏几个点没关系。是主观判断持股走势是否低于预期
+    source: text/92科比，日常交流贴带交割单.md#page-120
+    evidence: 原文
+    codable: false
+  - id: KB-24
+    category: 空仓
+    rule: 没有好机会就空仓收盘，不逆势硬做
+    quote: 逆势硬撸，还是不可取的
+    source: text/92科比，日常交流贴带交割单.md#page-28；text/92科比，日常交流贴带交割单.md#page-191
+    evidence: 原文
+    codable: true
+    signal: KB-01 判为亏钱周期 → 收盘目标持仓 = 0
+    data_check: 在有成交的 55 个交易日里，收盘无持仓只有 3 天（GC001 逆回购另计）
+  - id: KB-25
+    category: 买点
+    rule: 以打板为主，半路不做（成交量不好确定）
+    quote: 半路不做的原因是成交量不好确定
+    source: text/92科比直播精选.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 首笔买价相对 T-1 收盘涨幅 ≥ 3% 且 < 涨停价 → 半路（应为 0）
+    data_check: 冲突：半路 17 段（18.5%），胜率 65%、净 +188 万；另有低吸 13 段（14.1%）。打板只占 42.4%，其中首板 23.9%
+  - id: KB-26
+    category: 心态
+    rule: 核心能力是题材预判：先于市场发现可发酵的舆论事件；研究「可发酵预期」比研究真实性重要
+    quote: 先于市场发现可发酵舆论事件，是一种很高效的赚钱模式
+    source: text/92科比，日常交流贴带交割单.md#page-45；text/92科比情绪周期.md#page-2
+    evidence: 原文
+    codable: false

@@ -1,0 +1,80 @@
+person: 余哥
+data_note: 唯一来源为一篇第三方传记（58位·下册·第03章 与 95后游资大佬余哥10位数 逐字相同）；无 trades/；"10 位数"为"据说"
+rules:
+  - id: YUG-01
+    category: 卖点
+    rule: 妖股不言顶，不跌停坚决不出局
+    quote: 永远不要恐高，妖股不言顶，不跌停坚决不出局，涨停越多确定性越高
+    source: text/58位·下册·第03章.md#page-22
+    evidence: 二手
+    codable: true
+    signal: 「持仓股 T 日触及跌停 → 卖出；否则持有」
+    data_check: 无交割单；同文记述其代价：每年 3 次以上满仓一两周亏 30%+，物产中大满仓 4 跌停单票亏损上亿
+  - id: YUG-02
+    category: 买点
+    rule: 不恐高、越高越买，高位 5-10 板也接力
+    quote: 敢于高位去接力，经常 5 板 6 板甚至 10 板都去参与
+    source: text/58位·下册·第03章.md#page-19
+    evidence: 二手
+    codable: true
+    signal: 「T-1 连板数 ≥ 5 且 属主流题材 且 T 日买入（涨停价或盘中）」→ 高位接力
+  - id: YUG-03
+    category: 环境
+    rule: 情绪高潮次日少接力
+    quote: 高潮次日少接力
+    source: text/58位·下册·第03章.md#page-22
+    evidence: 二手
+    codable: true
+    signal: 「T-1 涨停家数 ≥ 近 20 日 90% 分位 且 最高连板创阶段新高」→ 高潮日；T 日禁止接力
+  - id: YUG-04
+    category: 买点
+    rule: 龙头买不到就放弃，除非新题材刚开始可尝试博弈
+    quote: 龙头买不到就放弃，除非新题材刚开始可以尝试博弈
+    source: text/58位·下册·第03章.md#page-22
+    evidence: 二手
+    codable: false
+  - id: YUG-05
+    category: 选股
+    rule: 尽量参与主流题材，支线少参与
+    quote: 尽量参与主流，支线题材少参与
+    source: text/58位·下册·第03章.md#page-22
+    evidence: 二手
+    codable: false
+  - id: YUG-06
+    category: 买点
+    rule: 不做左侧抄底，上升趋势里追高
+    quote: 千万别想着抄底，左侧是最容易输钱的，上升趋势追高反而容易赚到钱
+    source: text/58位·下册·第03章.md#page-22
+    evidence: 二手
+    codable: true
+    signal: 「收盘 > MA20 且 MA20 上行 → 允许追高买入；否则禁止」
+  - id: YUG-07
+    category: 仓位
+    rule: 机会来了敢于重仓
+    quote: 机会来了要敢于上仓位，大部分人炒股不赚钱就是因为上升期犹犹豫豫
+    source: text/58位·下册·第03章.md#page-22
+    evidence: 二手
+    codable: false
+  - id: YUG-08
+    category: 环境
+    rule: 本人账户回撤 30% 时市场往往已调整到位（只对其本人成立的反向指标）
+    quote: 往往他每次亏损 30％，市场就调整的差不多了
+    source: text/58位·下册·第03章.md#page-20
+    evidence: 二手
+    codable: true
+    signal: 「接力策略账户权益距高点回撤 ≥ 30%」→ 情绪调整末端（需自有样本验证，不可迁移）
+  - id: YUG-09
+    category: 选股
+    rule: 早期补涨选股：问财筛双题材叠加 + 低价小市值 + 筹码形态好，异动即跟
+    quote: 用同花顺问财把两个题材都输入进去，筛选出低价小市值筹码形态好的个股
+    source: text/58位·下册·第03章.md#page-19
+    evidence: 二手
+    codable: true
+    signal: 「同时属于 T-1 涨停数前 3 的两个概念 且 股价 < 15 元 且 流通市值 < 50 亿 且 盘中涨速 ≥ 2%」
+  - id: YUG-10
+    category: 环境
+    rule: 模式不定型，随市场阶段在情绪接力与趋势持股间切换
+    quote: 他的操作不定型，市场在变他就会跟着变，不会那么死板
+    source: text/58位·下册·第03章.md#page-23
+    evidence: 二手
+    codable: false

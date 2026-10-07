@@ -1,0 +1,129 @@
+person: 万法归宗
+note: 纯图版为 2014-12~2015-09 雪球原帖汇编（原文）；58位合集章节为编者改写（二手），其中 Q15~Q22 实为孙建波《股市金律》误归属；无交割单、无 trades/
+rules:
+  - id: WF-01
+    category: 环境
+    rule: 指数 5 周与 10 周均线走平并缠绕之前不进场
+    quote: 5周均线，10周均线目前处于快速下落中，何时当这两条均线走平，开始缠绕…整体市场才能进入平稳状态
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "上证/创业板指 周线 MA5、MA10：|MA10 周环比斜率| < 0.5% 且 近 4 周 MA5 与 MA10 发生交叉 → 可进场；MA5、MA10 同向下行且斜率 < -1%/周 → 空仓"
+    data_check: 无成交数据
+  - id: WF-02
+    category: 环境
+    rule: 月线 MACD 绿柱经历出现→放大→缩小后才算拐点
+    quote: 只有当绿色柱状从有到放大，再缩小，这才进入拐点状态，此时你才能操作胆子放大
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "指数月线 MACD 柱 < 0 且 |柱| 较上月缩小 且 此前至少 1 个月 |柱| 扩大 → 拐点；柱由正转负的首月 → 新一轮下跌，空/轻仓"
+    data_check: 无成交数据
+  - id: WF-03
+    category: 环境
+    rule: 季线收大阴线后默认还有一根季阴线，该季度结束前空仓
+    quote: 单季大阴线，从概率上讲，后面肯定还有一根季阴线，所以到年底前，还是空为好
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "指数季线 (收-开)/开 < -15% → 下一季度禁止新开仓"
+    data_check: 无成交数据
+  - id: WF-04
+    category: 空仓
+    rule: 一年约一半时间空仓或轻仓，空仓资金放货币基金
+    quote: 不适应市场的超短，只做大波段，有机会做，无机会休息，一年中基本上有一半时间处于空和轻的状态
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-2
+    evidence: 原文
+    codable: true
+    signal: "WF-01/02 不满足时仓位 ≤ 20%，余额买货币 ETF（如 511880 银华日利）"
+    data_check: 无成交数据
+  - id: WF-05
+    category: 买点
+    rule: 下跌趋势中不抄底，抄底只用小仓位练手
+    quote: 严格纪律，反弹只用少量资金练手就行！市场底部还早
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-14
+    evidence: 原文
+    codable: true
+    signal: "指数周线 MA10 下行时，逆势买入单笔仓位 ≤ 10%"
+    data_check: 无成交数据
+  - id: WF-06
+    category: 选股
+    rule: 买风口行业中季报/年报业绩大幅增长（单季拐点）的成长股
+    quote: 根据年度或者季度报告，买入行业风口（估值确保）中业绩快速增长的企业
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-24
+    evidence: 原文
+    codable: true
+    signal: "最新单季扣非净利同比 > 50% 且 较上季同比加速（单季拐点）且 所属行业指数周线 MA10 上行"
+    data_check: 无成交数据
+  - id: WF-07
+    category: 卖点
+    rule: 大波段持有到下个季报公布前
+    quote: 一般持有到下个季报出来前为止
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-24
+    evidence: 原文
+    codable: true
+    signal: "下一份定期报告披露日前 1 个交易日卖出（除非新报告预告继续加速）"
+    data_check: 无成交数据
+  - id: WF-08
+    category: 卖点
+    rule: 买入时预设波段结束条件，条件出现即离场
+    quote: 幸好我买入福瑞特装的时候已经设定了波段结束的条件，一旦条件出现，马上离开
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-34
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据；具体条件未披露
+  - id: WF-09
+    category: 卖点
+    rule: 牛市后段对每只持仓问"还能翻倍否"，没有底气就不再捂股、降低盈利目标并转出利润
+    quote: 对手里的品种，连问三遍，还能翻倍否
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-30
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无成交数据
+  - id: WF-10
+    category: 仓位
+    rule: 系统风险来临时降低仓位或换成逆市品种，长期收益靠少回撤
+    quote: 长期资金曲线不断上升的秘密就是回撤少，每次系统风险来临的时候要么降低仓位，要么买入的能逆市的
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-27
+    evidence: 原文
+    codable: true
+    signal: "WF-01 转空 → 总仓位降至 ≤ 30% 或只保留 20 日相对指数超额 > 0 的持仓"
+    data_check: 无成交数据
+  - id: WF-11
+    category: 仓位
+    rule: 不使用融资
+    quote: 千万不要融资…所以我一直不融资
+    source: text/万法归宗_市场永远是对的_纯图版.md#page-31
+    evidence: 原文
+    codable: true
+    signal: "总仓位 ≤ 100% 净资产"
+    data_check: 无成交数据
+  - id: WF-12
+    category: 止损
+    rule: 短线买入突破股后，跌破突破当日最低价立即离场
+    quote: 到了这个最低价破了，你赶快出来，不要犹豫
+    source: text/58位·中册·第06章.md#page-83
+    evidence: 二手
+    codable: true
+    signal: "买入日 = 突破日（收盘创 N 日新高）；之后任一日 最低价 < 突破日最低价 → 卖出"
+    data_check: 无成交数据
+  - id: WF-13
+    category: 选股
+    rule: 短线每天从涨幅榜前列寻找强势股
+    quote: 每天看一下涨幅前几名，涨幅榜第一排，第二版，好好看看
+    source: text/58位·中册·第06章.md#page-85
+    evidence: 二手
+    codable: true
+    signal: "当日涨幅前 50 名 作为候选池"
+    data_check: 无成交数据
+  - id: WF-14
+    category: 心态
+    rule: 市场永远是对的，顺应而不是试图战胜市场
+    quote: 不管他怎么走，你要始终认为市场是对的
+    source: text/58位·中册·第06章.md#page-81
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无

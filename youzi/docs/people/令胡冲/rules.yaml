@@ -1,0 +1,136 @@
+person: 令胡冲
+data_note: trades/ 2015-05~2016-01 仅 40 段，卖出配对率 44%，只作方向参考
+rules:
+  - id: LHC-01
+    category: 环境
+    rule: 跌停/大跌 5% 以上家数多 → 市场氛围差，不轻易出手，尽量等尾盘
+    quote: 如果跌幅榜上躺着众多跌停或者大跌百分之5以上的个股，意味着市场氛围很差
+    source: text/58位·上册·第05章.md#page-107
+    evidence: 二手
+    codable: true
+    signal: 「T 日 14:30 前 跌停家数 ≥ 30 或 跌幅>5% 家数 ≥ 150」→ 氛围差：禁止 14:30 前打板
+    data_check: 无法检验（首笔建仓 14:30 后占 20%，未与跌停家数对齐）
+  - id: LHC-02
+    category: 环境
+    rule: 昨日涨停股今日普遍闷杀 → 赚钱效应差，束手待变
+    quote: 如果昨天涨停今天闷杀，说明大盘赚钱效应太差，应束手待变
+    source: text/58位·上册·第05章.md#page-105
+    evidence: 二手
+    codable: true
+    signal: 「T-1 涨停股（剔一字）在 T 日 平均收盘涨幅 < -2% 或 收跌占比 > 60%」→ 冰点/亏钱效应，当日不新开仓
+  - id: LHC-03
+    category: 环境
+    rule: 指数走势完整但打板收益不稳、烂板次日大跌、跌停成批 = 风险前兆
+    quote: 市场赚钱效应极差极差，但指数走势却好像很完整，一般是风险来临的前兆
+    source: text/令胡冲-实盘贴-问答整理_纯图版-136页.md#page-43
+    evidence: 原文
+    codable: true
+    signal: 「指数收盘 > MA20 且 近 5 日 T-1 涨停股次日平均溢价 < 0 且 日均跌停家数 ≥ 20」→ 背离预警
+  - id: LHC-04
+    category: 选股
+    rule: 当日涨停归入板块，次日观察板块赚钱效应，最强者为备选，每日更换
+    quote: 当日的涨停都做到一个版块中，次日观察其赚钱效应，也作主要备选股票
+    source: text/58位·上册·第05章.md#page-104
+    evidence: 二手
+    codable: true
+    signal: 「按概念聚合 T-1 涨停股，T 日板块内 T-1 涨停股平均涨幅最高的前 2 个概念」→ 备选池
+  - id: LHC-05
+    category: 选股
+    rule: 优先打人气股：近期经常涨停且次日很少闷杀
+    quote: 近期经常有过涨停，第二天还能不闷杀的股
+    source: text/58位·上册·第05章.md#page-107
+    evidence: 二手
+    codable: true
+    signal: 「近 20 日涨停 ≥ 3 次 且 这些涨停次日收盘涨幅均值 > 0」→ 人气股
+  - id: LHC-06
+    category: 买点
+    rule: 打板为主，极少半路；只在赌市场转折点时大搞半路
+    quote: 我极少搞半路，只有在我赌市场转折点的时候，我才会去大搞半路。大部分时候，我都是打涨停的
+    source: text/令胡冲-实盘贴-问答整理_纯图版-136页.md#page-31
+    evidence: 原文
+    codable: true
+    signal: 「首笔买价 ≥ 涨停价-0.01」→ 打板；「T-1收×1.03 < 买价 < 涨停价」→ 半路
+    data_check: 表面冲突、口径修正后大体一致：机械分类打板 40%/半路 47.5%；但半路首笔买价中位 +7.6%，58% 当日收涨停（预挂涨停单途中成交）；并回后打板类约 68%。未封住的半路 8 段胜率 12.5%、净亏 17.8 万
+  - id: LHC-07
+    category: 买点
+    rule: 关注的股票涨到 5-7 个点时预挂涨停价委托，等市场确认
+    quote: 在其5-7个点或许我就已经打好涨停价的委托单子了，就等市场确认的那一刻
+    source: text/58位·上册·第05章.md#page-108
+    evidence: 二手
+    codable: true
+    signal: 「盘中涨幅首次 ≥ 5% 时挂涨停价买单」（日线回测近似：当日最高 = 涨停 → 视为成交，成交价取 min(涨停价, 开盘后首次触及 7% 的价格)）
+    data_check: 一致：半路段买价中位 +7.6%，四分位 6.0%~8.9%
+  - id: LHC-08
+    category: 买点
+    rule: 首板风险大于二三板；弱势不打二板，强势二板三板 N 板都打
+    quote: 打第一板的风险明显大于打第二第三板 / 弱势行情打二板，风险极大
+    source: text/58位·上册·第05章.md#page-108
+    evidence: 二手
+    codable: true
+    signal: 「强势（T-1 涨停家数 ≥ 60 且 连板晋级率 ≥ 30%）→ 允许 2 板以上；否则只允许首板」
+    data_check: 冲突（样本极小）：首板 12 段胜率 83%/PF 16.9；二板 3 段胜率 33%/PF 0.44
+  - id: LHC-09
+    category: 买点
+    rule: 无充分预期时，早盘半小时内不出手
+    quote: 有时候早盘半小时内我肯定不会出手
+    source: text/58位·上册·第05章.md#page-109
+    evidence: 二手
+    codable: true
+    signal: 「首笔买入时间 ≥ 10:00」
+    data_check: 大体一致：首笔建仓 09:30-10:00 占 17.5%，10:00 后 82.5%
+  - id: LHC-10
+    category: 仓位
+    rule: 没有 8 成以上把握不出手
+    quote: 我打板的时候，没有8成以上把握我是不会出手的
+    source: text/令胡冲-实盘贴-问答整理_纯图版-136页.md#page-5
+    evidence: 原文
+    codable: false
+    data_check: 量级一致：打板段胜率 75%，封住率 94%
+  - id: LHC-11
+    category: 卖点
+    rule: 不设固定止损止盈；弱市短时间不被认同即出局，强市/转折处多持有
+    quote: 对我来说没有止损止盈，只有买入和卖出。不稳定的市场，短时间的市场不认同，就选择出局
+    source: text/令胡冲-实盘贴-问答整理_纯图版-136页.md#page-31
+    evidence: 原文
+    codable: true
+    signal: 「弱市：T+1 10:30 前未创日内新高且 < 买价 → 卖出；强市：T+1 收盘未涨停才卖」
+    data_check: 大体一致：亏损段 86% 持有 ≤1 天
+  - id: LHC-12
+    category: 止损
+    rule: 非龙头且非强市时，冲高两次上不去就卖；早盘一小时无望就割
+    quote: 冲两次还上不去，赶紧扔了算了
+    source: text/令胡冲-实盘贴-问答整理_纯图版-136页.md#page-19
+    evidence: 原文
+    codable: false
+  - id: LHC-13
+    category: 卖点
+    rule: 超短，最长持股不超过 5 天
+    quote: 超短线操作 最长持股不超过5天
+    source: text/令胡冲的盘感训练及打板技术_纯图版.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 「持有交易日 ≥ 5 → 强制卖出」
+    data_check: 一致：>5 天 0%，1 天 82.5%
+  - id: LHC-14
+    category: 空仓
+    rule: 放弃行情尾端；下跌趋势中减少早盘赌博，只做盘中最确定的
+    quote: 放弃尾端行情…减少早盘赌博的次数，做盘中最确定的那个
+    source: text/58位·上册·第05章.md#page-109
+    evidence: 二手
+    codable: false
+    data_check: 无法检验（配对率 44%，月度不可靠）
+  - id: LHC-15
+    category: 卖点
+    rule: 持股被新龙头篡位、沦为跟风时冲高卖出
+    quote: 600783已经篡位新龙头，2161沦为跟风，于是冲高卖出
+    source: text/令胡冲【从50万至800万的股市成长之路（交割单】_137页.md#page-109
+    evidence: 原文
+    codable: true
+    signal: 「同概念内出现连板数 > 持股连板数 的新股 且 持股当日未涨停」→ 卖出
+  - id: LHC-16
+    category: 心态
+    rule: 阶段第一波暴利错过不追，第二次机会一定参与
+    quote: 市场每个阶段的第一次暴利行情，都没参与到，但是第二次机会再来时，一定会有我
+    source: text/令胡冲的盘感训练及打板技术_纯图版.md#page-1
+    evidence: 二手
+    codable: false

@@ -1,0 +1,165 @@
+person: 孤独牛背
+note: >
+  控回撤篇是淘股吧多人征文合集（孤独牛背发帖），只有第一段是本人；58位·中册·第20章删掉 ID 后整章误归孤独牛背。
+  GDNB-01~08 为本人（演讲为听众录音整理）；GDNB-09~16 为合集里其他 ID 的规则，speaker 字段标明，不代表孤独牛背。无 trades/。
+rules:
+  - id: GDNB-01
+    category: 空仓
+    rule: 多空仓、多看少做，只做最强那几只，错过就等
+    quote: "多空仓，多看少做，做最强那几只，错过就等，不敢下手就等敢下手的"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-1
+    evidence: 原文
+    speaker: 孤独牛背
+    codable: true
+    signal: "仅当标的为当日板块内率先涨停/人气第一时允许买入；否则空仓"
+    data_check: "无数据"
+  - id: GDNB-02
+    category: 空仓
+    rule: 大盘不好或赚钱效应不好时空仓，可以整周空仓
+    quote: "平常都是空仓，在大盘不好的情况下都是空仓"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-2
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: true
+    signal: "昨日涨停股今日平均收益 < 0 或 跌停家数 > 涨停家数 → 不开仓"
+    data_check: "无数据"
+  - id: GDNB-03
+    category: 环境
+    rule: 市场出现最强硬的个股或联动板块时，视为当日底部，可以参与
+    quote: "市场有最强硬的股了，或者有联动的板块了，那就是市场的当日底部了"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-3
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: true
+    signal: "指数当日跌幅 ≤ -1.5% 且 同一概念 ≥ 3 只涨停 → 解除空仓"
+    data_check: "无数据"
+  - id: GDNB-04
+    category: 买点
+    rule: 快速首板只打一笔带过的强板，磨磨唧唧的板不打，封单率不高就撤单
+    quote: "这种磨磨唧唧上去的板，千万不能打…30万手必须要在几秒钟内抢完"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-1
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: false
+    signal: "（需 L2）涨停价卖一挂单 N 手在 ≤ 5 秒内被吃完 → 扫板"
+    data_check: "无数据"
+  - id: GDNB-05
+    category: 买点
+    rule: 转势灵魂板：大盘大跌、恐慌时率先涨停的人气股，在第二波拉到7-9个点时扫板
+    quote: "当天大盘跌到位了，恐慌情绪有了，那我就做快速反弹龙头"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-2
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: true
+    signal: "指数当日盘中跌幅 ≤ -2% 且 个股为当日两市首批涨停（指数仍翻绿时已封板）→ 首板打板"
+    data_check: "无数据"
+  - id: GDNB-06
+    category: 买点
+    rule: 龙头停牌或打不到时，做次日早盘最快上板的同题材补涨龙头
+    quote: "万一打不到龙头，也没关系，那就去做快速补涨龙头"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-2
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: true
+    signal: "板块龙头 T 日停牌/一字 → T+1 同概念首只 10:00 前涨停者打板"
+    data_check: "无数据"
+  - id: GDNB-07
+    category: 卖点
+    rule: 妖股首板次日不在早盘被砸时卖，至少等到14:30
+    quote: "好股妖股首板打了，第二天怎么也要等到2点半，最多不赚钱"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-3
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: true
+    signal: "首板买入 → T+1 卖出时间 ≥ 14:30（除非涨停）"
+    data_check: "无数据"
+  - id: GDNB-08
+    category: 心态
+    rule: 纪律大于模式；小亏小赚、偶尔大赚、绝不大亏
+    quote: "纪律是大于模式的…平时小亏小赚，偶尔大赚，但是绝不大亏"
+    source: text/孤独牛背雷神婚礼演讲龙头妖股战法_纯图版.md#page-3
+    evidence: 二手
+    speaker: 孤独牛背
+    codable: false
+    signal: ""
+    data_check: "无数据"
+  - id: GDNB-09
+    category: 仓位
+    rule: 资金分3份、每份1只；行情好买满3只，行情差只买1只或空仓
+    quote: "如果把资金分成3份，每份买1只标的，行情好时买满3只标的，行情差时只买1只标的或空仓不做"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-2
+    evidence: 原文
+    speaker: 打板赚盒饭
+    codable: true
+    signal: "单票上限 = 1/3 账户；行情状态好 → 持仓 ≤ 3 只；差 → ≤ 1 只或 0"
+    data_check: "无数据"
+  - id: GDNB-10
+    category: 仓位
+    rule: 大赚10个点以上时，强制把仓位降到3成以下
+    quote: "当你大赚10个点以上时，可以强制降低仓位到3成以下"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-2
+    evidence: 原文
+    speaker: 打板赚盒饭
+    codable: true
+    signal: "账户近 N 日（N 未给，假设 5）收益 ≥ +10% → exposure_cap 0.3"
+    data_check: "无数据"
+  - id: GDNB-11
+    category: 环境
+    rule: 按上证和创业板涨跌组合定仓：齐跌禁开仓，沪涨创跌小仓，沪跌创涨5成以上，齐涨满仓
+    quote: "上证下跌，创业板大跌，是28齐跌，禁止开仓"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-2
+    evidence: 原文
+    speaker: 打板赚盒饭
+    codable: true
+    signal: "r_sh, r_cyb 为当日涨跌幅：r_sh<0 且 r_cyb≤-2% → cap 0；r_sh≥1% 且 r_cyb≤-2% → cap 0.3；r_sh<0 且 r_cyb≥2% → cap ≥0.5；两者均 ≥1% → cap 1.0（阈值为编码假设）"
+    data_check: "无数据"
+  - id: GDNB-12
+    category: 止损
+    rule: 当天第一仓被砸，就不做第2笔，等明天
+    quote: "开出第一仓如果给砸，基本不会做第2笔交易"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-3
+    evidence: 原文
+    speaker: 难觅知音
+    codable: true
+    signal: "当日首笔买入后炸板或日内浮亏 → 当日禁止第 2 笔买入"
+    data_check: "无数据"
+  - id: GDNB-13
+    category: 空仓
+    rule: 经常空仓：节奏不对、大亏、大赚、拿不准时都空仓
+    quote: "节奏不对空仓，大亏空仓，大赚空仓，拿不准空仓，有事空仓"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-4
+    evidence: 原文
+    speaker: 吞吴破秦
+    codable: true
+    signal: "单日账户 |ret| ≥ 5%（大亏或大赚，阈值为编码假设）→ T+1 空仓"
+    data_check: "无数据"
+  - id: GDNB-14
+    category: 仓位
+    rule: 分仓二二分，非常看好可全仓；新模式只用小仓试错，重仓必须放在模式内
+    quote: "分仓操作要简洁…二二分即可，非常看好可全仓…重仓必须放在模式内"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-4
+    evidence: 原文
+    speaker: 吞吴破秦
+    codable: true
+    signal: "默认 2 只各 50%；模式外交易单笔 ≤ 10%"
+    data_check: "无数据"
+  - id: GDNB-15
+    category: 止损
+    rule: 回避六类对手盘强大的情形：庄股高位、国家队、一字换手买一独大、龙头加速一致期、弱势缩量板、情绪转折后的反向加速
+    quote: "只要规避了此类股，基本就避免了80%以上的大幅回撤可能"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-3
+    evidence: 原文
+    speaker: 吞吴破秦
+    codable: true
+    signal: "部分可算：龙头连板第 3 板起缩量一字（换手 < 3%）→ 不接；弱市（GDNB-02 不满足）中缩量连板 → 不接"
+    data_check: "无数据"
+  - id: GDNB-16
+    category: 仓位
+    rule: 模式内的亏损单是收缩仓位或空仓的信号
+    quote: "这种亏损单是用来提醒自己收缩仓位或者空仓的，无需过分自责于回撤"
+    source: text/孤独牛背【超短梦想系列之控制回撤篇】_纯图版.md#page-4
+    evidence: 原文
+    speaker: 吞吴破秦
+    codable: true
+    signal: "模式内连亏 ≥ 2 笔（N 未给，为编码假设）→ 单笔上限减半"
+    data_check: "无数据"

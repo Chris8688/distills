@@ -1,0 +1,125 @@
+person: 作手新一
+data_note: 无 trades/ 数据；战法比例（首板<10%、连板90%+）来自第三方图解，无统计口径
+rules:
+  - id: ZSXY-01
+    category: 选股
+    rule: 围着主线做，研究龙头与涨停
+    quote: 围着主线做，多研究龙头，研究涨停，不断积累，总结，反思
+    source: text/58位·中册·第09章.md#page-106
+    evidence: 二手
+    codable: false
+  - id: ZSXY-02
+    category: 选股
+    rule: 不做非主线的追涨；非主线即便封板次日也无接力
+    quote: 这个市场不在主线的追涨都是自己找难受，封住了第二天也没接力
+    source: text/58位·中册·第09章.md#page-112
+    evidence: 二手
+    codable: true
+    signal: 「主线 = 近 5 日涨停家数最多的前 2 个概念」；个股不属主线 → 禁止追涨/打板
+  - id: ZSXY-03
+    category: 买点
+    rule: 打板是能力不足时更有效率、更确定的方式；交易本能仍是做涨停
+    quote: 做涨停更有效率更确定，能力不足时需要这些
+    source: text/58位·中册·第09章.md#page-107
+    evidence: 二手
+    codable: true
+    signal: 「首笔买价 ≥ 涨停价-0.01」→ 打板
+  - id: ZSXY-04
+    category: 买点
+    rule: 低吸只做顺市场节奏的绝对热门股
+    quote: 低吸是应市场而生的策略，也是顺着市场节奏低吸绝对热门股
+    source: text/58位·中册·第09章.md#page-108
+    evidence: 二手
+    codable: true
+    signal: 「近 10 日涨停 ≥ 3 次 且 属主线 且 买价 ≤ T-1 收盘」→ 热门股低吸
+  - id: ZSXY-05
+    category: 买点
+    rule: 连续一字涨停只排第三个一字板（前两板买不到，第三板获利盘松动易小放量）
+    quote: 作手新一排一字，基本只排第三板
+    source: text/作手新一交割单图文解读-7年3000倍.md#page-5
+    evidence: 二手
+    codable: true
+    signal: 「T-1、T-2 均为一字涨停（开=高=低=收=涨停）且 T 日涨停价挂单」；回测成交条件：T 日 成交量 > T-1 成交量×1.5 或 T 日非一字
+  - id: ZSXY-06
+    category: 买点
+    rule: 反包板以"涨停-跌停-涨停"阴阳并线、直线分时、叠加主流龙头为最佳；冲高回落后再涨停反而不好
+    quote: 反包类型涨停跌停涨停模式最佳，涨停之后冲高回落中阳再度涨停的反而不好
+    source: text/作手新一交割单图文解读-7年3000倍.md#page-3
+    evidence: 二手
+    codable: true
+    signal: 「T-2 涨停 且 T-1 跌停（或跌幅 ≤ -7%）且 T 日涨停」→ 阴阳并线反包板
+  - id: ZSXY-07
+    category: 买点
+    rule: 次新股一字连板开板后的首个换手板（常用于次新）
+    quote: 操作手法：一字连板开板首板。（常用，在次新股中用得比较多）
+    source: text/作手新一经典案例“围魏救赵”_纯图版.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 「上市 ≤ 60 日 且 上市后连续一字 ≥ 3 且 首次开板后 ≤ 5 日内 首个非一字涨停」→ 开板首板
+  - id: ZSXY-08
+    category: 买点
+    rule: 主线龙头打出高度后，做同题材补涨龙
+    quote: 龙头打出高度之后，引发补涨龙头
+    source: text/作手新一经典案例“围魏救赵”_纯图版.md#page-10
+    evidence: 二手
+    codable: false
+  - id: ZSXY-09
+    category: 仓位
+    rule: 行情不好时仓位很少超过 1/10
+    quote: 行情不好很少超过1/10仓位
+    source: text/58位·中册·第09章.md#page-111
+    evidence: 二手
+    codable: true
+    signal: 「弱市（T-1 涨停家数 < 30 或 跌停家数 > 20）→ 总敞口上限 10%」
+  - id: ZSXY-10
+    category: 仓位
+    rule: 满仓出击必须有确定性（概率、实效、高盈亏比）
+    quote: 这种确定性不光是概率，还有实效性和高盈亏比。满仓出击，要有确定性
+    source: text/作手新一心法总结.md#page-4
+    evidence: 原文
+    codable: false
+  - id: ZSXY-11
+    category: 止损
+    rule: 炸板不纠结，标的符合模式即可；错了及时走
+    quote: 涨停开了就开了，标的选择符合自己模式就行了。错了及时走，剩下的交给概率
+    source: text/58位·中册·第09章.md#page-107
+    evidence: 二手
+    codable: true
+    signal: 「打板当日炸板收盘未回封 → T+1 开盘卖出」
+  - id: ZSXY-12
+    category: 环境
+    rule: 市场趋势向下时控仓，屏蔽杂毛机会
+    quote: 市场趋势向下时我的仓位控制，对杂毛机会的屏蔽做的的很好
+    source: text/58位·中册·第09章.md#page-110
+    evidence: 二手
+    codable: false
+  - id: ZSXY-13
+    category: 买点
+    rule: 不预判抄底逃顶，等盘面出现反转动作再出手
+    quote: 包括一亿内的资金都可以等盘面出现反转动作时再出手
+    source: text/58位·中册·第09章.md#page-108
+    evidence: 二手
+    codable: false
+  - id: ZSXY-14
+    category: 选股
+    rule: 趋势牛股选大资金承载票：逻辑绝对主流、成交额大
+    quote: 捕捉大资金承载票…讲究逻辑要绝对主流，成交要大
+    source: text/58位·中册·第09章.md#page-112
+    evidence: 二手
+    codable: true
+    signal: 「属主线 且 近 5 日日均成交额 ≥ 全市场前 5%」
+  - id: ZSXY-15
+    category: 选股
+    rule: 烂板要看逻辑与公司质地，纯情绪分歧转一致的板次日易现原形
+    quote: 纯粹操作情绪的分歧转一致当天板了，隔夜一冷静啥都明白了
+    source: text/58位·中册·第09章.md#page-113
+    evidence: 二手
+    codable: false
+  - id: ZSXY-16
+    category: 空仓
+    rule: 攻击力不够时，账户利润出现回撤就转谨慎，等确定模式或大盘有利
+    quote: 攻击不够（主要是牛股眼光和把握能力）就在利润出现回撤时谨慎起来
+    source: text/作手新一心法总结.md#page-6
+    evidence: 原文
+    codable: true
+    signal: 「账户权益距近 20 日高点回撤 ≥ 8% → 敞口上限降至 30%，直至创新高」（阈值待标定）

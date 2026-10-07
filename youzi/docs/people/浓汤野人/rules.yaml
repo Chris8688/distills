@@ -1,0 +1,57 @@
+person: 浓汤野人
+note: "商品期货（棉花）交易者，非 A 股超短；博文为原文但几乎无操作规则；仓位相关说法来自 58位二手。战绩 13亿/20亿/22亿/28亿 互相矛盾。无 trades/。"
+rules:
+  - id: NTYR-01
+    category: 仓位
+    rule: 满仓加仓，接受浮亏60%，做好归零准备（反例）
+    quote: "账户浮亏60%对我来说而言是一种常态，我的风格是满仓加仓交易，所以我做好归零的心理准备"
+    source: text/58位·中册·第07章.md#page-90
+    evidence: 二手
+    codable: true
+    signal: "gross_exposure = 1.0（期货保证金满用）且盈利加仓；无止损"
+    data_check: "无数据；自述 2002-2008 四次赔光（58位#page-90）"
+  - id: NTYR-02
+    category: 仓位
+    rule: 钟摆出金：越辉煌越出金减磅，越低落越追加资金
+    quote: "在越辉煌的时候越去减磅，在越低落的时候去找资金"
+    source: text/58位·中册·第07章.md#page-93
+    evidence: 二手
+    codable: true
+    signal: "NAV 创新高 且 自上次出金以来收益 ≥ +100% → 出金 30%（比例为编码假设）；dd ≤ -30% 且基本面逻辑未破 → 追加资金"
+    data_check: "无数据"
+  - id: NTYR-03
+    category: 环境
+    rule: 技术形态好但与基本面背离时，是最好的反向时机，可以逆市开重仓
+    quote: "技术面的形式再好，如果与基本面相背离，则反而是最好的反向操作时机，可以逆市开重仓"
+    source: text/浓汤野人_600万到28亿棉花之战.md#page-5
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: "无数据"
+  - id: NTYR-04
+    category: 心态
+    rule: 任何交易系统只在某段时间有效，方法成功到极致时就该回归到零
+    quote: "没有任何一种交易系统或方法可以保证长期稳定盈利"
+    source: text/浓汤野人_600万到28亿棉花之战.md#page-15
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: NTYR-05
+    category: 心态
+    rule: 市场是自适应生命体，固定交易程式终会被找到漏洞
+    quote: "只要存在固定的交易程式，市场自然就能找到你的漏洞"
+    source: text/浓汤野人_600万到28亿棉花之战.md#page-7
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: NTYR-06
+    category: 环境
+    rule: 资金量大了，系统性风险来临时等你砍完就是最低点
+    quote: "碰到系统性风险的时候等你砍完了，就是最低点"
+    source: text/58位·中册·第07章.md#page-92
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""

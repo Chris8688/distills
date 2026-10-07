@@ -1,0 +1,112 @@
+person: 林疯狂
+data_note: "trades/ 36 段（2016-03~08 原始 xls + 10/12 月 OCR）；买点类型 低吸 22.2% / 平盘 30.6% / 半路 44.4% / 打板 2.8%（entry_types.json 最新版）；另算日内位置等特征"
+label_conflict: "58位标签『低吸强势股』与交割单冲突：r_buy 中位 +2.9%、首笔买价高于开盘 80.6%；标签来源是吧友评论（东方不败999 / skyoneguo / nokia6020），非本人自述"
+rules:
+  - id: LFK-01
+    category: 买点
+    rule: 低吸/半路/打板不分贵贱，都为冲涨停；一般最多买到半路，很少追板
+    quote: 低吸半路和打板在我理解都一样……我一般最多到半路，很少到板上再去追
+    source: text/Linsanity（林疯狂）交割单2016.md#page-29
+    evidence: 原文
+    codable: true
+    signal: "半路 = 首笔买价/T-1 收盘 - 1 ∈ [3%, 涨停价) 且 买价 > 当日开盘价（分时上行中买入）"
+    data_check: "一致：半路 44.4%、打板 2.8%；首笔买价 > 开盘 80.6%，日内位置中位 0.58；半路段占净利 90.6%（PF 3.76）"
+  - id: LFK-02
+    category: 选股
+    rule: 选股围绕强势股/热点展开，趋势为首
+    quote: 选股的思路大都是围绕强势股来展开的
+    source: text/Linsanity（林疯狂）交割单2016.md#page-43
+    evidence: 原文
+    codable: true
+    signal: "强势股 = 近 10 日涨停数 ≥ 1 或 10 日涨幅 > 10%，且 T-1 收盘 > MA5 > MA10"
+    data_check: "一致：强势股 83%，近 10 日有板 75%，买价 > MA5 与 > MA10 均 100%（剔除除权异常 3 段）"
+  - id: LFK-03
+    category: 选股
+    rule: 跟风股首板没跟上就不追第二板；只做龙头
+    quote: 这种跟风的第一个板没及时跟进，指望第二个板再进去博肉吃是极其不理智的
+    source: text/Linsanity（林疯狂）交割单2016.md#page-45
+    evidence: 原文
+    codable: true
+    signal: "排除：所属板块当日非首个涨停 且 自身 T-1 首板 → 不做 T 日二板"
+    data_check: "基本一致：打板段仅 1 段（首板）；T-1 涨停的 6 段多为龙头次日半路，而非跟风二板（板块地位无法用日线判定，部分待核）"
+  - id: LFK-04
+    category: 卖点
+    rule: 次日冲高回落、找不到持有理由就无条件卖；低开在开盘即走
+    quote: 冲高回落找不到持有的理由第二天就无脑割
+    source: text/Linsanity（林疯狂）交割单2016.md#page-47
+    evidence: 原文
+    codable: true
+    signal: "T+1 开盘 < 买价 → 09:30-09:33 卖出；T+1 高开 → 首次冲高回落（跌破分时均价）卖出；T+1 封板 → 持有"
+    data_check: "一致：次日低开 15 段 ret 中位 -2.8% ≈ T+1 开盘溢价中位 -2.9%（差 0.0pp）；持有 1 天 97%"
+  - id: LFK-05
+    category: 仓位
+    rule: 满仓单票，卖出后很快换入下一只
+    quote: 由于本人习惯满仓一股
+    source: text/Linsanity（林疯狂）交割单2016.md#page-20
+    evidence: 原文
+    codable: true
+    signal: "单票仓位 = 100%（偶尔 2 只各半）；T+1 卖出后同日买入新标的"
+    data_check: "一致：同时持仓中位 1 只、最多 2 只；有建仓的交易日平均新开 1.09 段"
+  - id: LFK-06
+    category: 环境
+    rule: 不做大盘择时，只回避连续暴跌的系统性风险
+    quote: 只要不出现连续暴跌的系统性风险，市场还是有操作的机会的
+    source: text/Linsanity（林疯狂）交割单2016.md#page-35
+    evidence: 原文
+    codable: true
+    signal: "仅当 上证连续 ≥ 2 日跌幅 > 3% 或 跌停家数 > 500 → 空仓；其余时间满仓轮动"
+    data_check: "一致但有代价：2016-07 中旬无事前空仓 → '两个星期爆亏 80 多万'（#page-73），被迫空仓"
+  - id: LFK-07
+    category: 买点
+    rule: 行情好时敢追涨；做低吸也只做牛股回调（牛回头）
+    quote: 行情向好的时候的确要敢于追涨，低吸的话也要偏向于牛回头
+    source: text/Linsanity（林疯狂）交割单2016.md#page-42
+    evidence: 原文
+    codable: true
+    signal: "低吸候选 = 近 20 日涨幅 > 30% 的强势股回调至距 20 日高点 -5%~-15% 且 首笔买价 < T-1 收盘"
+    data_check: "低吸段仅 8 段（22.2%），胜率 50%、PF 1.13、占净利 4.9%：低吸不是他的利润来源"
+  - id: LFK-08
+    category: 买点
+    rule: （二手）大多在 4 个点以内低吸，以涨 1 个点左右买为主，4~10 个点极少买，基本不打半路板
+    quote: 大多4个点之内低吸，其中又以涨到1个点左右时买点多……4个点一10点之间极少买股
+    source: text/58位·上册·第22章.md#page-242
+    evidence: 二手
+    codable: true
+    signal: "首笔买价/T-1 收盘 - 1 ∈ [-4%, +4%)，众数在 +1% 附近"
+    data_check: "冲突：r_buy < 4% 占 63.9%，0~2% 仅 22.2%，4%~9.9% 占 33.3%（12/36）；r_buy 中位 +2.9%"
+  - id: LFK-09
+    category: 选股
+    rule: 连板股开板后做首阴/上影线反包/龙回头
+    quote: 连续涨停的股票，会在开板后做首阴或者上影反包，或者龙回头
+    source: text/林疯狂交割单图文解读-9个月10倍.md#page-21
+    evidence: 二手
+    codable: true
+    signal: "近 10 日连板 ≥ 3 且 T-1 收阴（首阴）或 T-1 上影线 ≥ 实体 2 倍 → T 日分时转强时买"
+    data_check: "部分：近 10 日涨停中位 1 个，连板 ≥ 3 的反包段占少数（图文解读#page-19 的泸天化案例不在成交统计内），主体仍是普通强势股半路"
+  - id: LFK-10
+    category: 空仓
+    rule: 回撤超出承受范围就关账户休息（事后熔断，非事前规则）
+    quote: 回测超过承受范围，关账户，休息
+    source: text/Linsanity（林疯狂）交割单2016.md#page-81
+    evidence: 原文
+    codable: true
+    signal: "账户自近 20 日峰值回撤 > 20% → 停止交易 ≥ 5 个交易日"
+    data_check: "部分一致：07-19 至 08-10 无新开仓段（08-02 帖子仍持新海股份，未进成交统计）；但 7 月回撤在成交统计中仅 -10.8 万（覆盖不全）"
+  - id: LFK-11
+    category: 心态
+    rule: 买入机会、卖出风险，胜负交给概率（引养家）
+    quote: 买入机会，卖出风险，只做对的交易，胜负交给概率
+    source: text/58位·上册·第22章.md#page-243
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "与胜率 52.8%、PF 2.09 的低胜率高赔率结构相符"
+  - id: LFK-12
+    category: 环境
+    rule: 市场大热时偏谨慎
+    quote: 大热的时候就偏谨慎一点
+    source: text/Linsanity（林疯狂）交割单2016.md#page-30
+    evidence: 原文
+    codable: true
+    signal: "大热 = 涨停家数 5 日均值处于近 120 日最高 10% → 仓位减半（他本人未给阈值，为本笔记假设）"
+    data_check: "无法检验"

@@ -1,0 +1,159 @@
+person: 一瞬流光
+rules:
+  - id: YSLG-01
+    category: 环境
+    rule: 主升段死磕龙头，退潮期空仓
+    quote: 每波行情，只要是躲过退潮……主升死磕龙头，退潮空仓
+    source: "text/90后游资一瞬流光 2.5年14倍收益 实盘交割单（三）详细图解.md#page-177"
+    evidence: 原文
+    codable: true
+    signal: 「主升：T-1 涨停家数 ≥ 50 且 最高连板 ≥ 5 且 T-1 连板股次日平均溢价 > 0 → 允许开仓；退潮：最高连板股 T-1 跌停或高位股（≥4 板）T-1 平均跌幅 ≤ -5% 且 跌停家数 ≥ 20 → 空仓」（阈值待标定）
+    data_check: 待 trades/ 生成
+  - id: YSLG-02
+    category: 买点
+    rule: 主升段只做市场最高标；退潮时每个反弹也只做最高
+    quote: 主升无脑最高，退潮的话，每一个反弹可做最高
+    source: "text/一瞬流光2019年实盘交割单：从500W开始.md#page-1"
+    evidence: 原文
+    codable: true
+    signal: 「候选 = T-1 连板数最高的个股（并列取成交额最大）；首笔买价 = 涨停价 或 T 日分时转强」
+  - id: YSLG-03
+    category: 买点
+    rule: 满仓打板须三点共振——指数单边上涨、板块随指数同步启动为当日核心、个股为板块人气容量核心
+    quote: 第一，指数大势，单边上涨，第二，板块随指数同步启动为当日核心板块，第三，个股为板块内人气容量核心
+    source: "text/一瞬流光 2.5年14倍收益 实盘交割单（四）2021年部分.md#page-262"
+    evidence: 原文
+    codable: true
+    signal: 「指数 MA5 > MA10 > MA20 且 T 日指数涨幅 > 0.5%；所属板块 T 日涨停家数排名第 1；个股 T 日成交额为板块第 1 → 允许满仓打板，否则仓位 ≤ 1/2」
+  - id: YSLG-04
+    category: 买点
+    rule: 接力选手只在把握大于 80% 时出手，否则空仓
+    quote: 真正值得接力选手出手的情况一定要心中大于百分之八十的把握
+    source: "text/一瞬流光实盘交割单（二）2019年11月重新开始实盘.md#page-27"
+    evidence: 原文
+    codable: false
+  - id: YSLG-05
+    category: 选股
+    rule: 只做龙头/最核心人气股，杂毛弱转强是大面来源
+    quote: 永远只看龙头，少看杂毛弱转强，这是大面源泉
+    source: text/58位·中册·第21章.md#page-206
+    evidence: 二手
+    codable: true
+    signal: 「排除：T-1 非涨停 且 非所属板块连板最高/成交额第一 的弱转强（T 日高开 ≥ 3%）买入」
+  - id: YSLG-06
+    category: 选股
+    rule: 跟风只在当日最主流题材或新题材首发时做；龙头分歧时不做跟风
+    quote: 第一种情况，就是每日的最主流的题材。第二种情况，新题材首发，先上车再补票
+    source: "text/一瞬流光实盘交割单（二）2019年11月重新开始实盘.md#page-126"
+    evidence: 原文
+    codable: true
+    signal: 「跟风允许 ⇔ 板块 T 日涨停家数排名第 1 或 板块近 20 日首次涨停家数 ≥ 5；且 龙头 T 日非炸板/非收阴」
+  - id: YSLG-07
+    category: 买点
+    rule: 退潮期禁做上一周期老票的弱转强
+    quote: 退潮要买弱……大忌是老周期的弱转强，往往是爆亏根源
+    source: "text/90后游资一瞬流光 2.5年14倍收益 实盘交割单（三）详细图解.md#page-177"
+    evidence: 原文
+    codable: true
+    signal: 「退潮态（见 YSLG-01）下，禁止买入：近 20 日最高连板 ≥ 4 且 已断板 的个股 T 日高开 ≥ 3%」
+  - id: YSLG-08
+    category: 买点
+    rule: 量能大的趋势股打板需要指数配合
+    quote: 趋势股打板也十分看中情绪。量能偏大的趋势股打板需要指数配合
+    source: "text/90后游资一瞬流光 2.5年14倍收益 实盘交割单（三）详细图解.md#page-178"
+    evidence: 原文
+    codable: true
+    signal: 「个股 T 日成交额 ≥ 20 亿 且 首笔买价 = 涨停价 → 要求指数 T 日涨幅 > 0 且 收于 MA20 上方」
+  - id: YSLG-09
+    category: 买点
+    rule: 买分歧卖一致，主升未完时龙头的分歧日是好买点
+    quote: 买入分歧，卖出一致……我喜欢分歧买点，给人思考更多，更从容
+    source: "text/90后游资一瞬流光 2.5年14倍收益 实盘交割单（三）详细图解.md#page-295"
+    evidence: 原文
+    codable: true
+    signal: 「龙头连板 ≥ 3 后 T 日换手率 ≥ T-1×1.5 且 收盘仍涨停或振幅 ≥ 10% → 分歧日；分歧日买，次一字/缩量加速日卖」
+  - id: YSLG-10
+    category: 买点
+    rule: 龙头阴跌后在 30 日线附近一根直线拉板的反抽板，非氛围主升期不买
+    quote: 第一，位置，三十日附近的反抽……第二，几乎一根直线打上去……第三，又不是氛围主升期
+    source: "text/一瞬流光 2.5年14倍收益 实盘交割单（四）2021年部分.md#page-263"
+    evidence: 原文
+    codable: true
+    signal: 「近 30 日最高点回撤 ≥ 25% 且 T 日最低 ≤ MA30×1.03 且 T 日涨停 → 标记反抽板，非主升态禁止买入」
+  - id: YSLG-11
+    category: 买点
+    rule: 衰退期承受龙头负反馈的反包板不买，若买次日开盘即卖
+    quote: 那个反包，我不太会买，就算买，第二天开盘就是卖出点
+    source: text/58位·中册·第21章.md#page-209
+    evidence: 二手
+    codable: false
+  - id: YSLG-12
+    category: 仓位
+    rule: 小资金同时最多 2 只，特别看好就集中 1 只
+    quote: 分两个票，特别看好就一个
+    source: "text/一瞬流光 2.5年14倍收益 实盘交割单（四）2021年部分.md#page-209"
+    evidence: 原文
+    codable: true
+    signal: 「同时持仓 ≤ 2 只」
+  - id: YSLG-13
+    category: 止损
+    rule: 一笔归一笔，先处理好手上持仓再开新仓
+    quote: 短线原则是先处理好手上的票……短线切记，卖好再买，一笔归一笔
+    source: "text/一瞬流光2019年实盘交割单：从500W开始.md#page-40"
+    evidence: 原文
+    codable: true
+    signal: 「T 日新开仓的前提：已有持仓 T 日已卖出 或 已有持仓 T 日涨停封住」
+  - id: YSLG-14
+    category: 止损
+    rule: 手风不顺时不长持，次日有盈利就走；回血后等舒服买点，账户新高后再格局
+    quote: 在手风不顺的时候，尽量别持股。第二天赚钱走，不管是否卖飞
+    source: "text/一瞬流光 2.5年14倍收益 实盘交割单（四）2021年部分.md#page-264"
+    evidence: 原文
+    codable: true
+    signal: 「账户净值 < 近 20 日最高 × 0.9 → 持有上限 1 天、T+1 浮盈 > 0 即卖；净值创新高后恢复正常持有」
+  - id: YSLG-15
+    category: 仓位
+    rule: 大亏后收缩战线、分仓，直到账户赚回新高
+    quote: 开始收缩战线。分仓赚到新高再说了
+    source: "text/90后游资一瞬流光 2.5年14倍收益 实盘交割单（三）详细图解.md#page-108"
+    evidence: 原文
+    codable: true
+    signal: 「单日账户亏损 ≥ 10% → 单只仓位上限降至 1/3，直至净值创新高」
+  - id: YSLG-16
+    category: 空仓
+    rule: 下跌（亏钱）周期空仓，只用小仓位试仓感受冷暖
+    quote: 空仓应对下跌是最明智之举。但是呢，如果不小仓位去感受下行情的冷暖也会让自己思维钝化
+    source: text/58位·中册·第21章.md#page-211
+    evidence: 二手
+    codable: true
+    signal: 「退潮态（YSLG-01）下总仓位 ≤ 10%」
+  - id: YSLG-17
+    category: 卖点
+    rule: 隔日卖出要么早盘快走，要么格局到尾盘，不在盘中来回
+    quote: 要不就隔日快点走，要不就格局到尾盘，否则两边打脸
+    source: "text/90后游资一瞬流光 2.5年14倍收益 实盘交割单（三）详细图解.md#page-100"
+    evidence: 原文
+    codable: true
+    signal: 「T+1 卖出时间 ∈ [09:30, 10:00] 或 [14:30, 15:00]；若 T+1 开盘 < 前收则 09:30-10:00 卖出」
+  - id: YSLG-18
+    category: 卖点
+    rule: 情绪转强时进、市场高潮时出（2022 版表述）
+    quote: 情绪转强的时候你进，大家高潮的时候你就出了，每一次转强的时候进，高潮的时候出
+    source: text/一瞬流光最新语录2022.md
+    evidence: 原文
+    codable: true
+    signal: 「涨停家数 5 日均值上穿 20 日均值 → 进；涨停家数 ≥ 近 60 日 90 分位 且 最高连板创新高 → 出」
+  - id: YSLG-19
+    category: 仓位
+    rule: 重仓要有 30 个点以上的利润空间预期
+    quote: 大仓位 30 个点以上的肉，就算合格
+    source: "text/一瞬流光 2.5年14倍收益 实盘交割单（四）2021年部分.md#page-73"
+    evidence: 原文
+    codable: false
+  - id: YSLG-20
+    category: 心态
+    rule: 不研究新打法，坚持错题集，只做能力圈内模式
+    quote: 坚持做错题集，做到行动一致。不研究新打法
+    source: text/58位·中册·第21章.md#page-207
+    evidence: 二手
+    codable: false

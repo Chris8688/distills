@@ -1,0 +1,80 @@
+person: 彭道富
+data_note: 仅 58位·中册·第16章（二手）；无战绩、无交割单；身份为《龙头信仰》作者
+rules:
+  - id: PDF-01
+    category: 选股
+    rule: 只在确定性行情与确定性题材中操作其中的龙头股
+    quote: 选择相对确定性的行情、确定性的题材，然后再操作其中最安全、最暴利的股票，这个…就是龙头股
+    source: text/58位·中册·第16章.md#page-169
+    evidence: 二手
+    codable: false
+  - id: PDF-02
+    category: 买点
+    rule: 做龙头不等于追涨打板；位置已很高宁愿放弃
+    quote: 做龙头绝不等于追涨、绝不等于打板…如果位置已经很高，宁愿失去它也不要盲目追高
+    source: text/58位·中册·第16章.md#page-171
+    evidence: 二手
+    codable: true
+    signal: 「龙头候选 近 10 日涨幅 ≥ 60% 或 连板 ≥ 5 → 不追；只在回踩 MA5/MA10 且缩量时买」（位置阈值待标定）
+  - id: PDF-03
+    category: 空仓
+    rule: 市场没有龙头就说明不值得做，主动放弃
+    quote: 如果市场没有龙头，说明市场是不值得做，应该主动放弃一切小的诱惑
+    source: text/58位·中册·第16章.md#page-171
+    evidence: 二手
+    codable: true
+    signal: 「T-1 全市场最高连板 ≤ 2 且 无单一概念涨停 ≥ 5 家」→ 无龙头，空仓
+  - id: PDF-04
+    category: 止损
+    rule: 亏损达到总资金 5% 无条件止损
+    quote: 亏损额度达到总资金的5%，无论任何理由和借口，都无条件止损
+    source: text/58位·中册·第16章.md#page-169
+    evidence: 二手
+    codable: true
+    signal: 「单笔浮亏 ≥ 账户权益 5% → 全部卖出」
+  - id: PDF-05
+    category: 止损
+    rule: 个股亏损超过 30% 无条件止损
+    quote: 个股亏损额超过30%，无论任何理由和借口，无条件止损
+    source: text/58位·中册·第16章.md#page-169
+    evidence: 二手
+    codable: true
+    signal: 「持仓收益 ≤ -30% → 全部卖出」
+  - id: PDF-06
+    category: 止损
+    rule: 时间止损与理由止损：长时间无行情、买入理由消失/被澄清时逐步止损
+    quote: 时间止损，买入后长时间没有行情，逐步止损；买股的理由不存在了…被澄清，逐步止损
+    source: text/58位·中册·第16章.md#page-169
+    evidence: 二手
+    codable: true
+    signal: 「持有 ≥ N 日 且 期间最高收益 < 5% → 每日减 1/3」；澄清公告 → 次日减仓
+  - id: PDF-07
+    category: 止损
+    rule: 止损与再买入是两笔独立操作，止损后反弹就再买回
+    quote: 止损是一回事，再买入是另外一回事，它们是两个独立的逻辑
+    source: text/58位·中册·第16章.md#page-169
+    evidence: 二手
+    codable: false
+  - id: PDF-08
+    category: 环境
+    rule: 反对抄底式抢反弹，只在市场"发出邀请"的大行情中交易
+    quote: 我是旗帜鮮明地反对抢反弹的…不要强行做交易，要耐心等待市场发给你邀请函
+    source: text/58位·中册·第16章.md#page-170
+    evidence: 二手
+    codable: false
+  - id: PDF-09
+    category: 环境
+    rule: 龙头倒下时其他股票都不安全
+    quote: 固守龙头，是最好的风险控制，如果龙头倒了，其他股票都不会安全
+    source: text/58位·中册·第16章.md#page-171
+    evidence: 二手
+    codable: true
+    signal: 「主线龙头 T 日跌停或跌幅 ≤ -7% → 同概念持仓次日全部减仓」
+  - id: PDF-10
+    category: 环境
+    rule: 暴跌前兆：牛市逻辑动摇、龙头被扼杀、利好频出股价不涨、高位莫名大幅跳水
+    quote: 第二，龙头股被扼杀。第三，利好频繁出现，股价反而不涨
+    source: text/58位·中册·第16章.md#page-174
+    evidence: 二手
+    codable: true
+    signal: 「最高连板股连续 2 日跌停（龙头被扼杀）」或「指数 5 日涨幅 > 0 而 涨停家数 5 日均值下降 30%」→ 风险预警

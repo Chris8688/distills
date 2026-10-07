@@ -1,0 +1,137 @@
+person: 太牛啦
+rules:
+  - id: TNL-01
+    category: 选股
+    rule: 只做主流大题材的龙头，按地位区分总龙/日内龙/补涨龙
+    quote: 有没有主流板块，只有主流题材大才有想象力，才能有预期
+    source: text/④太牛啦近期交割单拆解.md#page-5
+    evidence: 原文
+    codable: true
+    signal: 主流 = 近 5 日涨停家数最多的概念；总龙 = 主流内连板最高者
+    data_check: 方向一致：T-1 四板+ 4 段胜率 75%、PF 30.26、次日开盘溢价 +6.3%；首板 PF 0.39、二板 PF 0.06
+  - id: TNL-02
+    category: 选股
+    rule: 龙头 4 板以前交易机会不大，一波涨幅不到 5 个板的不做
+    quote: 龙头一般在 4 板以前交易性机会都不大，所以那种一波涨幅连五个板都没有的票，我们一般是不做的
+    source: text/④太牛啦近期交割单拆解.md#page-6
+    evidence: 原文
+    codable: true
+    signal: 买入股 本波（近 15 日）累计涨停数 ≥ 5，或 T-1 连板 ≥ 4
+    data_check: 冲突：41 段中 32 段（78%）T-1 未涨停，T-1 连板≥4 仅 4 段（该语录 2023-10，trades 截止 2023-08，时间不重合）
+  - id: TNL-03
+    category: 选股
+    rule: 题材主升（连板梯队良好、板块赚钱效应高）时直接买总龙
+    quote: 题材主升的时候，比如连板梯队良好，板块赚钱效应高的时候…主升的时候就买这个就行了
+    source: text/④太牛啦近期交割单拆解.md#page-6
+    evidence: 原文
+    codable: true
+    signal: 主流板块 T-1 同时存在 1/2/3 板及以上梯队 且 板块涨停数 ≥ 5 → 主升；买入板块最高标
+    data_check: 无法检验（无概念映射）
+  - id: TNL-04
+    category: 空仓
+    rule: 极限负反馈期控仓，等强势股不再出现 10%+ 大跌或地板时才试错
+    quote: 极限负反馈还在，控仓为主。等什么时候强势票不出现 10 多个点跌幅甚至地板，才好去试错
+    source: text/④太牛啦近期交割单拆解.md#page-23
+    evidence: 原文
+    codable: true
+    signal: 强势池 = T-1 及之前 5 日内涨停过的股；若 T 日强势池中有 ≥1 只跌幅 ≤ -10%（20cm 板 ≤ -15%）或跌停 → 负反馈，仓位 ≤ 30%；连续 2 日无 → 恢复
+    data_check: 无法检验（需全市场强势池）
+  - id: TNL-05
+    category: 选股
+    rule: 退潮期不碰中位股和次高位
+    quote: 我知道中位股，次高位在退潮期是要吃最贵的面
+    source: text/④太牛啦近期交割单拆解.md#page-26
+    evidence: 原文
+    codable: true
+    signal: 退潮 = 最高连板高度较 5 日前下降 且 昨日涨停股今日平均收益 < 0；退潮期禁止买入 T-1 连板 2-4 或板块内第 2 高位股
+    data_check: 冲突：最大亏损段联特科技 2023-06-29 平盘买入（CPO 高位分歧后），持 2 日 -16.3%、-23.8 万，独占 2023-07 全月亏损
+  - id: TNL-06
+    category: 环境
+    rule: 题材轮动无合力时，只分仓试错或等新主流
+    quote: 日内题材到处轮动，却始终不能形成合力。除了分仓试错，就只能等新主流出现
+    source: text/⑤参考：交易战法.md#page-14
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无法检验
+  - id: TNL-07
+    category: 买点
+    rule: 早盘分时突破/右侧高开买入，快涨停时扫板
+    quote: 喜欢买右侧高开的票，重分时上的势，快要涨停时会扫板买入
+    source: text/②2023年3月-6月太牛啦交割单重点拆解.md#page-48
+    evidence: 二手
+    codable: true
+    signal: 首笔买价相对 T-1 收盘 +3%~+涨停价之间（半路）且 成交时间 09:30-10:00
+    data_check: 一致：半路 46.3% 段数、胜率 68.4%、PF 2.41、净 +11.8 万，是唯一净赚的买点类型；建仓 09:30-10:00 占有时间段的 54%
+  - id: TNL-08
+    category: 买点
+    rule: 竞价/开盘该跌不跌即为高预期
+    quote: 反人性的竞价买点，当天开盘不跌停就是高预期
+    source: text/②2023年3月-6月太牛啦交割单重点拆解.md#page-4
+    evidence: 二手
+    codable: true
+    signal: T-1 跌幅 ≤ -7% 的主线股，T 日开盘 > 跌停价 且 09:30-09:35 内翻红 → 买入
+    data_check: 竞价买点仅 1 段（2.4%），样本不足
+  - id: TNL-09
+    category: 卖点
+    rule: 次日不及预期，低开即走
+    quote: 昨收不及预期，今日低开就止损了
+    source: text/②2023年3月-6月太牛啦交割单重点拆解.md#page-6
+    evidence: 二手
+    codable: true
+    signal: 持仓 T+1 开盘 < T 收盘 → 开盘卖出
+    data_check: 一致：持有中位 1 日，1 日 73.2%、2 日 17.1%
+  - id: TNL-10
+    category: 卖点
+    rule: 主线龙头主升期反复做 T、格局持有
+    quote: 紧紧围绕市场核心主线热点题材+龙头股反复格局做
+    source: text/③太牛啦2023.9月交割单拆解.md#page-8
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验（2023-09 以后不在 trades/ 内）；trades/ 中 >10 日持有仅 2.4%
+  - id: TNL-11
+    category: 买点
+    rule: 首阴战法——跟风股/主线趋势股近 3 日首阴且不破 5 日线时买，不用于龙头和补涨
+    quote: 近 3 日首次阴跌，但不跌破 5 日均线；不可用于龙头股…不可用于补涨股
+    source: text/⑤参考：交易战法.md#page-3
+    evidence: 二手
+    codable: true
+    signal: 多头排列（MA5>MA10>MA20）且 T-2、T-1 无涨停 且 近 3 日首次收阴 且 收盘 ≥ MA5 → T 日尾盘买；T+1 有利润即卖；收盘 < MA5 止损
+    data_check: 低吸类 4 段胜率 0%、净 -3.5 万（不能区分是否首阴）
+  - id: TNL-12
+    category: 买点
+    rule: 弱转强——高开但 <5%，盘中不回水下即买
+    quote: 要高开，但开盘涨幅要小于 5%；盘中不回踩水下，即可买入
+    source: text/⑤参考：交易战法.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 0 < 开盘涨幅 < 5% 且 开盘后 15 分钟最低价 ≥ T-1 收盘 → 买（需分钟线）
+    data_check: 无法检验（无分钟数据）
+  - id: TNL-13
+    category: 止损
+    rule: 跌破 5 日均线止损；未破且未给利润则模式内持有
+    quote: 关于止损：跌破 5 日均线止损…没跌破 5 日均线，就模式内持仓
+    source: text/⑤参考：交易战法.md#page-3
+    evidence: 二手
+    codable: true
+    signal: 持仓收盘 < MA5 → 次日开盘卖
+    data_check: 无法检验（需逐段对齐 MA5）；最差段 -16.3% 远超常规破 5 日线幅度
+  - id: TNL-14
+    category: 仓位
+    rule: 没有中长期稳定收益曲线时，本金降到 20% 以下
+    quote: 没有中长期的稳定收益曲线，把本金降到 20%以下玩，直到有稳定的收益曲线充值干
+    source: text/④太牛啦近期交割单拆解.md#page-25
+    evidence: 原文
+    codable: true
+    signal: 近 6 个月中亏损月 ≥ 2 → 交易本金 ≤ 总资金 20%
+    data_check: 无法检验
+  - id: TNL-15
+    category: 仓位
+    rule: 赚了逐步取出本金，不投身家、不加杠杆
+    quote: 赚了要逐步取出本金…一定不要投入身家炒股，不要杠杆炒股
+    source: text/④太牛啦近期交割单拆解.md#page-34
+    evidence: 原文
+    codable: true
+    signal: 账户权益超过初始本金 N 倍时转出超额部分
+    data_check: 本人播报显示 2023-10 ~ 11 累计转出 378 万（④#page-20），无流水核实

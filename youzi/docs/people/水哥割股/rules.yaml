@@ -1,0 +1,156 @@
+person: 水哥割股
+period_trades: 2023-01-04 ~ 2023-10-09（272 段，原始成交 xls+csv）
+rules:
+  - id: SG-01
+    category: 选股
+    rule: 主线不明确时，盯消息催化的板块，买板块内第一个异动的个股；主线明确时做主线核心股
+    quote: 主线不明确，看消息面，半路板块内第一个异动的个股；主线明确的时候，做主线的核心股
+    source: text/58位·下册·第10章.md#page-147
+    evidence: 二手
+    codable: false
+    signal: 需分钟级板块异动排序（同板块当日首个涨速>3%/3min 的股），日线不可算
+    data_check: 无法检验（无分钟数据）
+  - id: SG-02
+    category: 选股
+    rule: 新事件/新题材的前排票优先（容易得到溢价）
+    quote: 一般新事件的前排容易得到溢价
+    source: text/水哥割股100W-900W.md#page-14
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无法检验
+  - id: SG-03
+    category: 买点
+    rule: 半路买入的目的就是赌当日封板；半路段的盈亏取决于当天是否封板
+    quote: 不管半路还是打板还是低吸……我买的时候当然是看他板啊
+    source: text/水哥割股100W-900W.md#page-137
+    evidence: 原文
+    codable: true
+    signal: 3% ≤ (首笔买价/T-1收盘 - 1) < 涨停幅度 且 买价 < 涨停价 → 半路；结果 = T 日收盘 == 涨停价
+    data_check: 一致——半路 151 段当日封板 42%，封板段胜率 79.7% vs 未封 32.2%
+  - id: SG-04
+    category: 买点
+    rule: 买在分歧，不买加速后的票
+    quote: 反正股票加速之后，我不喜欢买
+    source: text/58位·下册·第10章.md#page-160
+    evidence: 二手
+    codable: true
+    signal: 加速 ≈ T-1 收盘 / T-6 收盘 - 1 > 20% → 回避
+    data_check: 方向一致——前5日涨幅 ≤10% 的 157 段 PF 2.4~2.8（净 587 万）；>20% 的 49 段 PF≈1.0~1.5（净 34 万），但他仍做了 18% 这类段
+  - id: SG-05
+    category: 买点
+    rule: 2023 年单波打板难度高，基本不打板
+    quote: 这行情打板等于自焚
+    source: text/水哥割股100W-900W.md#page-31
+    evidence: 原文
+    codable: true
+    signal: 首笔买价 ≥ 涨停价-0.01 → 打板
+    data_check: 一致——打板仅 5 段（1.8%），胜率 20%，PF 0.03，净 -57 万
+  - id: SG-06
+    category: 买点
+    rule: 破局股/二波比第一波更有一致性，二波可上仓位
+    quote: 我们要做吃第二只螃蟹的人，因为吃第一只螃蟹会很痛苦
+    source: text/58位·下册·第10章.md#page-158
+    evidence: 二手
+    codable: true
+    signal: T-10..T-1 内有 ≥1 个涨停收盘 → 二波候选
+    data_check: 冲突——前10日有板 104 段 PF 1.42 < 无板 168 段 PF 1.94；最大单笔（浙江世宝、捷荣技术）虽是二波，但整体不占优
+  - id: SG-07
+    category: 仓位
+    rule: 顺时大部分时间满仓，不顺降到半仓左右（自承常管不住手）
+    quote: 不是很顺，那就半仓左右，但经常管不住手，盘中很容易满仓
+    source: text/58位·下册·第10章.md#page-157
+    evidence: 二手
+    codable: true
+    signal: 过夜敞口/权益 ≥0.9 → 满仓；<0.6 → 降仓
+    data_check: 「满仓」一致、「降仓」基本冲突——粗略权益口径下敞口中位 0.99，77.5% 交易日 ≥0.9，仅 13% <0.6；连亏 2 段后下一段规模 1.03 倍（不减）
+  - id: SG-08
+    category: 仓位
+    rule: 小资金（几千万以下）按性价比集中，不分仓
+    quote: 性价比越高越不用分仓，我个人觉得在几千万前，都是小资金
+    source: text/水哥割股100W-900W.md#page-129
+    evidence: 原文
+    codable: true
+    signal: 单只占过夜敞口比例
+    data_check: 一致——过夜持仓中位 2 只、最多 6 只，最大一只占过夜敞口中位 70%
+  - id: SG-09
+    category: 卖点
+    rule: 短线票（非趋势大票、非绝对龙头）不连板就卖；趋势大票允许回踩 20 日线一次
+    quote: 对短线而言，除了趋势大票和绝对的龙头股，我基本不连板就卖掉
+    source: text/58位·下册·第10章.md#page-160
+    evidence: 二手
+    codable: true
+    signal: 持有中 T 日收盘 ≠ 涨停价 → T+1 卖出；（大票例外：收盘 < MA20 才卖）
+    data_check: 基本一致——T+1 未封板 237 段中 85% 在 T+1 卖出；T+1 封板 32 段中 56% 继续持有
+  - id: SG-10
+    category: 止损
+    rule: 普通票跌到约 -5% 且盘面无转强迹象即止损（预期低吸的票除外）
+    quote: 正常的票它跌到-5，盘面没有走强的迹象，我就会出掉了
+    source: text/58位·下册·第10章.md#page-157
+    evidence: 二手
+    codable: true
+    signal: 持仓浮亏 ≤ -5%（T+1 起可执行）→ 卖出
+    data_check: 基本一致——亏损段中位 -3.8%、p10 -8.5%、最差 -15.4%；亏损段 84% 在 T+1 了结、72% 在 10:00 前卖出；超过 -5% 的尾部多来自隔夜跳空
+  - id: SG-11
+    category: 空仓
+    rule: 账户第一次回撤可容忍，第二天再出手再亏 = 进入自己的退潮期，应停手
+    quote: 账户可以允许第一次回撤，但是第二天如果继续出手继续亏，那证明对你而言已经进入退潮了
+    source: text/58位·下册·第10章.md#page-153
+    evidence: 二手
+    codable: true
+    signal: 连续 2 个平仓日净亏 → 次日起空仓/降仓直到出现转暖信号
+    data_check: 冲突——连亏2段后下一段规模不减（1.03 倍），平仓到再建仓间隔中位 0 天，大亏(<-7%)后空仓间隔中位 0 天
+  - id: SG-12
+    category: 环境
+    rule: 缩量退潮期等待转暖信号；轮动行情跟随优先于预判
+    quote: 极低的量能、情绪冰点，不会持续太久。总的策略是，等待转暖的信号
+    source: text/水哥割股：每日复盘总结.md#page-33
+    evidence: 原文
+    codable: true
+    signal: 两市成交额 < 8000 亿 且 连板晋级率低 → 退潮/冰点
+    data_check: 多数冲突——复盘写「轻仓」「再等等」「等转暖」的 05-23、06-05、07-19/20，敞口仍 0.91~0.98；只有 07-17「只开了1/3仓位」兑现（敞口 0.33）
+  - id: SG-13
+    category: 环境
+    rule: 指数与短线情绪是跷跷板：大票/权重放量时短线资金被分流，指数恐慌后情绪才有高潮
+    quote: 从上文所说指数和情绪跷跷板的角度讲，指数没有恐慌，情绪就没有高潮
+    source: text/水哥割股：每日复盘总结.md#page-10
+    evidence: 原文
+    codable: false
+    signal: 待核（需全市场涨停池与指数数据）
+    data_check: 无法检验
+  - id: SG-14
+    category: 心态
+    rule: 不上杠杆、不用融资
+    quote: 我不用融资账户，因为我爆过仓破过产
+    source: text/58位·下册·第10章.md#page-152
+    evidence: 二手
+    codable: true
+    signal: 成交操作字段不含「融资买入」
+    data_check: 一致——2023 原始成交无融资
+  - id: SG-15
+    category: 买点
+    rule: 半路首笔买价：10cm 在 +3.4%~+8.7%（中位 5.8%），20cm 在 +4.4%~+16.6%（中位 10.5%）；涨幅占涨停幅度 60-80% 的区间是负期望，40-60% 或 >80%（临封）最好
+    quote: ""
+    source: trades/episodes_enriched.csv
+    evidence: 实盘反推
+    codable: true
+    signal: r_norm = r_buy / 涨停幅度；r_norm∈(0.6,0.8] → 回避
+    data_check: r_norm 0-0.4 PF1.16 / 0.4-0.6 PF2.09 / 0.6-0.8 PF0.91 / 0.8-1.0 PF5.04（胜率73%）
+  - id: SG-16
+    category: 卖点
+    rule: 盈利段拿得久、亏损段 T+1 就走；持有 ≥3 天的段很少但贡献大头利润
+    quote: ""
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 持有天数分布；≥3 天段占比与占净利
+    data_check: 持有 ≥3 天的段占 6.2%，贡献净利 41%（PF 4.31）；1 天段 PF 1.26；亏损段 84% 一天了结
+  - id: SG-17
+    category: 买点
+    rule: 尾盘（14:30 后）建仓是负期望，买点集中在 09:35-11:30
+    quote: ""
+    source: trades/episodes_enriched.csv
+    evidence: 实盘反推
+    codable: true
+    signal: 首笔时间 ≥14:30 → 回避
+    data_check: 14:30 后建仓 10 段 PF 0.18、净 -59 万；09:35-10:00 86 段 PF 1.94、净 289 万

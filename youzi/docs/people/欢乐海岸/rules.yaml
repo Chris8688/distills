@@ -1,0 +1,48 @@
+person: 欢乐海岸
+# 唯一语料为 58位·中册·第24章（编者据龙虎榜描述的「营业部风格」，非本人原话）；无 trades/
+rules:
+  - id: HL-01
+    category: 选股
+    rule: 只做当下最强人气总龙头，介入多在 3 板以上
+    quote: 介入的位置，一般都是高位板，多数都是3板以上，极少数涉及首板的
+    source: text/58位·中册·第24章.md#page-224
+    evidence: 二手
+    codable: true
+    signal: "买入日 T-1 连板数 ≥3 且 该股为当日市场最高板或次高板"
+    data_check: 无法检验（需龙虎榜席位数据）
+  - id: HL-02
+    category: 买点
+    rule: 分歧时大笔买入，把分歧买成一致
+    quote: 在个股出现分歧时，大笔买入，将分歧买出一致，进行造妖
+    source: text/58位·中册·第24章.md#page-225
+    evidence: 二手
+    codable: true
+    signal: "分歧日 = 高位龙头当日盘中开板≥1 次后回封（烂板）或 换手率 ≥ 前 3 日均值×1.5；分歧日买入"
+    data_check: 无法检验
+  - id: HL-03
+    category: 卖点
+    rule: 形成强势跟风后锁仓至破位；首阴不急出
+    quote: 即使当天出现首阴，欢乐海岸隔日也不会急于出货
+    source: text/58位·中册·第24章.md#page-225
+    evidence: 二手
+    codable: true
+    signal: "首阴（连板后首个收阴）不卖；用 HL-04 出场"
+    data_check: 无法检验
+  - id: HL-04
+    category: 卖点
+    rule: 停牌核查复牌冲高卖，或确认跌破 5 日线卖
+    quote: 停牌核查后复牌冲高时卖出，或者确认跌破5日线时卖出
+    source: text/58位·中册·第24章.md#page-225
+    evidence: 二手
+    codable: true
+    signal: "收盘 < MA5 连续 2 日（『确认』，待校准）→ 卖；复牌日盘中冲高卖"
+    data_check: 无法检验
+  - id: HL-05
+    category: 选股
+    rule: 烂板出妖股：烂板换手充分、抛压小，分歧转一致后加速（编者推理）
+    quote: 为什么说烂板出妖股，因为烂板换手充分，抛压小
+    source: text/58位·中册·第24章.md#page-225
+    evidence: 二手
+    codable: true
+    signal: "T 日烂板（开板后回封）且 T+1 一字或秒板 → 『分歧转一致』"
+    data_check: 无法检验

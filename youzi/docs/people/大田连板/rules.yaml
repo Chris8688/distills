@@ -1,0 +1,88 @@
+person: 大田连板
+data_note: 仅 58位·中册·第10章（二手）；身份不明，无战绩、无交割单
+rules:
+  - id: DTLB-01
+    category: 选股
+    rule: 20 日线方向向下的股票不参与
+    quote: 20日线方向往下的股均不参与
+    source: text/58位·中册·第10章.md#page-118
+    evidence: 二手
+    codable: true
+    signal: 「MA20(T) < MA20(T-1) → 排除」
+  - id: DTLB-02
+    category: 选股
+    rule: 非主升、洗盘整理阶段、未筑底、K 线涨跌无序的不参与
+    quote: K线涨跌无序不参与；没有筑过底的票不参与…非主升阶段不参与
+    source: text/58位·中册·第10章.md#page-118
+    evidence: 二手
+    codable: false
+  - id: DTLB-03
+    category: 卖点
+    rule: 趋势股阶段拉升接近翻倍止盈
+    quote: 阶段拉升股价接近翻倍
+    source: text/58位·中册·第10章.md#page-117
+    evidence: 二手
+    codable: true
+    signal: 「收盘 ≥ 阶段起点（近 20 日最低）×1.9 → 止盈」
+  - id: DTLB-04
+    category: 卖点
+    rule: 三日内盘中不创新高就卖，跑错也要跑
+    quote: 三日内盘中不创新高，跑错也要跑
+    source: text/58位·中册·第10章.md#page-117
+    evidence: 二手
+    codable: true
+    signal: 「近 3 日最高 < 持有期最高 → 卖出」
+  - id: DTLB-05
+    category: 卖点
+    rule: 破 10 日线是短线止盈底线
+    quote: 破10日线是短线止盈底线
+    source: text/58位·中册·第10章.md#page-117
+    evidence: 二手
+    codable: true
+    signal: 「收盘 < MA10 → 卖出」
+  - id: DTLB-06
+    category: 止损
+    rule: 趋势牛股跌破 20 日生命线坚决止损
+    quote: 突破生命线，坚决止损
+    source: text/58位·中册·第10章.md#page-122
+    evidence: 二手
+    codable: true
+    signal: 「收盘 < MA20 → 全部卖出」
+  - id: DTLB-07
+    category: 买点
+    rule: 趋势牛股不追高，在重要位置（均线支撑）低吸
+    quote: 对于趋势型丝滑牛股，买入时不用追，以重要位置低吸为主。错过比做错好
+    source: text/58位·中册·第10章.md#page-121
+    evidence: 二手
+    codable: true
+    signal: 「MA20 上行 且 最低 ≤ MA10×1.01 且 收盘 ≥ MA10」→ 低吸
+  - id: DTLB-08
+    category: 环境
+    rule: 主流分歧信号：龙头暴量/下跌/滞涨，跟风与中位股大跌炸板增多，板块高低切换频繁
+    quote: 1、龙头开始出现分歧 2、跟风股开始大跌 3、板块轮动节奏加强
+    source: text/58位·中册·第10章.md#page-124
+    evidence: 二手
+    codable: true
+    signal: 「主线龙头 换手 ≥ 前 5 日均值×2 且 收涨 < 3%」且「同概念 炸板率 ≥ 40%」→ 分歧
+  - id: DTLB-09
+    category: 卖点
+    rule: 烂板次日低开低走即撤离；高开高走或低开高走站稳涨停价则升势未改
+    quote: 次日如果低开低走，要么是主力出货要么需要分享休息，短线者撤离为上策
+    source: text/58位·中册·第10章.md#page-123
+    evidence: 二手
+    codable: true
+    signal: 「T-1 烂板（开板≥2 次或 最低 < 涨停×0.95 收涨停）且 T 日开盘 < T-1 收 且 10:00 价 < 开盘 → 卖出」
+  - id: DTLB-10
+    category: 选股
+    rule: 龙头分三类：换手龙（相对一字妖、人人可参与）、卡位龙、补涨龙（多受前龙高度压制）
+    quote: 相对于一字妖而言，能人人参与的龙叫换手龙
+    source: text/58位·中册·第10章.md#page-124
+    evidence: 二手
+    codable: false
+  - id: DTLB-11
+    category: 环境
+    rule: 龙头生命周期七阶段：启动、确认、发酵、加速、分歧、反包、龙回头
+    quote: 1、启动，2、确认，3、发酵，4、加速，5、分歧，6、反包，7、龙回头
+    source: text/58位·中册·第10章.md#page-122
+    evidence: 二手
+    codable: false

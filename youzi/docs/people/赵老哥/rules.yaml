@@ -1,0 +1,146 @@
+person: 赵老哥
+period_note: 交割单只覆盖 2010-01~2011-06（比赛期）；58位/悟道心法语录首见于淘股吧用户 shglb 2013-05-03 的楼层（172页#page-8），归属待核
+rules:
+  - id: ZLG-01
+    category: 买点
+    rule: 以首板打板为主（打板中约八成是首板），遇连板强势股滚动操作
+    quote: 八成以上交易为首板打板买入，遇到连板强势股会持续滚动操作
+    source: text/赵老哥交割单图文解读-八年一万倍.md#page-14
+    evidence: 二手
+    codable: true
+    signal: 「首笔买价 ≥ 涨停价-0.01 且 T-1 未涨停」→ 首板打板；「T-1 连板数 = 1 且 买价 = 涨停价」→ 二板
+    data_check: 一致：打板 122/203 段(60.1%)，其中首板 101 段 = 打板的 83%；二板 17、三板+ 4
+  - id: ZLG-02
+    category: 卖点
+    rule: 买入次日不快速连板就全部卖出；高开分批止盈，低开分批割肉，10 点前卖完
+    quote: 只要买入标的第二天不快速连板，100%卖出了结
+    source: text/赵老哥交割单图文解读-八年一万倍.md#page-14
+    evidence: 二手
+    codable: true
+    signal: 「T+1 未涨停 → T+1 全部卖出」；「T+1 开盘 < 买价 → 开盘后 30 分钟内分批卖出」
+    data_check: 一致：持有 1 天 86%；次日低开 90 段中 84 段(93%)1 天内了结
+  - id: ZLG-03
+    category: 买点
+    rule: 偏好开板后回封的涨停（洗掉获利盘的板比次日闷杀的板好）
+    quote: 我很多板都喜欢开了以后买，砸开以后封回的板有时更可以看出里面资金的想法
+    source: text/【赵老哥】交割单全集98页_纯图版.md#page-81
+    evidence: 原文
+    codable: true
+    signal: 「当日最高 = 涨停 且 盘中曾开板（分时或 炸板次数≥1）且 收盘 = 涨停」→ 回封板；日线近似：收盘=涨停 且 最低 < 涨停×0.97
+    data_check: 无法直接检验（OCR 无分时）；结果面：打板封住率 84%，封住段胜率 60%/+577 万，炸板段胜率 11%/-63 万
+  - id: ZLG-04
+    category: 买点
+    rule: 只做板，不做低吸/半路追涨/点火（2011-05 大回撤后的自我纠偏）
+    quote: 现在开始起只做板 不做其他低吸追涨点火 回到原来的路上
+    source: text/【赵老哥】交割单全集98页_纯图版.md#page-87
+    evidence: 原文
+    codable: true
+    signal: 「T-1收盘×1.03 < 首笔买价 < 涨停价」→ 半路，禁止
+    data_check: 一致（数据证实其诊断）：半路 52 段胜率 36.5%、PF 0.51、净亏 131.5 万；2011H1 半路占比升至 32% 正值大回撤
+  - id: ZLG-05
+    category: 仓位
+    rule: 分仓 2-3 只；资金大后满进满出会导致次日卖不掉，要回到分仓
+    quote: 进入千万级别以后做的模式太极端了…都是满进满出的，下周开始要再度回到分仓模式了
+    source: text/【赵老哥】交割单全集98页_纯图版.md#page-82
+    evidence: 原文
+    codable: true
+    signal: 「单票买入额 ≤ 总资产/2 且 ≤ 该股 T-1 成交额×X%」
+    data_check: 一致：同时持仓中位 3 只、最多 9 只
+  - id: ZLG-06
+    category: 选股
+    rule: 不做很疯狂的高位连板票（2010 期）
+    quote: 我从来不做很疯狂的票的
+    source: text/【赵老哥】交割单全集98页_纯图版.md#page-42
+    evidence: 原文
+    codable: true
+    signal: 「T-1 连板数 ≥ 3」→ 不打
+    data_check: 一致：三板以上打板仅 4 段(2%)
+  - id: ZLG-07
+    category: 止损
+    rule: 错误交易次日第二个集合竞价（9:25）割掉，忘掉它
+    quote: 错误的交易，第二个集合割，效果最好。忘掉他，马上进入一个新的交易状态
+    source: text/58位·上册·第04章.md#page-101
+    evidence: 二手
+    codable: true
+    signal: 「T+1 竞价价 < 买价 → 以 T+1 开盘价卖出全部」
+    data_check: 方向一致：亏损段 96% 持有 ≤1 天；卖出时间 80% 缺失，竞价成交可见仅 0.1%，是否竞价割无法检验
+  - id: ZLG-08
+    category: 选股
+    rule: 二板才能确认龙头，首板看不出（语录，归属待核）
+    quote: 二板定龙头，一板能看出来个毛
+    source: text/58位·上册·第04章.md#page-98
+    evidence: 二手
+    codable: true
+    signal: 「龙头候选 = 当日新题材内最先晋级 2 连板者（T 日连板数=2 且 板块内最早封板）」
+    data_check: 冲突（时间错位）：2010 年他主打首板——首板段 49.8%/净利 68%，二板仅 8.4%/净利 14%；首板 PF 3.27 > 二板 2.32。语录首见 2013-05，交割单只到 2011-06，不能互证
+  - id: ZLG-09
+    category: 选股
+    rule: 龙头必须放量换手，无量一字连板不算龙头
+    quote: 没爆量的都不能说是龙头。既然是领袖，必须爆量，接受群众的检验
+    source: text/58位·上册·第04章.md#page-99
+    evidence: 二手
+    codable: true
+    signal: 「连板股 当日换手率 ≥ 15% 或 成交量 ≥ 5 日均量×2」→ 合格龙头候选；一字板（开=高=低=收=涨停）排除
+    data_check: 无法检验（成名期无交割单）
+  - id: ZLG-10
+    category: 选股
+    rule: 新题材优先，坚决抛弃旧题材
+    quote: 有新题材，坚决抛弃旧题材
+    source: text/58位·上册·第04章.md#page-99
+    evidence: 二手
+    codable: false
+  - id: ZLG-11
+    category: 买点
+    rule: 龙头接力不在开盘接；分时走稳、换手充分、是当天焦点再接
+    quote: 开盘不接力。技术面看，分时走稳，换手够了再说
+    source: text/58位·上册·第04章.md#page-100
+    evidence: 二手
+    codable: true
+    signal: 「接力买入时间 ≥ 10:00 且 当日累计换手 ≥ T-1 换手×0.5」
+    data_check: 无法检验：首笔时间 87% 缺失；可见部分 09:30-09:35 仅 0.5%
+  - id: ZLG-12
+    category: 卖点
+    rule: 龙头一直持有，直到市场出现新的精神领袖再切换
+    quote: 第一时间上了她，一直持有，直到发现市场新的精神领袖，果断切换
+    source: text/58位·上册·第04章.md#page-99
+    evidence: 二手
+    codable: false
+    data_check: 冲突（时间错位）：2010-11 持有 1 天 86%，打板后次日继续涨停仅 11.5%——当时是纯隔日，不是持有龙头
+  - id: ZLG-13
+    category: 选股
+    rule: 只做龙头主升，不做跟风、反抽、波动
+    quote: 只做龙头，只做主升，只做惯性。不做反抽，不做波动
+    source: text/58位·上册·第04章.md#page-100
+    evidence: 二手
+    codable: false
+  - id: ZLG-14
+    category: 环境
+    rule: 题材多、切换快的市场最难做，比成交额萎缩更危险
+    quote: 市场差不怕，成交额少也不怕，就怕题材多。题材多势必切换快
+    source: text/58位·上册·第04章.md#page-99
+    evidence: 二手
+    codable: true
+    signal: 「T-1 涨停股所属概念数（去重）/ 涨停家数 ≥ 0.6 且 连续 3 日最强概念不同」→ 切换市，降仓
+    data_check: 无法检验
+  - id: ZLG-15
+    category: 环境
+    rule: 热点退潮果断卖出；高潮后的消退期只做唯一的"活口"
+    quote: 每个热点，高潮过后的消退期，都会留一个活口。只有活口，才有交易机会
+    source: text/58位·上册·第04章.md#page-101
+    evidence: 二手
+    codable: false
+  - id: ZLG-16
+    category: 心态
+    rule: 不做模式外的操作（模式外交易是主要亏损来源）
+    quote: 切记别做自己模式外的操作，因这个损失不少
+    source: text/赵老哥交割单图文解读-八年一万倍.md#page-2
+    evidence: 二手
+    codable: false
+    data_check: 一致：模式内（打板）PF 2.88，模式外（半路）PF 0.51
+  - id: ZLG-17
+    category: 心态
+    rule: 分心（考试/答辩/装修）时交易必亏，状态不在就空仓
+    quote: 最近的世道分心炒股真是找死啊
+    source: text/【赵老哥】交割单全集98页_纯图版.md#page-11
+    evidence: 原文
+    codable: false

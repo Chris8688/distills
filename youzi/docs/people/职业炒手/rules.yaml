@@ -1,0 +1,113 @@
+person: 职业炒手
+note: >
+  图文解读前 8 页为帖子语录截图（接近原文），后 13 页为第三方看图解读；弱市操作为整理者转引的第一人称语录；
+  58位第02章 Q22~Q35 文风不同、归属待核。无 trades/。
+rules:
+  - id: ZYCS-01
+    category: 空仓
+    rule: 指数走下跌通道时，符合条件的交易全部放弃
+    quote: "指数在走下跌通道时，符合条件的交易，全部放弃，也不为错"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "下跌通道 = 指数 MA20 斜率 < 0 且 close < MA20（定义为编码假设）→ 禁止新开仓"
+    data_check: "无数据"
+  - id: ZYCS-02
+    category: 仓位
+    rule: 强势市场满仓滚动，弱市轻仓小玩或空仓
+    quote: "行情好时我都是满仓滚动操做，因为这时亏钱概率小。不好时应尽量轻仓小玩玩"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-7
+    evidence: 原文
+    codable: true
+    signal: "强势（指数 close > MA20 且 MA20 上行 且 涨停 > 跌停）→ exposure_cap 1.0；否则 0.2；下跌通道 → 0"
+    data_check: "无数据（截图无仓位）"
+  - id: ZYCS-03
+    category: 环境
+    rule: 弱市切换战术：低吸代替追涨，超跌代替强势，计划性操作代替盘中即时操作
+    quote: "低吸代替追涨.做超跌代替做强势.计划性操作代替盘中即时性操作"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-3
+    evidence: 原文
+    codable: false
+    signal: "弱市 → 仅允许 low-buy 类型入场（买价 < 前收 且 非涨停）"
+    data_check: "无数据"
+  - id: ZYCS-04
+    category: 买点
+    rule: 弱市只参与极度超跌后的反弹
+    quote: "弱市中只有一种行情可以参与，那就是极度超跌后的反弹行情"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-6
+    evidence: 原文
+    codable: true
+    signal: "下跌通道中 指数 5 日跌幅 ≤ -8% 或 跌停家数 ≥ 100（阈值为编码假设）→ 允许小仓超跌反弹"
+    data_check: "无数据"
+  - id: ZYCS-05
+    category: 卖点
+    rule: 隔日交易：80%的交易今天买明天卖，涨停板操作90%以上第二天结束
+    quote: "80%的交易就是今天买，明天卖"
+    source: text/民间股神之“职业炒手”王元杰的弱市操作及超短感悟.md#page-2
+    evidence: 原文
+    codable: true
+    signal: "hold_td == 1 占比 ≥ 80%"
+    data_check: "方向一致（第三方 18 张截图多为次日离场），不构成统计"
+  - id: ZYCS-06
+    category: 仓位
+    rule: 大赚之后卖出不能马上买，最好休息一天
+    quote: "我处理的办法是大赚后卖出不能马上买票，最好休息一天"
+    source: text/58位·上册·第02章.md#page-75
+    evidence: 二手
+    codable: true
+    signal: "当日实现收益 ≥ 账户 5%（阈值为编码假设）→ T+1 禁止开仓"
+    data_check: "无数据"
+  - id: ZYCS-07
+    category: 止损
+    rule: 盘头阶段降低频率、慎用止损，节奏做反时宁可被套等待
+    quote: "慎用止损.头部震荡最易把节奏做反，频繁止损是利润回吐的主要原因"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-2
+    evidence: 原文
+    codable: false
+    signal: "（无盘头判定标准）"
+    data_check: "无数据；与 LFH-06、XX-01 冲突"
+  - id: ZYCS-08
+    category: 止损
+    rule: 超短不做摊低成本式加仓，只在本级别不断创新高的品种上加
+    quote: "一般不能进行探低成本式的加仓。最安全的买进，是在你的操作时间级别上不断创新高的品种"
+    source: text/58位·上册·第02章.md#page-78
+    evidence: 二手
+    codable: true
+    signal: "加仓条件：close ≥ N 日最高 且 持仓浮盈 > 0；浮亏时禁止加仓"
+    data_check: "无数据"
+  - id: ZYCS-09
+    category: 选股
+    rule: 选相对低位第一根放量大阳线，或二次探底后再启动的放量大阳
+    quote: "相对低位的第一根放量大阳线。或者说二次探底后的再次启动，必须是放量大阳线"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-4
+    evidence: 原文
+    codable: true
+    signal: "close/open-1 ≥ 5% 且 vol ≥ 2×MA20(vol) 且 close ≤ 60 日区间 40% 分位以下起涨"
+    data_check: "无数据"
+  - id: ZYCS-10
+    category: 买点
+    rule: 追涨只做第一次放量上穿5日线或涨停的热点；低吸只做龙头的均线附近
+    quote: "追涨===市场热点（最好是第一次放量上穿5天线、涨停品种）低吸===龙头品种（均线附近买）"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-6
+    evidence: 原文
+    codable: true
+    signal: "追涨：close 上穿 MA5 且为近 20 日首次 且 vol > 1.5×MA5(vol)；低吸：板块龙头 low ≤ MA5/MA10"
+    data_check: "无数据"
+  - id: ZYCS-11
+    category: 环境
+    rule: 盘后静态选股优先于盘中动态选股，午盘尽量少做
+    quote: "盘后静态选股远比盘中动态选股要重要"
+    source: text/民间股神之“职业炒手”王元杰的弱市操作及超短感悟.md#page-2
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: "无数据"
+  - id: ZYCS-12
+    category: 选股
+    rule: 牛市做抗跌不做超跌
+    quote: "牛市的思路不应做超跌，而应做抗跌"
+    source: text/职业炒手交割单图文解读-游资校长.md#page-7
+    evidence: 原文
+    codable: true
+    signal: "牛市状态下，按大跌日个股相对指数超额收益排序取前 N"
+    data_check: "无数据"

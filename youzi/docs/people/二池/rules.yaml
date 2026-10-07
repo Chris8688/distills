@@ -1,0 +1,94 @@
+person: 二池
+period_trades: 2024-09-04 ~ 2024-12-31（56 段，原始 xlsx，有成交时间）
+note: 无文字语料，全部规则为实盘反推；「百万杯 20 倍」仅见于文件名，数据无法复核
+rules:
+  - id: EC-01
+    category: 选股
+    rule: 集中做创业板 20cm 强势股，多数前 10 日有涨停
+    quote: ""
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 代码 30xxxx 且 T-10..T-1 有涨停收盘
+    data_check: 创业板 70% 的段（39 段 PF 1.98，+247 万）；66% 的段前 10 日有板
+  - id: EC-02
+    category: 买点
+    rule: 开盘 5 分钟内出手为主，10 点前完成多数建仓
+    quote: ""
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 首笔时间 ∈ [09:30, 09:35)
+    data_check: 首笔 09:30-35 占 41%（23 段 PF 1.33），09:35-10:00 占 21%（PF 2.83，+161 万）；下午 4 段 PF 0.06
+  - id: EC-03
+    category: 买点
+    rule: 不打板；半路偏早（20cm 涨幅约 +5%）
+    quote: ""
+    source: trades/entry_types.md
+    evidence: 实盘反推
+    codable: true
+    signal: 3% ≤ r_buy < 涨停，r_buy / 涨停幅度 ≤ 0.4
+    data_check: 半路 17 段首笔涨幅中位 5.0%、PF 2.02、占净利 56%；当日封板 3 段全赢（+197 万），未封 14 段 PF 0.87
+  - id: EC-04
+    category: 买点
+    rule: 高位强势股分歧低吸（MA20 乖离大）
+    quote: ""
+    source: data/bars_bs 补算
+    evidence: 实盘反推
+    codable: true
+    signal: r_buy < 0 且 T-1 收盘 / MA20 - 1 > 15% 且 前 10 日有板
+    data_check: 低吸 22 段（20 段前 10 日有板），MA20 乖离中位 +26.5%，PF 1.05、净 +6.8 万（≈保本）
+  - id: EC-05
+    category: 买点
+    rule: 竞价买入少而准
+    quote: ""
+    source: trades/entry_types.md
+    evidence: 实盘反推
+    codable: true
+    signal: 首笔时间 < 09:30
+    data_check: 3 段全赢，平均 +16.3%，+78.5 万
+  - id: EC-06
+    category: 仓位
+    rule: 单票近满仓，几乎每天隔夜
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 过夜持仓只数 = 1
+    data_check: 过夜持仓中位 1 只，79% 的过夜日只持 1 只，最多 2 只；在场率 97%
+  - id: EC-07
+    category: 仓位
+    rule: 持仓期间高频做 T（分批买卖）
+    quote: ""
+    source: trades/trades.csv
+    evidence: 实盘反推
+    codable: true
+    signal: 同一交易日同一股票既有买又有卖
+    data_check: 每段约 10.8 笔成交；89% 的段多笔买、多笔卖；同日双向占「股票×交易日」的 12.2%（水哥 8.7%、归因 4.9%）
+  - id: EC-08
+    category: 卖点
+    rule: T+1 低开即走
+    quote: ""
+    source: trades/episodes_enriched.csv
+    evidence: 实盘反推
+    codable: true
+    signal: T+1 开盘 < 首笔买价 → T+1 卖
+    data_check: 次日低开 30 段中 73% 于 T+1 卖出，胜率 16.7%；亏损段 78% 在 10:00 前卖出
+  - id: EC-09
+    category: 卖点
+    rule: 妖股拿 2-5 天，利润集中在少数多日段
+    quote: ""
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 持有天数 ≥3
+    data_check: 持有 ≥3 天的段占 16%，贡献净利 67%（PF 9.2）；1 天段 PF 0.90；前 10 段占净利 180%
+  - id: EC-10
+    category: 空仓
+    rule: 亏损后不降仓、不停手（12 月模式失效时规模仍放大）
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 前一段亏损后下一段规模 / 近 20 段中位
+    data_check: 亏后 1.28 倍、连亏 2 段后 1.22 倍；12 月建仓段 PF 0.71、胜率 31%，单段中位却升到 442 万

@@ -1,0 +1,859 @@
+# 仅有《58位大佬心法》章节的 18 位人物 · 合并规则表
+# 全部证据等级 = 二手（编者整理/转述；水印 98kecheng = 倒卖课程站）。无 trades/ 数据，data_check 一律留空。
+# source 路径相对于 distill/ 根目录；#page-N = 该章 text 文件中 <!-- page N --> 锚点。
+rules:
+  # ---------------- 艾琳歆（期货/趋势，如何抓住大波段）----------------
+  - id: ALX-01
+    person: 艾琳歆
+    category: 止损
+    rule: 单笔亏损约 10 个点即考虑止损（非绝对）；持有盈利单是最安全的行为
+    quote: 大多数情况下，10个点我就考虑止损，但不是绝对的。任何时候，持有盈利单都是最安全的交易行为
+    source: 人物/艾琳歆/text/58位·上册·第07章.md#page-123
+    evidence: 二手
+    codable: true
+    signal: 持仓浮亏 ≤ -10%（期货语境为 10 个点）→ 平仓；无固定止盈
+    data_check: ""
+  - id: ALX-02
+    person: 艾琳歆
+    category: 卖点
+    rule: 不做主动止盈，允许浮盈回吐到保本（平推），以换取抓到大波段
+    quote: 如果你随时被落袋为安的思想左右，那么你永远不可能打到几十点
+    source: 人物/艾琳歆/text/58位·上册·第07章.md#page-127
+    evidence: 二手
+    codable: true
+    signal: 出场只由止损/趋势反转触发；无「浮盈 X% 止盈」条款
+    data_check: ""
+  - id: ALX-03
+    person: 艾琳歆
+    category: 止损
+    rule: 方向常对却总被止损打出时，放大止损幅度而不是放弃系统
+    quote: 你不知道把止损幅度或者平推幅度放大一些么
+    source: 人物/艾琳歆/text/58位·上册·第07章.md#page-128
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: ALX-04
+    person: 艾琳歆
+    category: 心态
+    rule: 选定行情级别：要抓大级别就放弃小级别波段，不两头都要
+    quote: 为了抓住10万盈利级别的行情，你就必须学会放弃1-2万级别的行情
+    source: 人物/艾琳歆/text/58位·上册·第07章.md#page-128
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: ALX-05
+    person: 艾琳歆
+    category: 空仓
+    rule: 看不懂的行情不参与；连续亏损时停手休息而不是急于扳回
+    quote: 我不会把自己置身于看不懂的行情中，所以错过很多行情
+    source: 人物/艾琳歆/text/58位·上册·第07章.md#page-126
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 六哥（知道 做到 赚到）----------------
+  - id: LG-01
+    person: 六哥
+    category: 买点
+    rule: 机会风险比 >3:1 才出手，<3:1 不做
+    quote: 机会风险比大于3:1时，不要怂，小于3:1时，管住手
+    source: 人物/六哥/text/58位·上册·第10章.md#page-149
+    evidence: 二手
+    codable: true
+    signal: （目标价 − 入场价）/（入场价 − 止损价）> 3 才允许开仓；目标价定义待核（原文未给）
+    data_check: ""
+  - id: LG-02
+    person: 六哥
+    category: 空仓
+    rule: 月度回撤超过 10% 先停下复盘，不继续交易
+    quote: 月度回撤超过10%时，先停下来，冷静分析原因
+    source: 人物/六哥/text/58位·上册·第10章.md#page-149
+    evidence: 二手
+    codable: true
+    signal: 账户净值 / 当月月初净值 − 1 < -10% → 当月剩余交易日暂停开新仓
+    data_check: ""
+  - id: LG-03
+    person: 六哥
+    category: 选股
+    rule: 只做当日主流热点的「三龙」（板块前三龙头），主流判断不清就放弃
+    quote: 真正应该做的，就是做每天主流热点的三龙
+    source: 人物/六哥/text/58位·上册·第10章.md#page-151
+    evidence: 二手
+    codable: true
+    signal: 当日涨停数最多的概念板块 = 主流；板块内按连板高度/首封时间排前三 = 三龙
+    data_check: ""
+  - id: LG-04
+    person: 六哥
+    category: 环境
+    rule: 竞价看被「顶一字」的票属于哪个板块、是否整板联动，以此验证/修正主流
+    quote: 很多时候竞价被顶一字的股票，就多看一下，是炒什么板块，是不是整个板块都来了
+    source: 人物/六哥/text/58位·上册·第10章.md#page-152
+    evidence: 二手
+    codable: true
+    signal: 9:25 开盘价 = 涨停价 的个股按板块计数，同板块 ≥ N 只 → 当日主流候选（N 待定）
+    data_check: ""
+  - id: LG-05
+    person: 六哥
+    category: 心态
+    rule: 每月复盘亏损最大的五笔，追踪月最大回撤与胜率是否改善
+    quote: 每月对亏损最大五笔，深刻反省，总结原因
+    source: 人物/六哥/text/58位·上册·第10章.md#page-149
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 缠中说禅（高手都是哲学家）----------------
+  - id: CZ-01
+    person: 缠中说禅
+    category: 选股
+    rule: 牛市找牛股：放量突破上市首日最高价的新股；放量突破年线后缩量回踩年线的老股；年线下方的不看
+    quote: 盯着所有放量突破上市首日最高价的新股以及放量突破年线然后缩量回调年线的老股
+    source: 人物/缠中说禅/text/58位·上册·第11章.md#page-155
+    evidence: 二手
+    codable: true
+    signal: 老股：close 上穿 MA250 且当日量 > 20 日均量×1.5，随后 N 日内 low 触及 MA250±2% 且量 < 20 日均量 → 候选；close < MA250 → 剔除。新股：close > 上市首日 high 且放量
+    data_check: ""
+  - id: CZ-02
+    person: 缠中说禅
+    category: 卖点
+    rule: 缓慢推升的票一旦加速就找出货机会；第一波暴涨的票，第二波出现背驰或放巨量就走
+    quote: 一种是缓慢推升的，一旦出现加速上涨，就要时刻注意出货的机会
+    source: 人物/缠中说禅/text/58位·上册·第11章.md#page-156
+    evidence: 二手
+    codable: true
+    signal: 近 20 日斜率 < 近 5 日斜率×阈值（加速）→ 进入卖出观察；第二波 high 创新高但 MACD 柱面积 < 第一波 或 量 > 20 日均量×3 → 卖出
+    data_check: ""
+  - id: CZ-03
+    person: 缠中说禅
+    category: 买点
+    rule: 创新高不等于买点，须先排除大级别背驰
+    quote: 创新高的股票，必须注意有没有大级别背驰
+    source: 人物/缠中说禅/text/58位·上册·第11章.md#page-160
+    evidence: 二手
+    codable: true
+    signal: 周线 close 创 52 周新高 但 周线 MACD 柱/DIF 未创新高 → 视为背驰，不追
+    data_check: ""
+  - id: CZ-04
+    person: 缠中说禅
+    category: 卖点
+    rule: 宁愿卖早不要卖晚；卖错了不追高买回，等新买点
+    quote: 只要是赚钱的，就没有卖错，宁愿卖早，不要卖晚
+    source: 人物/缠中说禅/text/58位·上册·第11章.md#page-160
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: CZ-05
+    person: 缠中说禅
+    category: 止损
+    rule: 买错比卖错严重，确认买错立即砍
+    quote: 买错比卖错严重，一旦确认买错了，一定要手起刀落
+    source: 人物/缠中说禅/text/58位·上册·第11章.md#page-163
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: CZ-06
+    person: 缠中说禅
+    category: 仓位
+    rule: 不熟练者不全仓，基本仓位拿中长线，小部分仓位练习
+    quote: 不熟练的投资者，一定不能全仓进行操作
+    source: 人物/缠中说禅/text/58位·上册·第11章.md#page-159
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 无门问禅（势是市场之王）----------------
+  - id: WMWC-01
+    person: 无门问禅
+    category: 买点
+    rule: 低吸只在强势市场的强势股上做，买点是回踩 5 日线；跌破 5 日线即非主升
+    quote: 低吸的秘诀在于5日线，这就是买点
+    source: 人物/无门问禅/text/58位·上册·第12章.md#page-172
+    evidence: 二手
+    codable: true
+    signal: 大盘 close > MA20 且 个股近 10 日涨幅前 5% → 盘中 low ≤ MA5 且 close ≥ MA5 买；close < MA5 卖
+    data_check: ""
+  - id: WMWC-02
+    person: 无门问禅
+    category: 卖点
+    rule: 短线持股一周不涨就了结
+    quote: 持股一周还不涨，一定要及时了结
+    source: 人物/无门问禅/text/58位·上册·第12章.md#page-173
+    evidence: 二手
+    codable: true
+    signal: 持有 5 个交易日 且 close ≤ 买入价 → 卖出
+    data_check: ""
+  - id: WMWC-03
+    person: 无门问禅
+    category: 卖点
+    rule: 真大涨股涨停次日放量走强、不回到昨收下；若次日缩量跌回昨收下，说明主力已走，第三天多低开低走
+    quote: 如果缩量回调到上一日收盘价下，则说明主力上一日已经走了
+    source: 人物/无门问禅/text/58位·上册·第12章.md#page-173
+    evidence: 二手
+    codable: true
+    signal: T 日涨停；T+1 low < T 收盘 且 T+1 量 < T 量 → T+1 尾盘卖 / 不接；检验 T+2 开盘 < T+1 收盘 的条件概率
+    data_check: ""
+  - id: WMWC-04
+    person: 无门问禅
+    category: 环境
+    rule: 震荡/熊市里，大盘急跌 10%~15% 以上是抢反弹机会；连续地量是中级反弹机会
+    quote: 如果大盘出现了一个10%～15%以上的急跌
+    source: 人物/无门问禅/text/58位·上册·第12章.md#page-168
+    evidence: 二手
+    codable: true
+    signal: 上证指数 close / 近 20 日最高 close − 1 ≤ -10% → 反弹窗口；成交额 < 近 250 日 10% 分位 连续 ≥ 3 日 → 地量
+    data_check: ""
+  - id: WMWC-05
+    person: 无门问禅
+    category: 卖点
+    rule: 龙头股、超跌后大级别反弹、大利好支撑三类票捂股，直到放出巨量为止
+    quote: 只有一种操盘模式，就是捂股，一直捂到成交量放出巨量为止
+    source: 人物/无门问禅/text/58位·上册·第12章.md#page-174
+    evidence: 二手
+    codable: true
+    signal: 持有龙头期间不设价格止盈；当日量 > 近 20 日均量×3（「巨量」阈值待定）→ 卖出
+    data_check: ""
+  - id: WMWC-06
+    person: 无门问禅
+    category: 仓位
+    rule: 弱势市场除非抓到龙头，仓位不应高
+    quote: 在弱势市场中，除抓到龙头股外，仓位不应该高，期望不应该大
+    source: 人物/无门问禅/text/58位·上册·第12章.md#page-171
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 灯心人（核按钮）----------------
+  - id: DXR-01
+    person: 灯心人
+    category: 止损
+    rule: 买到「垃圾」（打板被砸、收盘未封住），次日集合竞价直接挂跌停卖出，不意淫反包
+    quote: 买到垃圾，第二天必须集合挂跌停
+    source: 人物/灯心人/text/58位·上册·第14章.md#page-189
+    evidence: 二手
+    codable: true
+    signal: T 日以涨停价买入 且 T 收盘 < 涨停价（炸板）→ T+1 竞价卖出（成交价 = T+1 开盘价）
+    data_check: ""
+  - id: DXR-02
+    person: 灯心人
+    category: 卖点
+    rule: 两个经典卖点：跌破开盘价；绿盘无法翻红
+    quote: 一个是跌破开盘价，一个是绿盘无法冲红，都应该先出来观望
+    source: 人物/灯心人/text/58位·上册·第14章.md#page-189
+    evidence: 二手
+    codable: true
+    signal: 分时价 < 当日开盘价 → 卖；或 开盘 < 昨收 且 盘中始终未 > 昨收（日线近似：开盘 < 昨收 且 high < 昨收）→ 卖
+    data_check: ""
+  - id: DXR-03
+    person: 灯心人
+    category: 买点
+    rule: 持有加速板，但不接力加速板（加速板是卖方市场）；一字龙头不参与
+    quote: 所以我喜欢持有加速板的票，但却不会去接力加速板
+    source: 人物/灯心人/text/58位·上册·第14章.md#page-186
+    evidence: 二手
+    codable: true
+    signal: 排除买入：当日开盘涨幅 ≥ 7% 且 涨停（加速板）或 一字板（open = high = low = 涨停价）
+    data_check: ""
+  - id: DXR-04
+    person: 灯心人
+    category: 仓位
+    rule: 大小账户：小账户试错冲锋，大账户只做「老情人」或小账户验证过的票
+    quote: 小账户用于试错，负责冲锋陷阵；大账户负责贡献利润
+    source: 人物/灯心人/text/58位·上册·第14章.md#page-187
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: DXR-05
+    person: 灯心人
+    category: 仓位
+    rule: 备用金：资金每上一个台阶提 10% 作备用金
+    quote: 资金量每上一个阶梯，提前百分之十作为备用金
+    source: 人物/灯心人/text/58位·上册·第14章.md#page-189
+    evidence: 二手
+    codable: true
+    signal: 账户净值首次突破 10 万×k 时，转出 1 万×k（k=1,2,…,10）
+    data_check: ""
+
+  # ---------------- 仓促的句号（只做已经，不做如果）----------------
+  - id: CCJH-01
+    person: 仓促的句号
+    category: 买点
+    rule: 只做已经启动的行情，慢半步跟进，绝不抢跑
+    quote: 只做已经启动的行情，不做即将启动的行情
+    source: 人物/仓促的句号/text/58位·上册·第16章.md#page-198
+    evidence: 二手
+    codable: true
+    signal: 只在突破确认后入场（如 close > 前 N 日最高价），不在盘整区内预埋
+    data_check: ""
+  - id: CCJH-02
+    person: 仓促的句号
+    category: 空仓
+    rule: 不参与盘整；确定性消失即离场，持有时长不设上限
+    quote: 趋势行情的确定性，始发于盘整，结束于盘整，不参与盘整
+    source: 人物/仓促的句号/text/58位·上册·第16章.md#page-199
+    evidence: 二手
+    codable: true
+    signal: 效率比（N 日净位移 / 路径长度）< 阈值 → 视为盘整，不开仓/离场；无时间止损
+    data_check: ""
+  - id: CCJH-03
+    person: 仓促的句号
+    category: 仓位
+    rule: 加资金的唯一依据是资金曲线稳步上升；默认轻仓，只有大趋势行情才重仓
+    quote: 你能增加资金的唯一依据只能是你资金曲线的稳步增长
+    source: 人物/仓促的句号/text/58位·上册·第16章.md#page-196
+    evidence: 二手
+    codable: true
+    signal: 账户净值创新高且近 N 月回撤 < 阈值 → 才允许上调风险预算；否则维持/下调
+    data_check: ""
+  - id: CCJH-04
+    person: 仓促的句号
+    category: 心态
+    rule: 做波段系统就永远不为赚小钱开仓，不在信号空档做零碎交易
+    quote: 将军赶路，不追小兔。做波段交易的你，永远不要为赚小钱而开仓
+    source: 人物/仓促的句号/text/58位·上册·第16章.md#page-200
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: CCJH-05
+    person: 仓促的句号
+    category: 心态
+    rule: 预测只是准备，不是行动
+    quote: 预测只是准备，而不是行动
+    source: 人物/仓促的句号/text/58位·上册·第16章.md#page-202
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 小草骑墙（假如你坐庄，2008 天涯帖）----------------
+  - id: XCQQ-01
+    person: 小草骑墙
+    category: 环境
+    rule: 指标股向上而主力控盘的次要股滞涨/掉头，是庄家先于指数出货的信号
+    quote: 当指标股向上，而一些主力控制的次要股却滞涨，或者有掉头迹象
+    source: 人物/小草骑墙/text/58位·上册·第17章.md#page-209
+    evidence: 二手
+    codable: true
+    signal: 上证 50 近 10 日涨幅 > 0 且 中小盘指数（或个股）近 10 日涨幅 ≤ 0 → 背离风险标记
+    data_check: ""
+  - id: XCQQ-02
+    person: 小草骑墙
+    category: 环境
+    rule: 熊市里放巨量多为出货，不是抄底信号
+    quote: 在熊市中放巨量的往往都是出货
+    source: 人物/小草骑墙/text/58位·上册·第17章.md#page-211
+    evidence: 二手
+    codable: true
+    signal: 指数 close < MA250 时，个股量 > 20 日均量×3 不作为买入依据
+    data_check: ""
+  - id: XCQQ-03
+    person: 小草骑墙
+    category: 选股
+    rule: 老庄未放弃的票不碰，避免被老庄反做
+    quote: 如果这个股没有被老庄放弃，那我是尽量不会去碰的
+    source: 人物/小草骑墙/text/58位·上册·第17章.md#page-206
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 葵花宝典（输在意淫）----------------
+  - id: KHBD-01
+    person: 葵花宝典
+    category: 选股
+    rule: 只持有上升通道个股，不持有下降通道个股
+    quote: 要持有上升通道的个股，不要持有下降通道的个股
+    source: 人物/葵花宝典/text/58位·上册·第19章.md#page-223
+    evidence: 二手
+    codable: true
+    signal: MA20 > MA60 且 MA60 斜率 > 0 → 可持有；反之剔除
+    data_check: ""
+  - id: KHBD-02
+    person: 葵花宝典
+    category: 止损
+    rule: 风控五条：只做模式股、分仓不同概念、动态调仓、绝对止损止盈、同板块变弱提前止盈
+    quote: 只做模式股；分仓不同概念；动态调整仓位（这个最难）；绝对止损或止盈；同板块变弱提前止盈
+    source: 人物/葵花宝典/text/58位·上册·第19章.md#page-226
+    evidence: 二手
+    codable: true
+    signal: 同一概念持仓 ≤ 1 只；持仓所属板块指数 close < MA5 → 提前止盈
+    data_check: ""
+  - id: KHBD-03
+    person: 葵花宝典
+    category: 仓位
+    rule: 不在绩差股上高比例融资重仓赌重组；融资融券是对冲工具不是获利工具
+    quote: 在一些绩差股上高比例融资重仓赌重组，是一种赌徒的行为
+    source: 人物/葵花宝典/text/58位·上册·第19章.md#page-224
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: KHBD-04
+    person: 葵花宝典
+    category: 心态
+    rule: 盘前计划做足，尽量少临盘决策
+    quote: 盘前计划功课要做足，尽量少临盘决策
+    source: 人物/葵花宝典/text/58位·上册·第19章.md#page-224
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 江南神鹰（落升，守正出奇）----------------
+  - id: JNSY-01
+    person: 江南神鹰
+    category: 环境
+    rule: 市场温度 = 上涨家数占比 或 涨停占（涨停+跌停）比 ×100；温度 < 50 除非有惊天题材否则不入场
+    quote: 市场温度低于 50，除非出现惊天的题材，否则不入场
+    source: 人物/江南神鹰/text/58位·上册·第20章.md#page-231
+    evidence: 二手
+    codable: true
+    signal: 温度A = 上涨家数 /（上涨+下跌）×100；温度B = 涨停数 /（涨停+跌停）×100；min(A,B) < 50 → 不开新仓
+    data_check: ""
+  - id: JNSY-02
+    person: 江南神鹰
+    category: 环境
+    rule: 大盘一波连续下跌超过 25% 后，通常迎来一两个月横盘或反弹
+    quote: 大盘经历一波连续下跌，下跌幅度超过 25%，将会迎来一两个月的横盘或反弹行情
+    source: 人物/江南神鹰/text/58位·上册·第20章.md#page-230
+    evidence: 二手
+    codable: true
+    signal: 上证 close / 前高 − 1 ≤ -25% → 标记；检验其后 20~40 日最大回撤 < 阈值 的频率
+    data_check: ""
+  - id: JNSY-03
+    person: 江南神鹰
+    category: 选股
+    rule: 有可持续热点才做，选股唯一标准是否属于热点，并且只做热点龙头
+    quote: 选股的唯一标准，看它是不是热点，是就选，不是就放弃
+    source: 人物/江南神鹰/text/58位·上册·第20章.md#page-231
+    evidence: 二手
+    codable: true
+    signal: 个股所属概念为近 5 日涨停数前 3 的板块 → 可选；否则排除
+    data_check: ""
+  - id: JNSY-04
+    person: 江南神鹰
+    category: 环境
+    rule: 牛市第一次政策打压可借机低吸、四五个月后清仓；熊市第一次救市利好逢高卖、四五个月后再抄底
+    quote: 牛市的第一次政策打压可以借机低吸，四五个月再清仓；而熊市的第一次利好政策救市应该逢高卖出
+    source: 人物/江南神鹰/text/58位·上册·第20章.md#page-232
+    evidence: 二手
+    codable: false
+    signal: 事件型（需人工标注政策日期）
+    data_check: ""
+  - id: JNSY-05
+    person: 江南神鹰
+    category: 卖点
+    rule: 强势板块龙头出现调整坚决不抱幻想；决定卖就直接挂跌停价
+    quote: 强势板块的龙头出现调整，坚决不报幻想
+    source: 人物/江南神鹰/text/58位·上册·第20章.md#page-232
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 好运2008（信念是财富的催化剂）----------------
+  - id: HY08-01
+    person: 好运2008
+    category: 止损
+    rule: 整数关防守：账户净值突破 100/200/500/1000…万后，只要有跌破该整数关的可能，立即全部卖出
+    quote: 我会下意识地对这个整数关口无脑防守，只要有跌破的可能，立马全部卖出股票，一股不留
+    source: 人物/好运2008/text/58位·上册·第21章.md#page-238
+    evidence: 二手
+    codable: true
+    signal: 记录净值曾突破的最高整数关 L ∈ {100,200,500,1000,2000,3000,5000…}万；净值 < L×(1+缓冲) → 清仓（缓冲待定，原文「有跌破的可能」）
+    data_check: ""
+  - id: HY08-02
+    person: 好运2008
+    category: 买点
+    rule: 只上热点板块龙一；龙一一字买不到且题材够大才上龙二/龙三，永远放弃龙三以后
+    quote: 那就上龙二或者龙三，永远放弃龙三以后的买入机会
+    source: 人物/好运2008/text/58位·上册·第21章.md#page-239
+    evidence: 二手
+    codable: true
+    signal: 板块内按连板高度/首封时间排序取前 3；排名 > 3 一律不买
+    data_check: ""
+  - id: HY08-03
+    person: 好运2008
+    category: 空仓
+    rule: 排队 3 天都买不到龙头，就放弃这个题材，等下一个
+    quote: 排队3天都买不到龙头怎么办？那就是运气不好呗！就不做这个题材了呗
+    source: 人物/好运2008/text/58位·上册·第21章.md#page-239
+    evidence: 二手
+    codable: true
+    signal: 板块龙一连续 3 日一字 → 该题材剔除出候选
+    data_check: ""
+  - id: HY08-04
+    person: 好运2008
+    category: 仓位
+    rule: 熊市保本金，牛市全力以赴；牛市看好的票拿住不动
+    quote: 熊市保护好本金，牛市全力以赴
+    source: 人物/好运2008/text/58位·上册·第21章.md#page-237
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 丁一熊（长者的智慧）----------------
+  - id: DYX-01
+    person: 丁一熊
+    category: 空仓
+    rule: 只要是跌势，无论高位低位都该走，止损也走
+    quote: 有熊市的基调，无论大盘在高位，低位，就是超低位，只要是跌势，就该跑，止损也跑
+    source: 人物/丁一熊/text/58位·中册·第05章.md#page-71
+    evidence: 二手
+    codable: true
+    signal: 指数 close < MA60 且 MA60 斜率 < 0 → 清仓/不开仓
+    data_check: ""
+  - id: DYX-02
+    person: 丁一熊
+    category: 买点
+    rule: 跌多不是买入理由；止跌确认至少要放量上涨
+    quote: 确认的证据至少是放量上涨
+    source: 人物/丁一熊/text/58位·中册·第05章.md#page-73
+    evidence: 二手
+    codable: true
+    signal: 下跌趋势中 仅当 close > 昨收 且 量 > 20 日均量×1.5 才视为止跌候选
+    data_check: ""
+  - id: DYX-03
+    person: 丁一熊
+    category: 止损
+    rule: 突破新高后却大跌 = 止损退场点；击穿重要点位后却放量大涨 = 抄底买点
+    quote: 涨到新高上突破却大跌，就是止损退场点。跌到击穿重要点却放量大涨，就是抄底买票点
+    source: 人物/丁一熊/text/58位·中册·第05章.md#page-72
+    evidence: 二手
+    codable: true
+    signal: T-1 close 创 N 日新高 且 T 跌幅 ≤ -5% → 卖；T-1 close 跌破 N 日最低 且 T 涨幅 ≥ 5% 且量 > 均量×2 → 买（假突破反转）
+    data_check: ""
+  - id: DYX-04
+    person: 丁一熊
+    category: 仓位
+    rule: 先计划后下单，渐进入场、赢利加码、快速止损、去弱留强
+    quote: 先计划后下单，渐进入场，赢利加码，快速止损，去弱留强
+    source: 人物/丁一熊/text/58位·中册·第05章.md#page-74
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: DYX-05
+    person: 丁一熊
+    category: 环境
+    rule: 平衡市参与强势股；强市只做好一只、别换；大盘三上而竭就收工
+    quote: 要在平衡期去参与强势股，在强市场只做好一只强势股，千万别换
+    source: 人物/丁一熊/text/58位·中册·第05章.md#page-79
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 庖丁解牛（股市中给自己定位）----------------
+  - id: PDJN-01
+    person: 庖丁解牛
+    category: 环境
+    rule: 真牛市无贯穿始终热点、全面开花；假牛市靠一个强势板块+龙头带动；龙头修整而补涨轮动加快 = 假牛市下半场
+    quote: 当领导股开始修整，而大量补涨个股开始纷纷表现、热点迅速轮动（不再有持续的热点）的时候
+    source: 人物/庖丁解牛/text/58位·中册·第11章.md#page-129
+    evidence: 二手
+    codable: true
+    signal: 近 20 日行业涨幅的离散度/集中度（前 1 行业贡献占比）高 → 假牛市；最强行业 20 日涨幅转负 且 行业涨幅排名换手率上升 → 下半场
+    data_check: ""
+  - id: PDJN-02
+    person: 庖丁解牛
+    category: 选股
+    rule: 只做最强的带头大哥，永远不碰跟班
+    quote: 只做最强的，只做带头大哥。永远不碰跟班的
+    source: 人物/庖丁解牛/text/58位·中册·第11章.md#page-130
+    evidence: 二手
+    codable: true
+    signal: 板块内只取涨幅/连板高度第 1 名
+    data_check: ""
+  - id: PDJN-03
+    person: 庖丁解牛
+    category: 心态
+    rule: 用 5 年以上资金曲线的平滑度判断盈利是否有一致性，脉冲式曲线说明系统不成熟
+    quote: 长期（5年以上）资金曲线的形态，是鉴别你的盈利是否具备一致性的最直观、最科学的度量
+    source: 人物/庖丁解牛/text/58位·中册·第11章.md#page-131
+    evidence: 二手
+    codable: true
+    signal: 账户 5 年净值的 Calmar / 回撤持续时间 / 收益集中度（前 5 笔占比）
+    data_check: ""
+  - id: PDJN-04
+    person: 庖丁解牛
+    category: 空仓
+    rule: 长期趋势翻转前，大跌之后的风险不比前段小；牛市抱股、熊市抱现金
+    quote: 长期趋势未翻转前，大熊的前段和后段，风险是一样的
+    source: 人物/庖丁解牛/text/58位·中册·第11章.md#page-132
+    evidence: 二手
+    codable: true
+    signal: 指数 close < MA250 → 默认现金，仅小仓位试探
+    data_check: ""
+
+  # ---------------- 我是K（交易不需要反人性）----------------
+  - id: WSK-01
+    person: 我是K
+    category: 卖点
+    rule: 炸板分三类：一字板开板可能是顶、次日大概率凉；大盘拖累开板反而有机会；大盘平稳而个股放量开板多为出货，次日看分时出局
+    quote: 如果是大盘波动不大，个股放量开板，那么极有可能是出货，第二天看分时出局走人
+    source: 人物/我是K/text/58位·中册·第13章.md#page-141
+    evidence: 二手
+    codable: true
+    signal: T 日触及涨停未封住 且 指数当日涨跌幅绝对值 < 0.5% 且 量 > 5 日均量×2 → T+1 卖；若开板前为一字板 → 同样 T+1 卖
+    data_check: ""
+  - id: WSK-02
+    person: 我是K
+    category: 空仓
+    rule: 稍微不爽就空仓；不借钱、不用杠杆
+    quote: 稍微不爽就空仓的人
+    source: 人物/我是K/text/58位·中册·第13章.md#page-140
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: WSK-03
+    person: 我是K
+    category: 买点
+    rule: 不抄底不猜顶，只做中间一段
+    quote: 开始不要抄底，最后不要猜顶，只玩中间一段就可以
+    source: 人物/我是K/text/58位·中册·第13章.md#page-142
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: WSK-04
+    person: 我是K
+    category: 心态
+    rule: 对错按是否守纪律判定，不按盈亏判定
+    quote: 只有对错，没有盈亏
+    source: 人物/我是K/text/58位·中册·第13章.md#page-143
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 陶永根（路雷，只要确定性的 1%）----------------
+  - id: TYG-01
+    person: 陶永根
+    category: 仓位
+    rule: 预判大盘只用于防系统性风险和调仓位，不用于选股
+    quote: 判断大盘的短期波动主要是用来调整仓位的
+    source: 人物/陶永根/text/58位·中册·第15章.md#page-163
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: TYG-02
+    person: 陶永根
+    category: 止损
+    rule: 买入就应该涨，不涨说明买点有问题
+    quote: 买入就是要涨的，不涨说明买点有问题
+    source: 人物/陶永根/text/58位·中册·第15章.md#page-164
+    evidence: 二手
+    codable: true
+    signal: 买入后 N 日（待定）close ≤ 买入价 → 视为买点错误退出
+    data_check: ""
+  - id: TYG-03
+    person: 陶永根
+    category: 环境
+    rule: 底部价升量增是最简单的买入依据；高位持续放量风险很大
+    quote: 底部的时候，价升量增，这是最简单的道理
+    source: 人物/陶永根/text/58位·中册·第15章.md#page-165
+    evidence: 二手
+    codable: true
+    signal: close 处于 250 日区间下 30% 且 5 日涨幅 > 0 且 5 日均量 > 60 日均量×1.3 → 底部量价配合；区间上 20% 且 5 日均量 > 60 日均量×2 → 风险
+    data_check: ""
+
+  # ---------------- 永兴（杨永兴，短线快刀客）----------------
+  - id: YX-01
+    person: 永兴
+    category: 买点
+    rule: 只在尾盘买入，次日上午（10:30 前）卖出，把 T+1 做成近似 T+0
+    quote: 几乎都是尾盘买，次日10点半之前脱手股票
+    source: 人物/永兴/text/58位·中册·第17章.md#page-177
+    evidence: 二手
+    codable: true
+    signal: 买价 = T 收盘价；卖价 = T+1 开盘价（或 10:30 价，需分钟线）；持有 1 夜
+    data_check: ""
+  - id: YX-02
+    person: 永兴
+    category: 买点
+    rule: 不追涨不打板，找主力建底仓特征：量能温和放大、股价缓慢上涨
+    quote: 量能的温和放大，股价的缓慢上涨，资金并不着急拉升等现象
+    source: 人物/永兴/text/58位·中册·第17章.md#page-177
+    evidence: 二手
+    codable: true
+    signal: 近 5 日均量 / 近 20 日均量 ∈ [1.2, 2] 且 近 5 日涨幅 ∈ [2%, 8%] 且 当日未涨停 → 尾盘候选
+    data_check: ""
+  - id: YX-03
+    person: 永兴
+    category: 选股
+    rule: 选能容纳大资金进出的行业龙头，事件驱动
+    quote: 寻找能够容纳大资金进出的行业龙头个股
+    source: 人物/永兴/text/58位·中册·第17章.md#page-177
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 廖国沛（佛山无影脚）----------------
+  - id: LGP-01
+    person: 廖国沛
+    category: 买点
+    rule: 多做第一个涨停（低位首板），每次买前自问是否主动、时间点对不对，以减少冲动追高
+    quote: 所以我多做第一个涨停
+    source: 人物/廖国沛/text/58位·中册·第23章.md#page-221
+    evidence: 二手
+    codable: true
+    signal: T-1 未涨停 且 近 20 日涨幅 < 20%（低位）且 T 日涨停 → 首板候选
+    data_check: ""
+  - id: LGP-02
+    person: 廖国沛
+    category: 选股
+    rule: 盘中盯涨速榜/涨幅榜找异动，资金力度以连续万手买单为标准；同时看位置、盘子、题材新鲜度
+    quote: 简单以连续万手单子买入为标准
+    source: 人物/廖国沛/text/58位·中册·第23章.md#page-220
+    evidence: 二手
+    codable: false
+    signal: 需逐笔/L2 数据
+    data_check: ""
+  - id: LGP-03
+    person: 廖国沛
+    category: 卖点
+    rule: 主动封板吸引跟风后，次日冲高快速卖出（编者据龙虎榜归纳）
+    quote: 在吸引资金跟风后，次日股价冲高时快速抛售
+    source: 人物/廖国沛/text/58位·中册·第23章.md#page-220
+    evidence: 二手
+    codable: true
+    signal: T 日首板买入 → T+1 卖（价 = T+1 high 与 open 之间，日线无法精确）
+    data_check: ""
+
+  # ---------------- 方新侠（确定性机会）----------------
+  - id: FXX-01
+    person: 方新侠
+    category: 选股
+    rule: 龙头是走出来的：找连续两天涨幅高于大盘并且放量的
+    quote: 找连续两天涨幅高于大盘，并且放量的
+    source: 人物/方新侠/text/58位·下册·第01章.md#page-8
+    evidence: 二手
+    codable: true
+    signal: 个股 T-1、T 两日涨幅均 > 上证涨幅 且 两日量均 > 5 日均量 → 龙头候选
+    data_check: ""
+  - id: FXX-02
+    person: 方新侠
+    category: 卖点
+    rule: 题材前排龙头涨停次日：高开 3~4% 观察；高开 7~8% 直接卖，看好再打板买回
+    quote: 高开 3 到 4 个点，会观察等待，高开 7 到 8 个点，会直接砸盘，，如果看好，再打板买回来
+    source: 人物/方新侠/text/58位·下册·第01章.md#page-8
+    evidence: 二手
+    codable: true
+    signal: T 日涨停；T+1 开盘涨幅 ≥ 7% → 开盘卖；3%~4% → 持有观察（后续规则未给）
+    data_check: ""
+  - id: FXX-03
+    person: 方新侠
+    category: 买点
+    rule: 连板确定性非单调：4 板低于 3 板，5 板又高于 4 板
+    quote: 4 板的确定性要低于 3 板，5 板的确定性又高于 4 板
+    source: 人物/方新侠/text/58位·下册·第01章.md#page-9
+    evidence: 二手
+    codable: true
+    signal: 按连板高度 k 统计 P(k→k+1 晋级)；检验 P(4→5) < P(3→4) 且 P(5→6) > P(4→5)
+    data_check: ""
+  - id: FXX-04
+    person: 方新侠
+    category: 买点
+    rule: 做老龙头的二波/三波，介入点在二波首板；首板进场、二板加仓
+    quote: 龙头二波，第一板是最安全的
+    source: 人物/方新侠/text/58位·下册·第01章.md#page-8
+    evidence: 二手
+    codable: true
+    signal: 过去 60 日内曾连板 ≥ 4 的股，调整（自高点回撤 ≥ 20%）后首次涨停 → 二波首板
+    data_check: ""
+  - id: FXX-05
+    person: 方新侠
+    category: 环境
+    rule: 下跌周期中有抵抗力的股票开始补跌，是短线进场的时候（老周期强势股大跌是新周期开始的必要条件）
+    quote: 下跌周期中，有抵抗力的股票，开始补跌的时候，就是短线进场的时候
+    source: 人物/方新侠/text/58位·下册·第01章.md#page-8
+    evidence: 二手
+    codable: true
+    signal: 指数下跌期中近 20 日相对强度前 10% 的股票 当日跌幅 ≤ -7% 的家数 ≥ N → 冰点/新周期候选
+    data_check: ""
+  - id: FXX-06
+    person: 方新侠
+    category: 止损
+    rule: 震荡期看好的票决不割肉；被套个股隔日调整多会加仓（与常规止损相反，大资金手法）
+    quote: 看好的票，决不割肉。舍得高位出
+    source: 人物/方新侠/text/58位·下册·第01章.md#page-9
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+
+  # ---------------- 闻少（超短模式核心拆解）----------------
+  - id: WS-01
+    person: 闻少
+    category: 买点
+    rule: 小周期龙头断板（「猝」）的当天或其后两三天，做新题材首板试错，去试新周期龙头
+    quote: 什么时候做新题材首板的试错，原因就是为了去试仓新周期的龙头
+    source: 人物/闻少/text/58位·下册·第04章.md#page-28
+    evidence: 二手
+    codable: true
+    signal: 市场最高连板股 T 日断板（未涨停）→ T~T+3 日内，新出现概念（近 20 日涨停数为 0 的概念）的首板 → 小仓试错
+    data_check: ""
+  - id: WS-02
+    person: 闻少
+    category: 环境
+    rule: 情绪周期靠盘面读数：发酵期连板数与梯队超预期；发酵分歧期炸板后高概率反包；退潮期通杀高位股
+    quote: 比如发酵期的连板数和连板梯队不断的超预期，比如发酵分歧期的炸板失败后的高概率反包，比如高潮后退潮期的通杀高位股
+    source: 人物/闻少/text/58位·下册·第04章.md#page-33
+    evidence: 二手
+    codable: true
+    signal: 连板家数与最高板 vs 近 5 日均值（超预期=发酵）；昨炸板股今涨停率（反包率）；昨 ≥3 板股今跌停/大面比例（退潮）
+    data_check: ""
+  - id: WS-03
+    person: 闻少
+    category: 环境
+    rule: 大分歧后期：赚钱效应降低、坑人概率增加、接力变差、龙头高度逐级递减
+    quote: 赚钱效应降低、坑人概率增加、接力氛围逐渐变差、龙头股的高度，慢慢开始逐级递减
+    source: 人物/闻少/text/58位·下册·第04章.md#page-39
+    evidence: 二手
+    codable: true
+    signal: 最近 3 个题材周期的最高连板高度单调递减 且 昨涨停今溢价均值 < 0 → 大分歧后期，降仓
+    data_check: ""
+  - id: WS-04
+    person: 闻少
+    category: 空仓
+    rule: 结构后段量价背离、阳线减少、买卖盘都缩，属于无效交易时段，空仓即可
+    quote: 亏钱效应增多，属于无效交易时段，避险时间段，空仓不做没什么问题
+    source: 人物/闻少/text/58位·下册·第04章.md#page-63
+    evidence: 二手
+    codable: true
+    signal: 指数 close 近 10 日新高但成交额 10 日均值较前 10 日下降 > 20%（量价背离）→ 空仓/降仓
+    data_check: ""
+  - id: WS-05
+    person: 闻少
+    category: 买点
+    rule: 逻辑第一：看不懂板的逻辑，不因上板质量好就打板；连板股的确定性买点只打板确认、不半路
+    quote: 为了打板而打板，术永远是为了服务于道的
+    source: 人物/闻少/text/58位·下册·第04章.md#page-47
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: WS-06
+    person: 闻少
+    category: 卖点
+    rule: 高位轻松跌穿筹码峰（尤其放量大阴）应离场；跌破下峰后反弹受阻
+    quote: 如果在高位轻松跌穿筹码峰，是当强不强，尤其是放量大阴跌穿，应离场避险
+    source: 人物/闻少/text/58位·下册·第04章.md#page-53
+    evidence: 二手
+    codable: true
+    signal: 以近 60 日成交量-价格分布（VPOC）近似筹码峰；close < VPOC 且 当日跌幅 ≤ -5% 且量 > 20 日均量×2 → 离场
+    data_check: ""

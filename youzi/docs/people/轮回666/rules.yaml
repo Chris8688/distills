@@ -1,0 +1,76 @@
+person: 轮回666
+period_trades: 2019-01 ~ 2019-06 原始 xls（60 段）+ 2018-05~06 时光杯 OCR（6 段）；无成交时间
+note: 无心法文字，全部规则为实盘反推。数字已修正 2 段送转除权（德艺文创、农尚环境）造成的伪亏损，trades/ 原文件未改
+rules:
+  - id: LH-01
+    category: 环境
+    rule: 利润依赖妖股潮月份，其余月份保本或亏损
+    quote: ""
+    source: trades/episodes_enriched.csv
+    evidence: 实盘反推
+    codable: true
+    signal: 按建仓月 PF
+    data_check: 2019-04 建仓 14 段 PF 7.85、+195 万（胜率 79%）；2019-01 7 段 PF 0.08、-42 万；2019-05 PF 0.60
+  - id: LH-02
+    category: 选股
+    rule: 妖股启动前或启动早期（前 10 日无涨停）介入最赚钱
+    quote: ""
+    source: data/bars_bs 补算
+    evidence: 实盘反推
+    codable: true
+    signal: T-10..T-1 无涨停收盘 且 r_buy ∈ [-5%, +3%)
+    data_check: 前 10 日无板 27 段 PF 5.31、+171 万；有板 39 段 PF 1.63、+64 万；凯龙股份、全柴动力买入时前 10 日均无板
+  - id: LH-03
+    category: 买点
+    rule: 以平盘或低吸上车，基本不打板、少追高
+    quote: ""
+    source: trades/entry_types.md
+    evidence: 实盘反推
+    codable: true
+    signal: r_buy < 3%
+    data_check: 平盘 41%（PF 2.22）/ 低吸 26%（PF 5.53，占净利 62%）/ 半路 30%（PF 1.05）/ 打板 3%
+  - id: LH-04
+    category: 卖点
+    rule: 主升段拿 5-9 天，不按断板即卖
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 持有天数 > 5
+    data_check: 持有 >5 天 7 段 PF 7.65、+184 万；1 天段 PF 1.44；T+1 未封仍 T+1 卖的只有 61%（7 人最低）
+  - id: LH-05
+    category: 止损
+    rule: 会扛单——约 1/4 的亏损段持有 ≥3 天
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 亏损段持有天数 ≥3
+    data_check: 31 个亏损段中 8 段 ≥3 天（紫金银行 5 天 -12%，福莱特 8 天 -13%，顺灏股份 3 天 -29%）；亏损段 p10 -12.1%
+  - id: LH-06
+    category: 仓位
+    rule: 单票集中 + 使用融资（约 38% 买入金额）
+    quote: ""
+    source: src/原始成交/历史成交*.xls
+    evidence: 实盘反推
+    codable: true
+    signal: 操作 = 融资买入；过夜持仓只数
+    data_check: 融资买入 64 笔约 2060 万 / 证券买入 77 笔约 3337 万；过夜持仓中位 1 只，66% 的过夜日只持 1 只
+  - id: LH-07
+    category: 空仓
+    rule: 大亏后停 1 天左右；连亏月后降低出手频率
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 大亏(<-7%)平仓到下一次建仓的交易日数
+    data_check: 大亏后空仓间隔中位 1 天（其他 6 人为 0）；2019-01 连亏后 2 月只做 4 段
+  - id: LH-08
+    category: 选股
+    rule: 深主板（00xxxx）胜率与 PF 最高
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 代码前缀
+    data_check: 深主 21 段胜率 81%、PF 4.59、+143 万；沪主 34 段 PF 1.81；创业 11 段 PF 2.08

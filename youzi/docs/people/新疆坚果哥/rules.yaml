@@ -1,0 +1,66 @@
+person: 新疆坚果哥
+note: 方法论只有编者整理的 3 页营销总结（二手）；交割单为融资账户逐日持仓截图（非逐笔成交）；无 trades/
+rules:
+  - id: JG-01
+    category: 仓位
+    rule: 融资满仓，仓位常在 150%~200% 以上
+    quote: 因为使用融资账户，天天满仓满融，所以赚得也快，亏得更快
+    source: text/新疆坚果哥交割单-2个月十倍.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: "总市值 / 净资产 > 1.5 → 杠杆满仓"
+    data_check: "持仓截图 41 次仓位读数：均值约 169%，最高 228%，最低 85%（text 全文 grep，非 trades/ 统计）"
+  - id: JG-02
+    category: 仓位
+    rule: 主线核心逻辑票重仓持有 3~6 个交易日，单票贡献大头收益
+    quote: 这一波收益最大的就是三个票，盟固利，华力创通，张江高科
+    source: text/新疆坚果哥  操作模式总结.md#page-1
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "编者口径：盟固利贡献 43%、张江高科近 60%（#page-1~2），截图可见对应持仓"
+  - id: JG-03
+    category: 选股
+    rule: 做次新股套利
+    quote: 喜欢做次新股套利…都是大赚超过 10 个点
+    source: text/新疆坚果哥  操作模式总结.md#page-2
+    evidence: 二手
+    codable: true
+    signal: "上市 ≤ 60 个交易日 且 已开板 → 次新候选"
+    data_check: 无逐笔数据；编者只列盈利例子
+  - id: JG-04
+    category: 买点
+    rule: 一进二追涨/打板，买板块活口
+    quote: 经常做一进二的追涨和打板，买入板块的活口
+    source: text/新疆坚果哥  操作模式总结.md#page-2
+    evidence: 二手
+    codable: true
+    signal: "T-1 首板 且 T 日买价 = 涨停价 或 T 日盘中涨幅 > 7% 追入 → 一进二"
+    data_check: 无逐笔数据
+  - id: JG-05
+    category: 买点
+    rule: 炸板股次日未被核按（未大幅低开）时低吸
+    quote: 炸板股第二天没有被核低吸
+    source: text/新疆坚果哥  操作模式总结.md#page-3
+    evidence: 二手
+    codable: true
+    signal: "T-1 触及涨停未封住 且 T 日开盘 > -3% → 盘中低于均价线买入"
+    data_check: "编者自举 3 例：首创证券大赚、云赛智联小亏、信达证券亏（1 胜 2 负）"
+  - id: JG-06
+    category: 环境
+    rule: 左侧预判，前一晚定次日方向，只做大方向不做小题材
+    quote: 重点偏左侧预判，一般晚上就想好第二天要切入的方向…一般小题材不参与
+    source: text/新疆坚果哥  操作模式总结.md#page-3
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "待核：截图中出现光明地产、太平洋、天晟新材等非主线票"
+  - id: JG-07
+    category: 选股
+    rule: 不做纯情绪"三无"票，只买有逻辑的票
+    quote: 不买捷荣技术的原因是不做纯情绪票
+    source: text/新疆坚果哥  操作模式总结.md#page-3
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无

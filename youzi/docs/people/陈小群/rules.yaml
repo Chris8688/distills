@@ -1,0 +1,151 @@
+person: 陈小群
+data_note: 无 trades/；一手仅 39 张截图（2022-03~06），截图收益 2021-03-17~2022-03-17 为 +1211%
+rules:
+  - id: CXQ-01
+    category: 环境
+    rule: 市场总龙头首阴后次日反包 → 行情继续
+    quote: 市场总龙头首阴后，如果反包，市场行情继续
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「总龙头 = T-1 全市场最高连板股（≥5 板）；T 日收阴（收<开 或 收<T-1收）且 T+1 收盘 > T 日开盘（反包）」→ 情绪延续
+  - id: CXQ-02
+    category: 环境
+    rule: 市场总龙头首阴后被继续打压 → 市场可能一波调整
+    quote: 市场总龙头首阴后，如果被按，市场可能有一波调整
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「总龙头首阴后 T+1 跌幅 ≤ -7% 或跌停」→ 调整预警，次日起降敞口
+  - id: CXQ-03
+    category: 环境
+    rule: 总龙头第一次停牌核查 → 板块中位股加速；第二次被关 → 小心高位板做多情绪
+    quote: 市场总龙头第一次被关，板块内中位股加速；第二次被关，小心高位板做多情绪
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「总龙头发布异常波动停牌核查公告 次数=1 → 关注同概念 3-5 板个股；次数=2 → 禁止接力 ≥4 板」
+  - id: CXQ-04
+    category: 买点
+    rule: 总龙头被关期间（出来前两三天）做板块内低位补涨
+    quote: 市场总龙头被关，可以做板块内补涨
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「总龙头停牌中 且 同概念个股 T 日首板或二板」→ 补涨候选
+  - id: CXQ-05
+    category: 选股
+    rule: 总龙熄火但题材未退潮，新龙坚挺走出就做新龙
+    quote: 市场总龙头熄火，但题材未到退潮期，新龙坚挺走出，做新龙
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: false
+  - id: CXQ-06
+    category: 选股
+    rule: 龙头的定义：能带动板块起涨，上板能带来跟风赚钱效应
+    quote: 能带动板块起涨的龙头才叫龙头，龙头上板要能带来跟风的赚钱效应
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「候选股涨停当日，同概念涨停家数 ≥ 3 且 次日同概念 T-1 涨停股平均溢价 > 0」→ 合格龙头
+  - id: CXQ-07
+    category: 选股
+    rule: 只做龙头或潜在龙头，没地位不做，不干杂毛
+    quote: 不干杂毛，做龙头或者潜在龙头，没地位不想做
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: false
+  - id: CXQ-08
+    category: 买点
+    rule: 看好的合力票低吸、半路、打板都会做
+    quote: 看好的合力票，低吸、半路、打板都会做
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: false
+    data_check: 截图定性一致：中交地产同一轮既有竞价涨停价挂单，也有 9.88~11.68 元分批买入
+  - id: CXQ-09
+    category: 卖点
+    rule: 做市场龙头一般不做 T，持有到情绪见顶或预计停牌才走
+    quote: 做市场龙头时，一般不做T，持有到情绪见顶或预计停牌才走
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「持有总龙头直至 首阴被按（CXQ-02）或 累计偏离值接近停牌核查阈值」→ 卖出
+    data_check: 截图定性冲突：浙江建投 2022-03-09 同日 22.01 卖出、21.38 买回（做 T）
+  - id: CXQ-10
+    category: 卖点
+    rule: 翘板（跌停撬板）买入，次日不涨停就全出，趋势/逻辑票除外
+    quote: 翘板：只要不是趋势或内在逻辑的票，翘板第二天不涨停就全出
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「T 日最低 = 跌停 且 买价 ≥ 跌停×1.01（撬板买入）；T+1 未涨停 → 全部卖出」
+  - id: CXQ-11
+    category: 空仓
+    rule: 市场确定退潮就不买，退潮中买入果断止损
+    quote: 市场一旦确定退潮，就不买，退潮买入果断止损，顺势而为
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「最高连板高度连续 3 日下降 且 T-1 涨停股次日平均溢价 < 0」→ 退潮：禁止新开仓
+  - id: CXQ-12
+    category: 仓位
+    rule: 一般分仓以控制回撤
+    quote: 一般分仓，可控制回撤
+    source: text/58位·中册·第22章.md#page-216
+    evidence: 二手
+    codable: true
+    signal: 「单票 ≤ 总资产 50%」
+  - id: CXQ-13
+    category: 止损
+    rule: 看错就在跌停板割，割不出去第二天割
+    quote: 看错了就跌停板割肉、割不出去就第二天割肉，盈亏同源
+    source: text/陈小群悟道心法_纯图版.md#page-7
+    evidence: 二手
+    codable: true
+    signal: 「持仓股触及跌停 → 当日跌停价挂卖；未成交 → T+1 竞价卖出」
+  - id: CXQ-14
+    category: 选股
+    rule: 逻辑硬、盘子小、深市股票更容易成龙
+    quote: 逻辑硬、盘子小、深市，更容易成龙
+    source: text/陈小群悟道心法_纯图版.md#page-6
+    evidence: 二手
+    codable: true
+    signal: 「深市 且 流通市值 < 50 亿」→ 龙头候选加分（逻辑硬无法量化）
+  - id: CXQ-15
+    category: 买点
+    rule: 不提前预判，龙头走出来才跟；预判要等市场认可
+    quote: 没法提前判断，我提前判断不出来，我都是来跟，就是他只有走出来我才去
+    source: text/陈小群直播整理.md#page-4
+    evidence: 原文
+    codable: false
+  - id: CXQ-16
+    category: 环境
+    rule: 下跌趋势中不抄底
+    quote: 下跌趋势抄底对只能对一次，但错可以错很多次
+    source: text/陈小群直播整理.md#page-1
+    evidence: 原文
+    codable: true
+    signal: 「指数或个股收盘 < MA20 且 MA20 下行 → 禁止低吸」
+  - id: CXQ-17
+    category: 选股
+    rule: 不博纯消息票，做走出来、有散户基础的合力票
+    quote: 我比较喜欢做市场合力的票，就是它走出来了，有散户基础的这些票
+    source: text/陈小群直播整理.md#page-2
+    evidence: 原文
+    codable: false
+  - id: CXQ-18
+    category: 环境
+    rule: 板块强弱以关键日板块整体是否跟随来验证，不真强就次日兑现
+    quote: 他如果周三板块强才算真的强…那你周四就该兑现啊
+    source: text/陈小群直播整理.md#page-2
+    evidence: 原文
+    codable: false
+  - id: CXQ-19
+    category: 买点
+    rule: 补涨龙：主线龙头首次分歧/再转强时，上后排最强股（第三方归纳）
+    quote: 最好的补涨应该是龙头急拉后的前一两次的分歧转强点
+    source: text/陈小群交割单图文解读-一年30倍破亿金.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 「主线龙头 近 N 日涨幅 ≥ 100% 且 出现首阴后 T 日转强（收 > T-1 高）」→ 同概念 T 日涨幅第一的后排股 为补涨候选

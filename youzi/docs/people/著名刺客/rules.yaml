@@ -1,0 +1,173 @@
+person: 著名刺客
+rules:
+  - id: ZMCK-01
+    category: 环境
+    rule: 只做当下主流题材，脱离主流的任何手法都不做
+    quote: 所有战法的根本，就是紧随主流
+    source: text/著名刺客手记_2013-2016.md#page-19
+    evidence: 原文
+    codable: true
+    signal: 主流 = 近 5 日涨停家数最多的概念板块（前 2）；候选股必须属于主流板块
+    data_check: 无法检验（无概念映射）
+  - id: ZMCK-02
+    category: 空仓
+    rule: 上证指数跌破 10 日线时严格控仓，能空仓就空仓
+    quote: 用上证指数十天均线，当破掉十天线时，严格控制仓位。能做到空仓就空仓
+    source: text/58位·上册·第18章.md#page-219
+    evidence: 二手
+    codable: true
+    signal: 上证收盘 < MA10 → 目标仓位 ≤ 20%（或 0）；收盘重回 MA10 上方 → 恢复
+    data_check: 无法检验（trades/ 仅 1 段）；可用持仓快照空仓日对齐上证 MA10 补测
+  - id: ZMCK-03
+    category: 环境
+    rule: 大盘差、市场没有两连板股时，停用打板改低吸
+    quote: 最近大盘太差，两连板的票基本没有，放弃这种模式。改为低吸模式
+    source: text/著名刺客手记_2013-2016.md#page-1
+    evidence: 原文
+    codable: true
+    signal: T-1 全市场连板数 ≥2 的个股家数 ≤ 2 → 禁止打板，只允许低吸
+    data_check: 无法检验
+  - id: ZMCK-04
+    category: 空仓
+    rule: 疑似下跌中继日不打板，空仓
+    quote: 疑似的下跌中继日，好板也不一定能赚钱…所以空仓
+    source: text/著名刺客手记_2013-2016.md#page-61
+    evidence: 原文
+    codable: true
+    signal: 上证 T-1 跌幅 ≤ -1.5% 且 T 日反弹 < 前日跌幅一半 且 收盘 < MA5 → 下跌中继（定义为归纳，待核）
+    data_check: 无法检验
+  - id: ZMCK-05
+    category: 空仓
+    rule: 选不出看得懂的票就空仓
+    quote: 尾盘选不出哪个板会吃大肉，既然能力之外，就空着吧
+    source: text/著名刺客语录_纯图版.md#page-2
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 方向一致（持仓快照手工统计，非 trades/）：50 万账户 69 个快照中 21 个空仓；500 万账户 58 天中 9 天空仓
+  - id: ZMCK-06
+    category: 选股
+    rule: 打板只打有名气的人气股
+    quote: 打板还是要打名气股，至少当天能封死
+    source: text/著名刺客手记_2013-2016.md#page-41
+    evidence: 原文
+    codable: true
+    signal: 候选 = 当日成交额前 50 且 近 10 日涨停 ≥ 2 的个股
+    data_check: 无法检验
+  - id: ZMCK-07
+    category: 选股
+    rule: 分化行情只做龙头
+    quote: 分化的行情，只有做龙头才能确保收益
+    source: text/著名刺客手记_2013-2016.md#page-49
+    evidence: 原文
+    codable: true
+    signal: 涨停家数下降而最高连板仍新高 → 分化；分化日只允许买入板块内连板最高者
+    data_check: 无法检验
+  - id: ZMCK-08
+    category: 选股
+    rule: 牛市做新高股，弱市/暴跌后反弹做超跌股
+    quote: 牛市做新高股比较合适…还是和昨天点评的，做超跌股比较安全
+    source: text/著名刺客手记_2013-2016.md#page-41
+    evidence: 原文
+    codable: true
+    signal: 上证 > MA60 → 选 60 日新高股；上证 < MA60 → 选 20 日跌幅前 10% 的股
+    data_check: 无法检验
+  - id: ZMCK-09
+    category: 买点
+    rule: 新题材出现分歧时介入
+    quote: 新题材容易分歧，分歧的时候才是做超短暴利的时候
+    source: text/著名刺客手记_2013-2016.md#page-10
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无法检验
+  - id: ZMCK-10
+    category: 仓位
+    rule: 换手连板投入多，缩量（一字/低换手）连板投入少
+    quote: 对于换手连板投入的资金比较多，对于缩量板投入的资金较少
+    source: text/著名刺客语录_纯图版.md#page-2
+    evidence: 二手
+    codable: true
+    signal: 连板股 T 日换手 ≥ 15% → 仓位权重 1.0；换手 < 5% → 0.3（阈值待定）
+    data_check: 无法检验
+  - id: ZMCK-11
+    category: 买点
+    rule: 主线人气股第一次「大长腿」（盘中深跌后拉涨停）介入
+    quote: 情绪由恐惧，到极度贪婪…分歧到一致，从水下到直线拉板
+    source: text/著名刺客新生代游资著名刺客手法揭秘 PDF文章.md#page-3
+    evidence: 二手
+    codable: true
+    signal: T 日最低价 ≤ T-1 收盘 × 0.95 且 收盘 = 涨停价 且 属主流板块 且 近 20 日首次 → 大长腿（日内振幅 ≥ 15%）
+    data_check: 无法检验
+  - id: ZMCK-12
+    category: 买点
+    rule: 尾盘偷袭强势次新/前期热点股的高位反包板
+    quote: 临近收盘偷袭，拉尾盘，尤其是叠加次新的前期强势个股高位反包
+    source: text/著名刺客新生代游资著名刺客手法揭秘 PDF文章.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 上市 < 1 年 且 近 20 日最高涨幅 ≥ 50% 且 T-1 收阴 且 T 日 14:30 后封涨停 → 尾盘反包
+    data_check: 无法检验（无分钟数据）
+  - id: ZMCK-13
+    category: 仓位
+    rule: 满仓一只股快速进出，分仓多只是回撤信号
+    quote: 每次自己回撤，就是乱买一气，分仓好几个股的时候，每次大赚，就是自己满仓一只股
+    source: text/著名刺客手记_2013-2016.md#page-30
+    evidence: 原文
+    codable: true
+    signal: 同时持仓数 ≤ 2，首选 1
+    data_check: 一致（持仓快照手工统计）：50 万账户 69 快照中持 1 只 43、2 只 5；500 万账户 58 天中 1 只 26、2 只 21、3 只 2；trades/ 同时持仓最多 1 只
+  - id: ZMCK-14
+    category: 卖点
+    rule: 隔日超短，除非明显龙头或封死涨停，否则次日卖
+    quote: 现在的模式都是隔日超短，除非明显的龙头，或封死涨停，才持股
+    source: text/著名刺客手记_2013-2016.md#page-24
+    evidence: 原文
+    codable: true
+    signal: 持仓 T+1 若 非(收盘封死涨停) 且 非(板块最高连板) → T+1 卖出
+    data_check: trades/ 唯一段持 1 日（一致）；快照中四川双马多日持有（龙头例外）
+  - id: ZMCK-15
+    category: 卖点
+    rule: 不做机械「好板次日高开就砸」的套利，打板目标是龙头并持有
+    quote: 打板是为了在最后确定的一瞬间买入市场上最强的个股，并持有获取最大的利润
+    source: text/著名刺客手记_2013-2016.md#page-30
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无法检验
+  - id: ZMCK-16
+    category: 止损
+    rule: 隔日不及预期即割，单次亏损控制在 2-3 个点
+    quote: 如果做错，周一趁反弹出局，最多损失两三个点，又是空仓
+    source: text/著名刺客手记_2013-2016.md#page-32
+    evidence: 原文
+    codable: true
+    signal: 持仓 T+1 收益 < 0 → T+1 卖出；单段亏损目标 ≥ -3%
+    data_check: 冲突：trades/ 唯一段（红旗连锁，entry_types 判为低吸，买价较 T-1 -6.9%）次日卖出 -4.1%；50 万账户 2016-04-07→04-22 资产 51.95 万→43.15 万（约 -17%），本人承认「意气撤单后买到弱股死扛」
+  - id: ZMCK-17
+    category: 心态
+    rule: 评价一个板强弱看次日接力者能否赚钱
+    quote: 最强的，最硬的板…是看第二天接力的人能不能赚钱
+    source: text/58位·上册·第18章.md#page-217
+    evidence: 二手
+    codable: true
+    signal: 板强度 = T+1 收盘 / T 收盘 - 1（即次日接力收益）；用于事后评估信号质量
+    data_check: 无法检验
+  - id: ZMCK-18
+    category: 心态
+    rule: 不测顶不抄底
+    quote: 不要测顶，所有的测顶，你只能对一次…不要抄底
+    source: text/58位·上册·第18章.md#page-216
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""
+  - id: ZMCK-19
+    category: 环境
+    rule: 只炒重大政策级题材
+    quote: 在 A 股，炒作不炒重大政策题材，这点觉悟没有，就不要做超短了
+    source: text/著名刺客手记_2013-2016.md#page-4
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: 无法检验

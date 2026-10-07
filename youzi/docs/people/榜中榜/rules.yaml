@@ -1,0 +1,128 @@
+person: 榜中榜
+rules:
+  - id: BZB-01
+    category: 选股
+    rule: 只做当日最热题材中的最强股
+    quote: 寻找热点中的热点
+    source: text/58位·中册·第18章.md#page-180
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验（需概念归类）
+  - id: BZB-02
+    category: 选股
+    rule: 全新题材/超级题材优先，错了止损
+    quote: 牢牢搞定全新题材和超级题材，啥也别说，哪怕是错了，只要止损就行
+    source: text/58位·中册·第18章.md#page-180
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 无法检验
+  - id: BZB-03
+    category: 选股
+    rule: 牛股属性叠加越多越好（题材+形态+人气+小盘+低价）
+    quote: 题材形态人气小盘低价，属性种类越多积累起来的威力更大
+    source: text/58位·中册·第18章.md#page-180
+    evidence: 二手
+    codable: true
+    signal: 打分 = [近10日涨停数≥2] + [流通市值 < 全市场 20% 分位] + [股价 < 全市场 30% 分位] + [当日所属概念涨停家数居前3]；分数≥3 入候选
+    data_check: 无法检验（样本 4 段）
+  - id: BZB-04
+    category: 选股
+    rule: 回避大盘子、基金重仓股
+    quote: 盘子大基金多是硬伤
+    source: text/58位·中册·第18章.md#page-180
+    evidence: 二手
+    codable: true
+    signal: 流通市值 > 全市场 70% 分位 或 基金持股比例 > 10% → 剔除
+    data_check: 无法检验
+  - id: BZB-05
+    category: 买点
+    rule: 高开过多不追，适度低开下探后有承接才是机会
+    quote: 高开就死掉，低开下探则是机会
+    source: text/榜中榜交割单图文解读-一年半150倍.md#page-13
+    evidence: 二手
+    codable: true
+    signal: 候选股 竞价涨幅 > +5% → 不买；-3.5% ≤ 竞价涨幅 ≤ 0 且 开盘 15 分钟内回到开盘价上方 → 可买（阈值待核）
+    data_check: 无法检验（交割单无成交时间）
+  - id: BZB-06
+    category: 买点
+    rule: 人人看好的票高开就挂单不追，低开 3% 以内才有机会
+    quote: 人人看好的，就要小心高开低走…开高了就挂，开跌了就有机会。3%以下
+    source: text/58位·中册·第18章.md#page-180
+    evidence: 二手
+    codable: true
+    signal: 前一日为板块最高标 且 竞价涨幅 > 0 → 放弃；-3% ≤ 竞价涨幅 < 0 → 观察承接（「3%以下」语义 OCR 不清，待核）
+    data_check: 无法检验
+  - id: BZB-07
+    category: 买点
+    rule: 一字板首次开板买入胜率低，自称统计 80% 亏
+    quote: 一字板后面80%的个股都是下跌，我有统计过
+    source: text/榜中榜交割单图文解读-一年半150倍.md#page-13
+    evidence: 二手
+    codable: true
+    signal: T-1 及之前连续 ≥2 个一字涨停（开=高=低=收=涨停价）且 T 日非一字 → 「一字开板」样本；统计 T 日收盘买入后 5 日收益 <0 的比例，预期 ≈80%
+    data_check: 无样本（4 段无一字开板），需全市场独立回测
+  - id: BZB-08
+    category: 买点
+    rule: 只在强势股（近期有涨停）里找机会
+    quote: 短线理念不复杂，就是在强势股里找机会
+    source: text/58位·中册·第18章.md#page-180
+    evidence: 二手
+    codable: true
+    signal: 买入日 T-5..T-1 至少 1 个涨停，或 T 日盘中涨幅 ≥ +7%
+    data_check: 一致：4 段均为半路（首笔买价 +7%~+8%），T-1 连板数 8/0/0/4；最大段 000410（T-1 四连板）持 15 日 +22% 占全部净利
+  - id: BZB-09
+    category: 仓位
+    rule: 单票满仓，不分仓
+    quote: 多选题不如单选题…稳定不是分仓能解决的
+    source: text/榜中榜交割单图文解读-一年半150倍.md#page-14
+    evidence: 二手
+    codable: true
+    signal: 同时持仓数 = 1；单笔买入金额 ≥ 总资产 90%
+    data_check: 一致：同时持仓最多 1 只；交割单单笔买入 270~300 万量级，峰值敞口 302 万
+  - id: BZB-10
+    category: 仓位
+    rule: 不用融资杠杆
+    quote: 我也是融资融券 但是我从来不做
+    source: text/榜中榜交割单图文解读-一年半150倍.md#page-13
+    evidence: 二手
+    codable: true
+    signal: 持仓市值 ≤ 总资产
+    data_check: 无法检验（无资金余额字段）
+  - id: BZB-11
+    category: 选股
+    rule: 每日候选总数 ≤30，淘汰到 1-5 个标
+    quote: 总数最好不超过30只，然后再进行选择，优胜劣汰，最后保留1-5个标
+    source: text/榜中榜交割单图文解读-一年半150倍.md#page-15
+    evidence: 二手
+    codable: true
+    signal: 流程约束：候选池 ≤30 → 最终标的 ≤5
+    data_check: 无法检验
+  - id: BZB-12
+    category: 卖点
+    rule: 次日开盘强度不及预期，竞价/开盘直接离场
+    quote: 次日可能是感觉开的强度不够，直接竞价走
+    source: text/榜中榜交割单图文解读-一年半150倍.md#page-3
+    evidence: 二手
+    codable: true
+    signal: 持仓 T+1 竞价涨幅 < 0（或低于 T 日收盘涨幅的一半）→ 开盘卖出（阈值为归纳，待核）
+    data_check: 方向一致：持有中位 1 日，25% 当日回转；无成交时间，无法验证竞价离场
+  - id: BZB-13
+    category: 止损
+    rule: 方向错立即止损，无固定幅度
+    quote: 方向错了，止损就是生命线，看你割不割
+    source: text/58位·中册·第18章.md#page-182
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 唯一亏损段 -3.8% 次日离场
+  - id: BZB-14
+    category: 心态
+    rule: 一套方法反复重复；按性格与时间精力选模式
+    quote: 重复重复再重复。循环，境界就高了。一招鲜吃遍天
+    source: text/58位·中册·第18章.md#page-181
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: ""

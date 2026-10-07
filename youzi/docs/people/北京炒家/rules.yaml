@@ -1,0 +1,262 @@
+person: 北京炒家
+data_window: 2019-01-02 ~ 2019-06-28（trades/ 原始 xls，128 段；封住 = 收盘仍在涨停价）
+rules:
+  - id: BJ-01
+    category: 环境
+    rule: 用「昨日涨停股今日是否普遍有溢价」衡量短线情绪
+    quote: 每天的涨停，第二天大部分是有溢价，那么这种情况就叫情绪还不错
+    source: text/58位·上册·第13章.md#page-179；text/北京炒家模式.md#page-12
+    evidence: 二手
+    codable: true
+    signal: 昨日涨停池（剔除一字）今日开盘均价 / 昨收 - 1 的均值 > 0 且 中位 > 0 → 情绪不错
+    data_check: 无法检验（trades 不含全市场涨停池）
+  - id: BJ-02
+    category: 空仓
+    rule: 不主动择时空仓，而是用分仓加「找不到标的」被动降仓
+    quote: 情绪不好你一个个买下来，发现买一点就找不到标的自然仓位轻了
+    source: text/北京炒家-关于他的40个提问.md#page-3
+    evidence: 原文
+    codable: false
+    data_check: 2019H1 共 110 个交易日，19 天收盘无持仓（17%）
+  - id: BJ-03
+    category: 环境
+    rule: 当日封板率很低（约 50%）时不开新仓（个人偏好，不是硬规则）
+    quote: 涨停板封板率只有可怜的50%多点，完全没有开仓欲望
+    source: text/北京炒家交割单.md#2019-12-13_休整下，下周战
+    evidence: 原文
+    codable: true
+    signal: 盘中 涨停家数 ÷ (涨停 + 炸板) < 0.6 → 当日不新开仓
+    data_check: 无法检验（无全市场炸板数据）
+  - id: BJ-04
+    category: 选股
+    rule: 秒板要看板块效应：板块多数翻红、前排已涨 4-5 个点才打；板块普绿不打
+    quote: 前列的都已经涨了四五个点了，那他这个直接卡在前排封住的概率就很大的
+    source: text/58位·上册·第13章.md#page-177；text/北京炒家模式.md#page-6
+    evidence: 二手
+    codable: true
+    signal: 买入时同概念成分上涨家数占比 > 50% 且 板块涨幅前 3 名均 ≥ +4%
+    data_check: 无法检验（需要盘中板块数据）
+  - id: BJ-05
+    category: 选股
+    rule: 有板块就上前排；错过前排，做发酵后后排里辨识度高的（逻辑正宗或图形好）；无板块就打自己喜欢的图形和股性
+    quote: 有板块先预判板块能发酵，然后上龙头，错过前排就等发酵后上后排辨识度高的
+    source: text/北京炒家-关于他的40个提问.md#page-1
+    evidence: 原文
+    codable: false
+  - id: BJ-06
+    category: 选股
+    rule: 不复盘，临盘为主；盘中从涨幅榜 5-7 个点和涨速榜里挑票加自选，在自选里打板
+    quote: 涨幅榜上五六个点，六七个点的票，我会看一下他们的板块，看一下他们的图形
+    source: text/北京炒家模式.md#page-8~9；text/北京炒家-关于他的40个提问.md#page-1
+    evidence: 二手
+    codable: true
+    signal: 盘中 5% ≤ 涨幅 ≤ 7% 且 3/5 分钟涨速排名前 N → 候选；之后触及涨停价 → 买入
+    data_check: 无法检验（需要分时）
+  - id: BJ-07
+    category: 选股
+    rule: 「亮点」原则：图形、股性、位置、板块、大盘、盘面、消息、题材、上板时间，任意一个亮点就可以买
+    quote: 哪怕只有一个亮点，也是我买入的理由，这就是我不挑食的原因
+    source: text/北京炒家交割单.md#2019-06-29_无杠杆9个月亏掉80%/page-4
+    evidence: 原文
+    codable: false
+  - id: BJ-08
+    category: 买点
+    rule: 只打首板；不做龙头接力，不做低吸
+    quote: 心中有龙，首板都是龙
+    source: text/北京炒家-关于他的40个提问.md#page-1；text/58位·上册·第13章.md#page-177
+    evidence: 原文
+    codable: true
+    signal: 首笔买价 ≥ 涨停价 - 0.01 且 T-1 收盘未涨停 → 首板打板
+    data_check: 一致：打板 98.4%（首板 95.3%、二板 3.1%）；半路 2 段且都亏（-6.3%）；无低吸、无竞价
+  - id: BJ-09
+    category: 买点
+    rule: 新手先打回封板，以及在 +6%~+8% 横盘半小时以上后一笔拉板的换手板
+    quote: 第一，打回封板。就是封住涨停之后，后面还会开，开了之后，然后会再次回封
+    source: text/58位·上册·第13章.md#page-178；text/北京炒家模式.md#page-6~7
+    evidence: 二手
+    codable: true
+    signal: 回封 = 当日曾触及涨停 → 开板 → 再次封住时买入；换手板 = 买入前 30 分钟以上价格在 [+6%, +8%] 区间内
+    data_check: 无法检验（需要分时）
+  - id: BJ-10
+    category: 买点
+    rule: 两点半以后的「偷鸡板」少打；下午要打就打换手板或板块中军
+    quote: 两点半以后的板叫偷鸡板
+    source: text/北京炒家模式.md#page-7~8
+    evidence: 二手
+    codable: true
+    signal: 首笔打板时间 ≥ 14:30 → 偷鸡板（降仓或不做）
+    data_check: 冲突：14:30 后建仓 21 段（16.4%），胜率 67%、均值 +4.4%、封住率 95%，是各时段里最好的（样本小）
+  - id: BJ-11
+    category: 买点
+    rule: 秒拉板不要直接冲，要排板，而且要有板块效应
+    quote: 我不建议新手去打秒拉板
+    source: text/北京炒家模式.md#page-5~6
+    evidence: 二手
+    codable: false
+  - id: BJ-12
+    category: 买点
+    rule: 连板只打 10:30 前放量、板块绝对前排的换手连板
+    quote: 我从来不会打十点半以后的连板，因为我觉得胜算会低一
+    source: text/北京炒家模式.md#page-9
+    evidence: 二手
+    codable: true
+    signal: T-1 已涨停 且 打板时间 < 10:30 且 T 日成交量 > T-1 成交量 且 为当日同板块唯一晋级股
+    data_check: 冲突：4 段二板里 3 段在 10:30 后（10:33、11:07、14:42）；样本 4 段，而且这条可能是后期才定的
+  - id: BJ-13
+    category: 买点
+    rule: 板块前排用扫板，把握度低的用排板
+    quote: 板块的前排适合扫，自己觉得把握度低的适合排
+    source: text/北京炒家-关于他的40个提问.md#page-2
+    evidence: 原文
+    codable: false
+  - id: BJ-14
+    category: 仓位
+    rule: 分仓表（2019 制定）：封板率 <80% 先分 2 只；≥80% 时资金 <80 万 1 只、80-600 万 2 只，好行情以排板为主时 4 只
+    quote: 资金小于 80 万，建议只买一个股。80 万-到 600 万之间，建议日常分 2 个股
+    source: text/北京炒家模式.md#page-5
+    evidence: 二手
+    codable: true
+    signal: 单票目标仓位 = 1 / N，N = f(账户资金, 近 20 段封板率)
+    data_check: 一致：平均每段买入额 1 月 49 万 → 6 月 209 万；收盘持仓只数 1-2 月中位 1 只、3-5 月中位 2 只、最多 4 只
+  - id: BJ-15
+    category: 仓位
+    rule: 默认每票 1/4，两点半以后和创业板 20cm 用 1/8（2021）；后期正常 1/8，有把握的大票 1/6
+    quote: 我的默认仓位是一个票四分之一
+    source: text/北京炒家模式.md#page-8；text/北京炒家-关于他的40个提问.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 单票仓位 = 1/4；打板时间 ≥ 14:30 或 20cm 品种 → 1/8
+    data_check: 无法检验（2019 年数据处于 1-2 只满仓阶段）
+  - id: BJ-16
+    category: 仓位
+    rule: 快速满仓，天天满仓，不空仓
+    quote: 空仓是不可能的，这辈子都不可能空仓
+    source: text/北京炒家交割单.md#2020-06-08；text/北京炒家模式.md#page-2
+    evidence: 原文
+    codable: true
+    signal: 收盘总持仓市值 / 账户 ≈ 1
+    data_check: 基本一致：110 个交易日里 91 天收盘有持仓
+  - id: BJ-17
+    category: 仓位
+    rule: 回撤只看分几只；每经历一次大回撤就分得更细（1 → 2 → 4 → 8）
+    quote: 回撤只跟分仓几个有关，再牛的人满仓一个也会有回撤 20 个点的时候
+    source: text/北京炒家-关于他的40个提问.md#page-5；text/北京炒家交割单.md#2020-07-11/page-3
+    evidence: 原文
+    codable: true
+    signal: 每日最大持仓只数 N 与滚动 20 日最大回撤负相关
+    data_check: 方向一致：2019 年 1 月（单吊）22 段胜率 32%、亏 10.3 万，对应自述「19年1月单月连续9日亏损回撤30%」；之后 2 只阶段 2-6 月每月为正
+  - id: BJ-18
+    category: 仓位
+    rule: 不在同一板块里分仓多只
+    quote: 以后再也不分仓多只同一板块的股票了
+    source: text/北京炒家交割单.md#2020-01-06
+    evidence: 原文
+    codable: true
+    signal: 同日新开仓的标的两两不属于同一概念板块
+    data_check: 无法检验（无板块标签；而且是 2020 年才立的规则）
+  - id: BJ-19
+    category: 止损
+    rule: 次日走弱就砍：高开低走、低开低走反抽无力就走，跌停必走；不设固定百分比
+    quote: 很机械，高开低走，低开低走反抽，跌停必走
+    source: text/北京炒家-关于他的40个提问.md#page-4；text/北京炒家模式.md#page-11~12
+    evidence: 原文
+    codable: true
+    signal: T+1 开盘 > 买价 且 盘中跌破 T 日收盘（翻绿）→ 卖；T+1 低开且第一次反弹不过开盘价 → 卖
+    data_check: 幅度上一致：最差 -10.9%，次日高开的 67 段只有 13 段转亏，中位 -2.4%、最大 -5.9%；速度上轻微冲突：亏损段 10:00 前卖完的 49%，盈利段 71%
+  - id: BJ-20
+    category: 卖点
+    rule: 次日快速卖，约开盘 1 小时内卖完（另一个说法是 15 分钟）
+    quote: 一般 1 个小时内出掉，不是一笔两笔，弱势的时候我经常十多笔才卖完
+    source: text/北京炒家-关于他的40个提问.md#page-5；text/58位·上册·第13章.md#page-181
+    evidence: 原文+二手
+    codable: true
+    signal: 持有 1 天的段，最后一笔卖出时间 < 10:30
+    data_check: 「1 小时」基本一致：持有 1 天的占 92.2%，其中 10:30 前卖完 77%、10:00 前 61%；「15 分钟」冲突：09:45 前卖完只有 41.5%；卖出笔数中位 2、最多 16
+  - id: BJ-21
+    category: 卖点
+    rule: 判断为偏趋势（不是纯投机）的票可以多拿到第 2、3 天，但比例少
+    quote: 可以第二天或者拿到第三天多拿一会儿，但这种比例会比较少，我大部分第二天就会走的
+    source: text/北京炒家模式.md#page-11；text/58位·上册·第13章.md#page-179
+    evidence: 二手
+    codable: true
+    signal: T 日封住 且 T+1 开盘溢价 ≥ +3.5% 或一字 → 不在 T+1 卖
+    data_check: 一致而且是利润核心：持有 ≥2 天的 10 段（7.8%）全部封住，7 段次日开盘 ≥ +3.5%，贡献净利 231 万 / 340.8 万 = 68%
+  - id: BJ-22
+    category: 卖点
+    rule: 持仓中开板就走，不论是不是龙头
+    quote: 管它是不是龙头，只要破板了就走
+    source: text/北京炒家模式.md#page-2
+    evidence: 二手
+    codable: true
+    signal: 持仓日盘中曾封涨停后开板 → 立即卖出
+    data_check: 无法检验（需要分时）
+  - id: BJ-23
+    category: 止损
+    rule: 坚决不补仓
+    quote: 坚决不做补仓操作
+    source: text/北京炒家模式.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 同一段持仓内，后续买价 < 首笔买价 → 违规
+    data_check: 一致：128 段里只有 1 段跨日加买（富满电子 05-24，加在高于首日成本的价位，属于浮盈加仓）
+  - id: BJ-24
+    category: 空仓
+    rule: 当天炸板两个以后不再开仓
+    quote: 炸板两个的情况下，坚决不再开仓做错坚决止损
+    source: text/北京炒家模式.md#page-4
+    evidence: 二手
+    codable: true
+    signal: 当日已打板且收盘未封的笔数 ≥ 2 → 当日之后不再新开仓
+    data_check: 1 次违反 / 2 次机会：03-08 在两次炸板后又于 14:42 打了恒信东方（封住，+9.8%）
+  - id: BJ-25
+    category: 心态
+    rule: 可买可不买的坚决不买；低于日常分仓金额的试探单不做
+    quote: 可买可不买的坚决不买，低于日常状态分仓资金量的操作坚决不尝试
+    source: text/北京炒家交割单.md#2019-12-08_谈谈板客操作的理想状态/page-5
+    evidence: 原文
+    codable: true
+    signal: 单笔首买金额 < 当期中位分仓金额 × 0.5 → 违规
+    data_check: 待核（可以用 episodes.buy_amt 和当月中位数对比，本笔记未做）
+  - id: BJ-26
+    category: 心态
+    rule: 封板率 ≥80% 是板客的及格线；想提高就要牺牲前排、打换手更充分的烂板
+    quote: 8 成是板客的基本要求，要提高封板率就只能牺牲前排
+    source: text/北京炒家-关于他的40个提问.md#page-1；text/北京炒家交割单.md#2020-08-31
+    evidence: 原文
+    codable: true
+    signal: 近 N 笔打板中收盘封住的比例 ≥ 0.8
+    data_check: 一致：封住率 85%；封住段胜率 64%、均值 +3.4%，炸板段胜率 16%、均值 -4.3%
+  - id: BJ-27
+    category: 卖点
+    rule: 次日竞价先看同板块队友开得怎样；前一天是弱板的，要靠放量竞价弱转强（小票前一天成交 <5 亿时，竞价成交 ≥3000 万）
+    quote: 前一天成交量五个亿以下，那么第二天的话基本上有个三千万以上的竞价
+    source: text/北京炒家模式.md#page-14~15
+    evidence: 二手
+    codable: true
+    signal: T 日成交额 < 5 亿 且 T 日为烂板 且 T+1 竞价成交额 ≥ 3000 万 且 T+1 开盘涨幅 ∈ [+3%, +4%] → 弱转强，可留；否则开盘走弱就卖
+    data_check: 无法检验（无竞价成交额）
+  - id: BJ-28
+    category: 心态
+    rule: 不追求胜率，靠扩大样本、稳定执行
+    quote: 我胜率就 55 开，只能让样本继续扩大，提高胜率不指望了
+    source: text/北京炒家-关于他的40个提问.md#page-2
+    evidence: 原文
+    codable: true
+    signal: 段胜率 ∈ [0.5, 0.6]，靠 PF > 2 盈利
+    data_check: 一致：胜率 56.2%，PF 2.57，平均盈利 +7.0% / 平均亏损 -4.2%
+  - id: BJ-29
+    category: 心态
+    rule: 没稳定盈利前大部分资金转出做备用金；达标（年翻 3 倍，或 12 个月里至少 10 个月为正，或年内最大回撤 <10%）后再动用
+    quote: 我是8万做到100万时，才把备用金加进来的
+    source: text/58位·上册·第13章.md#page-181；text/北京炒家交割单.md#2019-06-29_无杠杆9个月亏掉80%/page-4
+    evidence: 原文
+    codable: false
+  - id: BJ-30
+    category: 心态
+    rule: 模式外的交易（接力、低吸、半路）少做——这是他最大亏损的来源
+    quote: 模式外的交易还是少玩啊，水平不够，还是要认清自己几斤几两
+    source: text/北京炒家交割单.md#2021-11-08；text/北京炒家交割单.md#2020-10-16_爆亏50多万
+    evidence: 原文
+    codable: true
+    signal: 首笔买入类型 ≠ 首板打板 → 模式外交易（单独统计）
+    data_check: 一致：2019H1 模式外的只有 2 段半路 + 4 段二板，半路 2 段都亏（-6.3%）；2020 年以后的大亏（金风科技约 -100 万）来自接力和低吸，没有成交数据

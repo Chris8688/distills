@@ -1,0 +1,156 @@
+person: 独股一箭
+# trades/ 覆盖 2011-07-01~2011-09-28 共 38 段（OCR，卖配买 64%）；20w=2010 年实盘帖
+rules:
+  - id: DG-01
+    category: 环境
+    rule: 真正的热点/强势板块可忽略大盘初期恶劣环境，反而是低买良机
+    quote: 对于真正的热点或强势板块，大盘初期的恶劣环境是可以忽略的（当然只是初期）
+    source: text/58位·上册·第09章.md#page-141
+    evidence: 二手
+    codable: true
+    signal: "IDX 自高点回撤 ≤5%（『初期』，待校准）且 板块指数 20 日涨幅排名前 10% → 允许低吸该板块强势股"
+    data_check: 无法检验（未接板块数据）
+  - id: DG-02
+    category: 选股
+    rule: 强势股 = 连续涨停或不断创新高
+    quote: 连续的涨停板或不断创出新高的走势
+    source: text/独股一箭20w实盘交割单 共90页.md#page-8
+    evidence: 原文
+    codable: true
+    signal: "近 10 日涨停≥1 或 T-1 收盘 ≥ 20 日最高价×0.95"
+    data_check: "部分一致：首买前 10 日有涨停 48%；距 20 日高 ≤5% 33%、≤10% 86%（n=21，剔除除权）"
+  - id: DG-03
+    category: 选股
+    rule: 强势、股性活跃、涨停坚决、量能稳定；动态池约 150 只，每日选 10 只左右
+    quote: 强势股，股性活跃，涨停坚决，量能稳定等等，，，每天从中选出目标
+    source: text/独股一箭20w实盘交割单 共90页.md#page-40
+    evidence: 原文
+    codable: true
+    signal: "池 = 60 日内涨停≥2 且 近 20 日成交额变异系数 < 0.5（『量能稳定』，待校准），按 20 日涨幅取前 150"
+    data_check: 同时持仓中位 1 只（与『每天狙击』一致）
+  - id: DG-04
+    category: 买点
+    rule: 题材+热点+好形态，5 日线附近买，不追高；盘中等回调到均价线
+    quote: 题材+热点+好的上涨形态，5 日线附近买，不追高
+    source: text/独股一箭20w实盘交割单 共90页.md#page-7
+    evidence: 原文
+    codable: true
+    signal: "首买价 / MA5(T-1) - 1 ∈ [-3%, +5%] 且 首买价 < 涨停价"
+    data_check: "一致：打板 0/38；半路 28.9% 平盘 36.8% 低吸 34.2%；买价距 MA5 中位 +2.6%，57% 落在 [-3%,+5%]"
+  - id: DG-05
+    category: 卖点
+    rule: 次日除非快速大单封死涨停，否则一律见好就收
+    quote: 除非快速大单封死涨停，否则一律见好就收
+    source: text/独股一箭20w至100万实盘交割单 有K线图+标注买卖点.md#page-50
+    evidence: 原文
+    codable: true
+    signal: "T+1 收盘未封涨停 → T+1 卖出（日线代理：T+1 若 high 触涨停且收盘封住则持有，否则卖）"
+    data_check: "一致：持有 1 天 86.8%，2 天 5.3%，3-5 天 7.9%"
+  - id: DG-06
+    category: 卖点
+    rule: 出利好不能坚决封板，就跑
+    quote: 出了利好不能坚决封板，那就一个字：跑！
+    source: text/独谷一箭_赚钱效应的精髓_纯图版.md#page-2
+    evidence: 二手
+    codable: true
+    signal: "持仓股当日有公告利好 且 未封板（或封后炸）→ 卖"
+    data_check: 无法检验（无公告数据）
+  - id: DG-07
+    category: 卖点
+    rule: 冲高无量坚决卖出
+    quote: 冲高无量应该坚决卖出
+    source: text/独谷一箭_赚钱效应的精髓_纯图版.md#page-3
+    evidence: 二手
+    codable: true
+    signal: "T+1 涨幅>3% 且 当日量 < 5 日均量×0.8 → 卖（日线代理，阈值待校准）"
+    data_check: 无法检验（未接分时）
+  - id: DG-08
+    category: 卖点
+    rule: 不在涨停板上卖，涨停前一点就出
+    quote: 我一般不习惯在涨停板卖，喜欢涨停低一点就出，比较保险
+    source: text/独股一箭20w实盘交割单 共90页.md#page-11
+    evidence: 原文
+    codable: true
+    signal: "卖单挂 涨停价×0.98~0.99"
+    data_check: 无法检验（卖出时间 97% 缺失）
+  - id: DG-09
+    category: 止损
+    rule: 介入不成功就割肉走人
+    quote: 找到合适的时机介入=》如果不成功割肉走人
+    source: text/独股一箭20w实盘交割单 共90页.md#page-7
+    evidence: 原文
+    codable: true
+    signal: "T+1 未达预期（收盘 < 买价）即卖，不留过 T+2"
+    data_check: "大体一致：亏损段中位持有 1 天，平均 -4.2%，最差 -11.7%，最长连亏 3 段"
+  - id: DG-10
+    category: 仓位
+    rule: 弱市三成仓、强市七成仓，不满仓
+    quote: 弱市取势制于三分，强市取势制于七分，或不可满
+    source: text/独股一箭20w实盘交割单 共90页.md#page-5
+    evidence: 原文
+    codable: true
+    signal: "IDX>MA20 → 仓位上限 70%；否则 30%"
+    data_check: "冲突：手记『永远满仓』（手记#page-26）；比赛表仓位 200~260%（口径待核）"
+  - id: DG-11
+    category: 空仓
+    rule: 熊市中段成交极度萎缩时尽量空仓，不狠砸不入场
+    quote: 开始严格控制仓位，尽量空仓，不狠砸不入场
+    source: text/独股一箭20w至100万实盘交割单 有K线图+标注买卖点.md#page-103
+    evidence: 原文
+    codable: true
+    signal: "两市成交额 20 日均 < 其 250 日 20 分位 且 IDX<MA60 → 空仓；仅当 IDX 单日跌幅 ≥3% 才允许低吸"
+    data_check: 无法检验（2011-07~09 样本无此状态的开仓对照）
+  - id: DG-12
+    category: 环境
+    rule: 弱势不做高位强势股，必须等大幅补跌后
+    quote: 弱势不能做高位的，必须等大幅补跌之后才能做
+    source: text/58位·上册·第09章.md#page-146
+    evidence: 二手
+    codable: true
+    signal: "IDX<MA20 时，剔除 T-1 收盘距 20 日最高 > -15% 的股票（未补跌到位，阈值待校准）"
+    data_check: 未检验
+  - id: DG-13
+    category: 买点
+    rule: 做最新强势股第一波破位下砸后的反弹
+    quote: 永远做最新的强势股第一波破位下砸的反弹
+    source: text/58位·上册·第09章.md#page-146
+    evidence: 二手
+    codable: true
+    signal: "股票 20 日内涨停≥2，首次收盘跌破 MA10 后 1~3 日内，收盘价较破位日再跌 ≥5% 时低吸"
+    data_check: 未检验
+  - id: DG-14
+    category: 环境
+    rule: 熊市不做突破，突破大概率是假突破
+    quote: 进入熊市不能做突破，突破大概率是假突破，谁突破谁死
+    source: text/58位·上册·第09章.md#page-147
+    evidence: 二手
+    codable: true
+    signal: "IDX<MA120 时，禁止『收盘创 20 日新高』类买点"
+    data_check: 未检验
+  - id: DG-15
+    category: 环境
+    rule: 热点持续性看量能：持续均匀；缩量与爆天量都小心
+    quote: 是看量能，持续均匀的量能。缩量和爆天量都要小心
+    source: text/58位·上册·第09章.md#page-142
+    evidence: 二手
+    codable: true
+    signal: "板块成交额 3 日均 / 10 日均 ∈ [0.8, 2.0] 视为持续；>3 = 爆天量，<0.6 = 缩量（阈值待校准）"
+    data_check: 未检验
+  - id: DG-16
+    category: 选股
+    rule: 大盘环境不好时只关注最强的，跟风的都不行
+    quote: 大盘环境不好了，这种时候只能关注最强的，其实跟屁的都不行
+    source: text/独谷一箭_赚钱效应的精髓_纯图版.md#page-2
+    evidence: 二手
+    codable: true
+    signal: "IDX<MA20 时，候选只保留板块内 20 日涨幅第 1 名"
+    data_check: 未检验
+  - id: DG-17
+    category: 止损
+    rule: 不空中接飞刀
+    quote: 不建议空中接飞刀…确定性太差
+    source: text/58位·上册·第09章.md#page-146
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: 低吸 13 段胜率 61.5%（不等于接飞刀，无法检验）

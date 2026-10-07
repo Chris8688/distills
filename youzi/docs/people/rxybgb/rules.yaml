@@ -1,0 +1,111 @@
+person: rxybgb
+data_note: "trades/ 41 段 OCR（2019-03~05、2021-02~04），配对率 65%，带成交时间；低吸 78% / 半路 12% / 平盘 5% / 打板 2.4% / 竞价 2.4%；另算 T-1~T-20 特征（2021 年创业板 20cm 未单独处理，涨停数略低估）"
+rules:
+  - id: RXY-01
+    category: 选股
+    rule: 只做人气股（阶段性龙头），近期 ≥3 个涨停才入自选；行情好时门槛提到 4-5 板
+    quote: 一般没有三个板我都不会关注，行情好的的时候四五个以上吧
+    source: text/三年一百六十倍心得与交割单1.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "候选 = 近 10 日涨停数 ≥ 3；若 当日涨停池中 ≥4 连板个股数 ≥ 5（行情好）→ 门槛提到近 10 日涨停数 ≥ 4"
+    data_check: "基本一致：近10日有板 82.9%，涨停数中位 3；≥3 个的 58.5% 段胜率 66.7% 均值 +1.8%（其余 58.8% / +1.0%）；≥4 个的胜率 70.6% 均值 +2.8%"
+  - id: RXY-02
+    category: 选股
+    rule: 偏好换手板走出来的人气股；连续一字板上去的不碰
+    quote: 这种太多一字板上去的股票我一般是不碰的，获利盘太多了
+    source: text/三年一百六十倍心得与交割单3.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "排除：近 10 日一字涨停（开=高=低=收=涨停价）数 ≥ 2"
+    data_check: "待核（未统计一字板数）"
+  - id: RXY-03
+    category: 环境
+    rule: 行情好坏只看成交量
+    quote: asking说过对行情好坏的判断标准只有一个字量
+    source: text/三年一百六十倍心得与交割单1.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "行情好 = 两市成交额 5 日均值 > 20 日均值 × 1.1；差 = < 0.9 → 提高 RXY-01 门槛 / 降低预期"
+    data_check: "无法检验（未接全市场成交额）"
+  - id: RXY-04
+    category: 买点
+    rule: 人气股急跌时，分时跌不动了就买（深绿盘为主，不做首板与预判）
+    quote: 看分时，感觉跌不动了，就买
+    source: text/三年一百六十倍心得与交割单3.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "首笔买价 < T-1 收盘 × 0.97 且 买价位于日内振幅低 30% 且 买入后 30 分钟不再创新低（分时）"
+    data_check: "一致：r_buy<0 占 80.5%，中位 -5.1%，51% 在 -5% 以下（胜率 66.7%、均值 +2.8%）；日内位置中位 0.25；距 20 日高中位 -15.9%"
+  - id: RXY-05
+    category: 买点
+    rule: 复盘后确定次日标的，盘中不跟风临时起意
+    quote: 一般复盘后就确定第二天交易标了，表现符合模式就据此交易，盘中不跟风
+    source: text/三年一百六十倍心得与交割单4.md#page-1
+    evidence: 二手
+    codable: false
+    signal: ""
+    data_check: "无法检验"
+  - id: RXY-06
+    category: 仓位
+    rule: 小资金全仓单票（2021 后部分分仓）
+    quote: 因为我是全仓单个系模式。和性格有关吧，而且小资金也没有分仓的必要
+    source: text/三年一百六十倍心得与交割单1.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "单票仓位 = 100%；账户资金 > 某阈值后 2-3 只分仓"
+    data_check: "一致：同时持仓中位 0 只、最多 2 只（2021 年出现分仓，见 2.md#page-1）"
+  - id: RXY-07
+    category: 卖点
+    rule: 次日不看好/没预期就卖，积少成多，不坐过山车
+    quote: 要懂的止盈止损，不能贪心，不看好了就卖出
+    source: text/三年一百六十倍心得与交割单1.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "T+1：开盘后首次冲高衰竭（跌破分时均价）卖；未达预期（如 T+1 开盘 < 买价 且 30 分钟内未翻红）→ 卖"
+    data_check: "一致：持有 1 天 92.7%；次日低开 20 段 ret 比 T+1 开盘溢价高 1.1pp（开盘后反抽卖），次日高开 18 段 ret 中位 +2.7%"
+  - id: RXY-08
+    category: 止损
+    rule: 开始就看错的票不继续拿
+    quote: 我止损很严格的，一开始看错的票，我很少会继续拿着
+    source: text/三年一百六十倍心得与交割单3.md#page-1
+    evidence: 原文
+    codable: true
+    signal: "T 日收盘 < 买价 × 0.97 且 T+1 开盘 < T 收盘 → T+1 开盘止损"
+    data_check: "部分：亏损段中位 -4.1%、最差 -11.6%（深绿盘低吸后再跌，一笔错即两个跌幅）"
+  - id: RXY-09
+    category: 心态
+    rule: 超短靠概率与稳定复利，确定性优先于盈亏比
+    quote: 超短对我来说确定性比盈亏比重要
+    source: text/三年一百六十倍心得与交割单1.md#page-1
+    evidence: 原文
+    codable: false
+    signal: ""
+    data_check: "一致：胜率 63.4%，平均盈利段 +5.3% vs 平均亏损段 -5.1%（盈亏比约 1:1），PF 1.81"
+  - id: RXY-10
+    category: 买点
+    rule: （二手）连板龙头首阴/二阴、从高点跌约 25% 时买入
+    quote: 龙头首阴，龙头2阴模式，都是跌了25%左右去买入
+    source: text/三年一百六十倍心得与交割单1.md#page-2
+    evidence: 二手
+    codable: true
+    signal: "近 10 日涨停 ≥ 3 且 T-1 或 T-1、T-2 收阴 且 首笔买价/近 20 日最高 - 1 ≤ -20%"
+    data_check: "部分冲突：距 20 日高中位 -15.9%（四分位 -27.6%~-9.9%），约 1/4 段达到 -25% 附近；T-1 收阴 41.5%"
+  - id: RXY-11
+    category: 买点
+    rule: （二手）尾盘低吸套利：放量上涨后缩量回调的最后一跌
+    quote: 之后，他这个买点用得非常多。成为了他独特的尾盘低吸套利模式
+    source: text/三年一百六十倍心得与交割单1.md#page-3
+    evidence: 二手
+    codable: true
+    signal: "首笔买入时间 ≥ 14:30 且 T 日成交量 < T-1 成交量 且 r_buy < 0"
+    data_check: "一致：首笔在 14:30-15:00 的占 51.2%；但尾盘段与非尾盘段胜率 66.7% vs 60%、均值 +1.48% vs +1.49%，尾盘本身不带超额"
+  - id: RXY-12
+    category: 买点
+    rule: 自称以低吸为主、也追涨，但追涨/半路基本亏钱（实盘反推：应剔除）
+    quote: 以低吸为主，也追涨。不管低吸打板都要有高胜率的保证
+    source: text/三年一百六十倍心得与交割单1.md#page-1
+    evidence: 实盘反推
+    codable: true
+    signal: "剔除：首笔买价/T-1 收盘 - 1 ≥ 3%（半路）"
+    data_check: "冲突（说保留追涨，做出来亏）：半路 5 段胜率 40%、PF 0.07、合计占净利 -21%；低吸 32 段 PF 1.94、占净利 94.5%"

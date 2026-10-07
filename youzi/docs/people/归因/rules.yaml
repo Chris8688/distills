@@ -1,0 +1,103 @@
+person: 归因
+period_trades: 2024-07-15 ~ 2024-12-31（216 段，原始 xls，无成交时间）
+note: 无文字语料，全部规则为实盘反推
+rules:
+  - id: GY-01
+    category: 环境
+    rule: 赚钱效应兑现后才放大单笔规模；行情前（7-8 月）小仓试错
+    quote: ""
+    source: trades/episodes_enriched.csv
+    evidence: 实盘反推
+    codable: true
+    signal: 单段买入额 ∝ 近 20 个交易日已实现盈亏（滚动）；或 近 20 日 PF > 2 才放大
+    data_check: 单段中位 7 月 33 万 → 8 月 43 → 9 月 83 → 10 月 184 → 11 月 267 → 12 月 468 万；7 月 PF 0.96，9 月 PF 7.45
+  - id: GY-02
+    category: 选股
+    rule: 只做强势股：买前 5 日涨幅、MA20 乖离为正，约一半前 10 日有涨停
+    quote: ""
+    source: trades/episodes_enriched.csv + data/bars_bs
+    evidence: 实盘反推
+    codable: true
+    signal: T-1 收盘 / T-6 收盘 - 1 > 0 且 T-1 收盘 > MA20；T-10..T-1 有涨停收盘
+    data_check: 49% 的段前 10 日有板；低吸段前 5 日涨幅中位 +10.4%、MA20 乖离中位 +15.8%
+  - id: GY-03
+    category: 买点
+    rule: 混合买点：半路 35% / 低吸 30% / 平盘 21% / 打板 10%
+    quote: ""
+    source: trades/entry_types.md
+    evidence: 实盘反推
+    codable: true
+    signal: enrich 分类（首笔买价相对 T-1 收盘与涨停价）
+    data_check: 半路 PF 3.20 / 平盘 2.96 / 低吸 2.07 / 打板 5.51
+  - id: GY-04
+    category: 买点
+    rule: 首板打板少而精，命中即大肉；炸板必亏
+    quote: ""
+    source: trades/entry_types.md
+    evidence: 实盘反推
+    codable: true
+    signal: 首笔买价 = 涨停价 且 T-1 连板数 = 0
+    data_check: 首板 12 段 PF 24.5（+587 万，桂发祥一段 +540 万）；打板封住 15 段 PF 7.8，炸板 6 段 PF 0.30
+  - id: GY-05
+    category: 买点
+    rule: 有涨停基因的强势股深跌（接近跌停）时低吸，博反抽
+    quote: ""
+    source: data/bars_bs 补算
+    evidence: 实盘反推
+    codable: true
+    signal: 首笔买价 / T-1 收盘 - 1 < -6% 且 T-10..T-1 有涨停
+    data_check: 17 段（15 段前 10 日有板），胜率 59%，PF 1.87，净 +134 万
+  - id: GY-06
+    category: 卖点
+    rule: T+1 开盘低于买价即在 T+1 卖出
+    quote: ""
+    source: trades/episodes_enriched.csv
+    evidence: 实盘反推
+    codable: true
+    signal: T+1 开盘 < 首笔买价 → T+1 卖
+    data_check: 次日低开 105 段中 86.7% 于 T+1 卖出，这些段胜率 22.9%；次日高开段胜率 74.5%
+  - id: GY-07
+    category: 卖点
+    rule: 连板妖股持有到断板（4-7 天），持有长的段贡献大头利润
+    quote: ""
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 持有期内 T 日收盘 = 涨停 → 继续持有
+    data_check: 持有 ≥3 天的段占 7.9%，贡献净利 61%（PF 28.7）；前 10 段持有中位 2.5 天、均 3.2 天
+  - id: GY-08
+    category: 止损
+    rule: 亏损段多数在 -4% 左右了结，尾部来自隔夜跳空；最大单段亏损只占净利约 5%
+    quote: ""
+    source: trades/profile.md
+    evidence: 实盘反推
+    codable: true
+    signal: 亏损段收益分位
+    data_check: 亏损段中位 -3.8%，p10 -9.8%，最差 -15.2%；87% 一天了结；最大单段亏损 / 净利 = 4.7%
+  - id: GY-09
+    category: 仓位
+    rule: 隔夜持仓 2-4 只，最大一只约 1/2，几乎不空仓，亏后不降仓
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 过夜持仓只数、最大单只占比、在场率
+    data_check: 过夜持仓中位 3 只，最大一只占敞口中位 54%，在场率 94%；连亏 2 段后下一段规模 1.13 倍
+  - id: GY-10
+    category: 选股
+    rule: 创业板段数最多但 PF 最低；主板段 PF 更高
+    quote: ""
+    source: trades/
+    evidence: 实盘反推
+    codable: true
+    signal: 代码前缀分板块
+    data_check: 创业板 90 段 PF 1.93（+382 万）；深主板 43 段 PF 4.75（+888 万）；沪主板 62 段 PF 3.67
+  - id: GY-11
+    category: 仓位
+    rule: 行情确认后用融资加杠杆，融资比例随行情升高
+    quote: ""
+    source: src/原始成交/归因20250104交割单查询7.1.xls（业务名称字段）
+    evidence: 实盘反推
+    codable: true
+    signal: 业务名称 = 融资买入
+    data_check: 融资买入 203/440 笔，金额约 2.63 亿 / 5.14 亿 = 51%；按月 7 月 15%、8 月 24%、9 月 53%、10 月 47%、11 月 44%、12 月 61%

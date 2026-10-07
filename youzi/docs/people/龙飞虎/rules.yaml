@@ -1,0 +1,195 @@
+person: 龙飞虎
+note: >
+  原文=淘股吧实盘贴汇编（text/龙飞虎交割单-308页.md，2009-06~2011-06 + 2015 股灾期，后期 ID 克拉美书）；
+  纯图版/58位为二手摘编。data_check 两个来源：trades/profile（OCR 交割单 2009-10~2010-06，80 段，配对 73%）
+  与从原文持仓截图抽取的 63 个交易日「股票市值/总资产」快照（2009-06-30~2010-05-27，仅覆盖被 OCR 的截图日）。
+rules:
+  - id: LFH-01
+    category: 仓位
+    rule: 收盘基准仓位 3-6 成，整体维持动态 5 成上下
+    quote: "我一般收盘持有3-6成的仓位…总体，我会保持一个动态的5成上下的仓位"
+    source: text/龙飞虎_动态仓位管理_纯图版.md#page-6
+    evidence: 原文
+    codable: true
+    signal: "close_exposure = 股票市值/总资产；目标 0.3 ≤ close_exposure ≤ 0.6"
+    data_check: "冲突：63 个快照中位 0.70；0.3-0.6 占 22%，>0.8 占 40%，<0.3 占 2%（2009-06~2010-05）"
+  - id: LFH-02
+    category: 仓位
+    rule: 老仓开盘强且第一笔新仓封住涨停或低吸后拉起，才开第2笔，盘中可到8成-满，收盘前止盈老仓回到3-6成
+    quote: "第一笔新仓后，如果新仓封住涨停，或低吸强势股低位后顺利拉起，寻找第2笔机会"
+    source: text/龙飞虎_动态仓位管理_纯图版.md#page-1
+    evidence: 原文
+    codable: false
+    signal: "（需分时）老仓 open_ret>0 且 新仓1 当日封板 → 允许 intraday_exposure ≤ 1.0；EOD 目标回 0.3-0.6"
+    data_check: "无法检验（交割单无成交时间）"
+  - id: LFH-03
+    category: 仓位
+    rule: 老仓开盘不佳时，新仓买入条件升一档、降低买入仓位，优先处理老仓
+    quote: "新仓的买进条件升高一个档次，且降低买进仓位"
+    source: text/龙飞虎_动态仓位管理_纯图版.md#page-2
+    evidence: 原文
+    codable: false
+    signal: "（需分时）老仓组合 open_ret<0 → 新仓单笔上限减半"
+    data_check: "无法检验"
+  - id: LFH-04
+    category: 止损
+    rule: 新仓走弱或大盘出现明显不良信号，就加速或无条件了结老仓，并停止开新仓
+    quote: "我甚至会无条件了结老仓，力求马上控制住仓位，并不在轻易开新仓"
+    source: text/龙飞虎_动态仓位管理_纯图版.md#page-2
+    evidence: 原文
+    codable: false
+    signal: "（需分时）新仓浮亏 或 指数日内跌幅 < -X% → 老仓全平、当日禁开新仓"
+    data_check: "无法检验"
+  - id: LFH-05
+    category: 卖点
+    rule: 老仓除非涨停，否则逐步止盈
+    quote: "一般情况下，除非老仓涨停，我都会逐步止赢"
+    source: text/龙飞虎_动态仓位管理_纯图版.md#page-2
+    evidence: 原文
+    codable: true
+    signal: "持仓 T 日未涨停 → 分批卖出；T 日涨停 → 持有到下一交易日"
+    data_check: "一致（方向）：持有中位 1 天，1 天内了结占 71%"
+  - id: LFH-06
+    category: 止损
+    rule: 账户市值距峰值回撤到3%就大幅降频降仓，到5%基本停止操作，10%为红线（遇特殊大段跌势可放宽）
+    quote: "如果市值回撤到3点，我会大幅度降低操作频率与仓位，到5点，我基本会停止操作"
+    source: text/龙飞虎交割单-308页.md#page-292
+    evidence: 原文
+    codable: true
+    signal: "dd = NAV/peak-1；dd ≤ -3% → exposure_cap 0.3 且新开仓数减半；dd ≤ -5% → 禁止新开仓；dd ≤ -10% → 清至试错仓"
+    data_check: "冲突：快照 NAV 2010-04-07→2010-05-20 回撤 -16.3%；dd -9%~-16% 期间收盘仓位 0.38-1.0；4 月买入额 1169 万 > 3 月 697 万。本人承认未控住（#page-158、#page-276）。2015 股灾同样两次触及 -10%（#page-306~307）"
+  - id: LFH-07
+    category: 止损
+    rule: 超短总资金止损位取3%、5%或7%，回撤超过10%就非常被动
+    quote: "超短肯定要更严格些,3%.5%.7%都可以参考…总资金回撤大于10%以后,总是非常被动了"
+    source: text/龙飞虎交割单-308页.md#page-81
+    evidence: 原文
+    codable: true
+    signal: "账户 dd ≤ -max_dd（超短 3/5/7%，中线可放宽）→ 进入防守模式"
+    data_check: "2009-12 自述「这波我的回撤也比较大，应该是已经7%+了」；快照未覆盖该段"
+  - id: LFH-08
+    category: 仓位
+    rule: 触发10%止损后不离场，而是从小仓开始新一轮10%攻防
+    quote: "我依然会展开新一轮的10%攻防。从小仓开始运行"
+    source: text/龙飞虎交割单-308页.md#page-299
+    evidence: 原文
+    codable: true
+    signal: "dd ≤ -10% → 重置 peak=当前 NAV、exposure_cap=0.2，此后按 LFH-06 分档逐级放开"
+    data_check: "2015-09 原文：「最高位回撤已经超越10点，进入下一个小仓位攻防重建中，目前轻仓」（#page-307）；无成交数据可核"
+  - id: LFH-09
+    category: 仓位
+    rule: 先派先锋仓探路，获得据点后再右侧加码；局面不利时用先锋仓利润做安全垫
+    quote: "会派遣先锋仓位，它的意义在于探路与博取一个好的前哨部位"
+    source: text/龙飞虎交割单-308页.md#page-293
+    evidence: 原文
+    codable: true
+    signal: "试错仓 = 目标仓位 × 0.2~0.3；试错仓浮盈 > 0 且价格创近 N 日新高 → 加到确认仓；试错仓止损 → 不加仓"
+    data_check: "无法直接检验（2015 无交割单）"
+  - id: LFH-10
+    category: 仓位
+    rule: 仓位上限随账户状态浮动：市值动态安全可重仓，市值不佳则降仓
+    quote: "你的市值动态安全，就可以重仓，市值不佳，则降低仓位参与"
+    source: text/龙飞虎交割单-308页.md#page-294
+    evidence: 原文
+    codable: true
+    signal: "exposure_cap = 1.0 if dd > -3% else 0.5 if dd > -5% else 0.2"
+    data_check: "同 LFH-06：2010-04~05 未按此执行"
+  - id: LFH-11
+    category: 环境
+    rule: 市场最强板块跌幅超过20%时降仓；指数连续出现组合性中长阴时止损优先；风险来临先去杠杆
+    quote: "当市场最强的板块，出现大于20%的下跌幅度时…你也应该把仓位控制到一个合适的水平"
+    source: text/龙飞虎交割单-308页.md#page-272
+    evidence: 原文
+    codable: true
+    signal: "近20日涨幅第一的行业指数，距其近20日高点回撤 ≤ -20% → exposure_cap 0.5；指数连续 ≥2 根实体 ≥2% 的阴线 → 止损优先"
+    data_check: "无交易数据覆盖 2015"
+  - id: LFH-12
+    category: 环境
+    rule: 一年只有1-3次、每次10-15个交易日的投机沸腾期才高仓位，其余低能量期降低期望；回避指数主跌段和成交极度低迷期
+    quote: "每年都有1-3次的大型投机沸腾期，时间大多维持10-15个交易日级别的"
+    source: text/龙飞虎交割单-308页.md#page-157
+    evidence: 原文
+    codable: true
+    signal: "沸腾期代理：两市成交额 > 250 日分位 80% 且 涨停家数 > 250 日分位 80%；否则 exposure_cap 0.5"
+    data_check: "方向一致：前10大盈利段占净利 126%；2010-02 一个月 +16.4 万约占净利 40%"
+  - id: LFH-13
+    category: 空仓
+    rule: 涨停股生存环境恶化、连强势股都不强时就休息
+    quote: "当时的涨停个股的生存环境日益恶化，连强势股都不强时，就是休息的当口"
+    source: text/龙飞虎交割单-308页.md#page-159
+    evidence: 原文
+    codable: true
+    signal: "昨日涨停股今日平均收益 < 0 连续 3 日 且 连板高度 ≤ 2 → 禁止新开仓"
+    data_check: "冲突：2010-04 即此类环境（本人事后认定），当月买入额反而创高；本人称原因是「过于自信自己的模式」"
+  - id: LFH-14
+    category: 环境
+    rule: 中长线视角下，有效跌破250日线就止损离场；60日线下控仓，60日线上以持仓为主
+    quote: "4.19那一周有效跌破250天线，当是尊重趋势并止损离场的时候了"
+    source: text/龙飞虎交割单-308页.md#page-159
+    evidence: 原文
+    codable: true
+    signal: "指数收盘 < MA250 连续 3 日 → 中线仓位清；个股收盘 < MA60 → 仓位上限 0.5（#page-186）"
+    data_check: "他自己是超短，此条为对中长线者的建议，无对应成交"
+  - id: LFH-15
+    category: 止损
+    rule: 加仓只是冲击一下，不中就立即放弃，不做等待
+    quote: "加仓对我而言，是冲击一下，一旦不中，立即放弃"
+    source: text/龙飞虎交割单-308页.md#page-88
+    evidence: 原文
+    codable: true
+    signal: "加仓后次日收盘 < 加仓价 → 卖出加仓部分（或整段）"
+    data_check: "一致：亏损段持有中位 1 天，平均亏损 -2.7% vs 平均盈利 +3.9%，PF 2.00"
+  - id: LFH-16
+    category: 仓位
+    rule: 分仓滚动、机械分配仓位，不接受单一品种重仓的大回档
+    quote: "我不能接受单一品种重仓的重大回档"
+    source: text/龙飞虎交割单-308页.md#page-46
+    evidence: 原文
+    codable: true
+    signal: "单票成本 ≤ 账户 30%；同时持仓 2-5 只"
+    data_check: "基本一致：同时持仓中位 2、最多 5；平均每段买入 56.3 万 ≈ 净值 20-28%；例外 600132 段内累计买入 306.7 万（含 T）"
+  - id: LFH-17
+    category: 心态
+    rule: 越不顺越控制被动仓位；局面被动时不重仓、不满仓，不赌博式补仓翻本
+    quote: "我很少在局面被动的情况下重仓或者满仓…越是不顺时，越是强调控制被动仓位"
+    source: text/龙飞虎_动态仓位管理_纯图版.md#page-3
+    evidence: 原文
+    codable: true
+    signal: "最近 N 段连亏 ≥ 3 或 dd ≤ -3% → 单笔上限减半（他未给 N，此处为编码假设）"
+    data_check: "滞后一致：最长连亏 5 段（止于 2010-04-28，实现回撤谷底 -17.5 万）后，5 月上旬单日买入降到 22-30 万（4 月为 44-187 万）；05-14 回升到 141 万"
+  - id: LFH-18
+    category: 卖点
+    rule: 资金创新高时大幅减仓
+    quote: "反弹后我资金新高，自然大幅减仓"
+    source: text/龙飞虎交割单-308页.md#page-281
+    evidence: 原文
+    codable: true
+    signal: "NAV 创历史新高 且 近 5 日 NAV 涨幅 > 10% → exposure 降至 0.3"
+    data_check: "仅 2015 一例自述，无成交数据"
+  - id: LFH-19
+    category: 仓位
+    rule: 抄底时仓位过半而反弹未发生，就无条件倒T回3成以内；8成仓则收盘前降到5-6成
+    quote: "在我仓位过半的情况下…如果反弹还不发生，无条件倒T，控制回3成仓位内"
+    source: text/龙飞虎交割单-308页.md#page-276
+    evidence: 原文
+    codable: true
+    signal: "逆势抄底仓 exposure > 0.5 且 当日指数收跌 → 收盘前减到 0.3"
+    data_check: "无数据（2015）"
+  - id: LFH-20
+    category: 选股
+    rule: 换手决定高度，回避一字板；板块高位时龙2或龙3突然拉起而龙一转为跟随，就不再追高
+    quote: "我的看法是换手决定高度"
+    source: text/58位·中册·第03章.md#page-55
+    evidence: 二手
+    codable: true
+    signal: "连板股当日换手率 < 5%（一字/缩量）→ 不接力；板块龙一(最高板)当日涨幅 < 龙2/龙3 → 板块内禁追"
+    data_check: "无法检验（未接行情）"
+  - id: LFH-21
+    category: 心态
+    rule: 超短收益严重依赖低交易成本；高频T多为无效交易，成本约占利润两成
+    quote: "交易成本25.27万，占利润的20.4%"
+    source: text/龙飞虎交割单-308页.md#page-87
+    evidence: 原文
+    codable: true
+    signal: "成本拖累 = Σ费用 / 毛利；> 20% 视为过度交易"
+    data_check: "无法独立核对（profile 费用为估算）"

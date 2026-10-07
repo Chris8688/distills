@@ -1,0 +1,288 @@
+# 人物登记表（唯一事实源）—— tools/build.py 按 aliases 在原始路径里匹配文件，生成 人物/<name>/ 与 人物索引.md
+# 流派：情绪周期 / 龙头接力 / 首板打板 / 连板打板 / 低吸 / 半路 / 趋势波段 / 仓位风控 / 熊市生存 / 期货 / 综合
+#   流派：优先《58位大佬心法》章节标题（data/58_toc.yaml）+ 成交数据买点类型（trades/entry_types.md）交叉；两者冲突时以成交数据为准并在索引注明
+# tier：A = 有原始成交数据（csv/xls）可机械统计；B = 有交割单截图/PDF（OCR 后可半自动解析）；C = 只有心法语录
+
+people:
+  - name: 炒股养家
+    aliases: [炒股养家, 养家]
+    school: [情绪周期, 龙头接力]
+    tagline: 情绪流开创者，「洞悉情绪周期」
+  - name: 徐翔
+    aliases: [徐翔, 总舵主]
+    school: [涨停敢死队, 综合]
+    tagline: 泽熙，「投机的心性」（注：泽熙缠论视频为营销挂名，不归入）
+  - name: 乔帮主
+    aliases: [乔帮主]
+    school: [低吸]
+    tagline: 低吸之王，3 年半 500 倍
+  - name: 赵老哥
+    aliases: [赵老哥, 赵亿万]
+    school: [龙头接力, 连板打板]
+    tagline: 八年一万倍，「二板定龙头」
+  - name: Asking
+    aliases: [Asking]
+    school: [情绪周期]
+    tagline: 短线节奏的把握
+  - name: 职业炒手
+    aliases: [职业炒手, 王元杰, 游资校长, 校长]
+    school: [综合, 熊市生存]
+    tagline: 游资校长，交易的本质 / 弱市操作
+  - name: 章盟主
+    aliases: [章盟主]
+    school: [趋势波段]
+    tagline: 大资金重仓，大神之路
+  - name: 令胡冲
+    aliases: [令胡冲, 令狐冲]
+    school: [首板打板, 连板打板]
+    tagline: 盘感训练及打板技术，50 万到 800 万
+  - name: 退学炒股
+    aliases: [退学炒股, 退学, 退神]
+    school: [龙头接力, 情绪周期]
+    tagline: 一万到千万的蜕变，一年近 150 倍
+  - name: 明王
+    aliases: [明王]
+    school: [熊市生存]
+    tagline: 熊市生存之道
+  - name: 瑞鹤仙
+    aliases: [瑞鹤仙]
+    school: [熊市生存, 半路]
+    tagline: 熊市中走出的英雄
+  - name: 龙飞虎
+    aliases: [龙飞虎]
+    school: [仓位风控]
+    tagline: 动态仓位管理
+  - name: 小鳄鱼
+    aliases: [小鳄鱼]
+    school: [龙头接力]
+    tagline: 超短线的核心，8000 到 10 亿
+  - name: 作手新一
+    aliases: [作手新一]
+    school: [连板打板, 龙头接力]
+    tagline: 7 年 3000 倍，「围魏救赵」
+  - name: 著名刺客
+    aliases: [著名刺客, 刺客]
+    school: [龙头接力]
+    tagline: 6 年破亿
+  - name: 92科比
+    aliases: [92科比, 科比]
+    school: [情绪周期, 龙头接力]
+    tagline: 新生代游资，4 年破亿；58位标「首板高手」，实盘首板仅 24%（2020Q1）
+  - name: 浓汤野人
+    aliases: [浓汤野人]
+    school: [期货]
+    tagline: 600 万到 28 亿棉花之战（期货，不是 A 股超短）
+  - name: 涅盘重升
+    aliases: [涅盘重升, 涅槃重升]
+    school: [情绪周期, 龙头接力]
+    tagline: 情绪演变的认知，100 万到一亿
+  - name: 独股一箭
+    aliases: [独股一箭, 独孤一箭, 独谷一箭]
+    school: [情绪周期]
+    tagline: 赚钱效应的精髓
+  - name: 万法归宗
+    aliases: [万法归宗]
+    school: [综合]
+    tagline: 市场永远是对的
+  - name: 孤独牛背
+    aliases: [孤独牛背]
+    school: [龙头接力, 仓位风控]
+    tagline: 龙头妖股战法，控制回撤
+  - name: 余哥
+    aliases: [余哥]
+    school: [龙头接力]
+    tagline: 95 后十位数游资
+  - name: 北京炒家
+    aliases: [北京炒家, BJ炒家]
+    school: [首板打板]
+    tagline: 5 年 1000 倍的首板模式
+  - name: 陈小群
+    aliases: [陈小群, 心跳r]
+    school: [情绪周期, 龙头接力]
+    tagline: 新生代一年 30 倍
+  - name: 一瞬流光
+    aliases: [一瞬流光]
+    school: [龙头接力]
+    tagline: 10 万到上亿
+  - name: 小睿睿
+    aliases: [小睿睿]
+    school: [龙头接力, 情绪周期]
+    tagline: 5 个月 23 倍
+  - name: 林疯狂
+    aliases: [林疯狂, Linsanity]
+    school: [半路]
+    tagline: 9 个月 10 倍；58位标「低吸强势股」，实为盘中突破半路（成交数据 + 本人原话，见蒸馏笔记）
+  - name: 太牛啦
+    aliases: [太牛啦]
+    school: [综合]
+    tagline: 2022-2023 交割单拆解 + 交易战法
+  - name: 华东大导弹
+    aliases: [华东大导弹]
+    school: [龙头接力]
+    tagline: 十个月十倍
+  - name: 水哥割股
+    aliases: [水哥割股, 水哥]
+    school: [半路]
+    tagline: 100W 到 900W，2023 全年交割单 + 每日复盘
+  - name: 爱在冰川
+    aliases: [爱在冰川]
+    school: [综合]
+    tagline: 干货合集
+  - name: 二池
+    aliases: [二池]
+    school: [综合]
+    tagline: 淘股吧第五届百万杯 20 倍
+  - name: 归因
+    aliases: [归因]
+    school: [综合]
+    tagline: 2025 交割单
+  - name: 善行天助
+    aliases: [善行天助]
+    school: [龙头接力]
+    tagline: 2018-04 ~ 2019-06 帖子合集 + 交割单
+  - name: 轮回666
+    aliases: [轮回666]
+    school: [综合]
+    tagline: 时光杯交割单 + 2019 上半年历史成交
+  - name: 不颜不语
+    aliases: [不颜不语]
+    school: [情绪周期]
+    tagline: 交割单
+  - name: rxybgb
+    aliases: [rxybgb, 三年一百六十倍]
+    school: [综合]
+    tagline: 三年一百六十倍心得与交割单
+  - name: 字母哥
+    aliases: [字母哥]
+    school: [半路]
+    tagline: 半路买点卖点问题及半路买入逻辑
+  - name: 新疆坚果哥
+    aliases: [新疆坚果哥]
+    school: [综合]
+    tagline: 2 个月十倍 + 操作模式总结
+  - name: 相城采莲路
+    aliases: [相城采莲路]
+    school: [仓位风控, 龙头接力]
+    tagline: 3 年 500 倍
+  - name: bike770
+    aliases: [bike770]
+    school: [综合]
+    tagline: 19 梦想杯
+  - name: 榜中榜
+    aliases: [榜中榜]
+    school: [综合]
+    tagline: 一年半 150 倍
+  - name: 万战寻道
+    aliases: [万战寻道]
+    school: [综合]
+    tagline: 交割单高清 1822 页
+  - name: 短线炒牛
+    aliases: [短线炒牛]
+    school: [综合]
+    tagline: 5 年一万到一亿
+  - name: 若茶
+    aliases: [若茶]
+    school: [综合]
+    tagline: 10 个月 20 倍
+  - name: 素衣不染尘
+    aliases: [素衣不染尘]
+    school: [综合]
+    tagline: 2023 年 25 倍
+
+# 只出现在《58位大佬心法》合集里的人物（无独立资料；流派按章节标题推断）
+compilation_people:
+  - name: 艾琳歆
+    school: [趋势波段]
+    tagline: 如何抓住大波段（58位·上册·第7章）
+  - name: 六哥
+    school: [综合]
+    tagline: 知道 做到 赚到（58位·上册·第10章）
+  - name: 缠中说禅
+    school: [综合]
+    tagline: 高手都是哲学家（58位·上册·第11章）
+  - name: 无门问禅
+    school: [趋势波段]
+    tagline: 势是市场之王（58位·上册·第12章）
+  - name: 灯心人
+    school: [趋势波段]
+    tagline: 你离成功只差十个牛股（58位·上册·第14章）
+  - name: 仓促的句号
+    school: [综合]
+    tagline: 只做已经，不做如果（58位·上册·第16章）
+  - name: 小草骑墙
+    school: [综合]
+    tagline: 假如你做庄（58位·上册·第17章）
+  - name: 葵花宝典
+    school: [综合]
+    tagline: 输在意淫（58位·上册·第19章）
+  - name: 江南神鹰
+    school: [综合]
+    tagline: 守正出奇（58位·上册·第20章）
+  - name: 好运2008
+    school: [综合]
+    tagline: 信念是财富的催化剂（58位·上册·第21章）
+  - name: 御剑飞鱼
+    school: [情绪周期, 龙头接力]
+    tagline: 熊市出英雄（58位·上册·第23章）
+  - name: 创世纪888888
+    school: [首板打板]
+    tagline: （58位·上册·第24章）
+  - name: 丁一熊
+    school: [综合]
+    tagline: 长者的智慧（58位·中册·第5章）
+  - name: 大田连板
+    school: [连板打板]
+    tagline: 技法和心法都要硬（58位·中册·第10章）
+  - name: 庖丁解牛
+    school: [综合]
+    tagline: 股市中给自己定位（58位·中册·第11章）
+  - name: 糊涂118
+    school: [低吸]
+    tagline: 左侧低吸潜伏（58位·中册·第12章）
+  - name: 我是K
+    school: [综合]
+    tagline: 交易不需要反人性（58位·中册·第13章）
+  - name: 陶永根
+    school: [综合]
+    tagline: 只要确定性的%（58位·中册·第15章）
+  - name: 彭道富
+    school: [龙头接力]
+    tagline: 做龙头不是追涨（58位·中册·第16章）
+  - name: 永兴
+    school: [综合]
+    tagline: 短线快刀客（58位·中册·第17章）
+  - name: 廖国沛
+    school: [综合]
+    tagline: 来去自如（58位·中册·第23章）
+  - name: 欢乐海岸
+    school: [情绪周期, 龙头接力]
+    tagline: 情绪高潮交易者（58位·中册·第24章）
+  - name: 方新侠
+    school: [综合]
+    tagline: 确定性机会（58位·下册·第1章）
+  - name: 闻少
+    school: [综合]
+    tagline: 超短模式核心拆解（58位·下册·第4章）
+  - name: 挑战12345
+    school: [仓位风控]
+    tagline: 零回测交易系统（58位·下册·第5章）
+
+# 多人合集 / 通用教材（不归入单个人物，放 合集/）
+collections:
+  - name: 58位大佬心法
+    aliases: [58位大佬心法, 58位游资]
+  - name: 超短百科全书
+    aliases: [超短百科全书]
+  - name: 游资实战交割单带K线图
+    aliases: [游资实战交割单带K线图]
+  - name: 新生300天图解教程
+    aliases: [新生300天]
+  - name: 日本蜡烛图技术
+    aliases: [日本蜡烛图技术]
+  - name: 游资心法音频
+    aliases: [文档合集/音频版]
+  - name: 视频课程
+    aliases: [游资训练营讲座视频全集]
+
+# 不处理
+ignore: [打不开PDF电子书的点这里, .downloading, /distill/]

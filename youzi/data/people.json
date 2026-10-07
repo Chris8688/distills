@@ -1,0 +1,1427 @@
+[
+ {
+  "name": "炒股养家",
+  "scope": "独立资料",
+  "aliases": [
+   "炒股养家",
+   "养家"
+  ],
+  "school": [
+   "情绪周期",
+   "龙头接力"
+  ],
+  "tagline": "情绪流开创者，「洞悉情绪周期」",
+  "book_label": "洞悉情绪周期",
+  "score20": 11,
+  "verdict": "并入\"情绪周期流派\" skill，作为流派母本和\"原始定义\"章节，不单独做 skill",
+  "note": "docs/people/炒股养家/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2010-04-01",
+    "2010-08-26"
+   ],
+   "episodes": 92,
+   "win": 0.63,
+   "pf": 2.48,
+   "hold1": 0.652,
+   "src": "OCR",
+   "sell_match": 0.74
+  },
+  "entry_mix": {
+   "打板": 0.076,
+   "半路": 0.25,
+   "平盘": 0.402,
+   "低吸": 0.272
+  }
+ },
+ {
+  "name": "徐翔",
+  "scope": "独立资料",
+  "aliases": [
+   "徐翔",
+   "总舵主"
+  ],
+  "school": [
+   "涨停敢死队",
+   "综合"
+  ],
+  "tagline": "泽熙，「投机的心性」（注：泽熙缠论视频为营销挂名，不归入）",
+  "book_label": "投机的心性",
+  "score20": 5,
+  "verdict": "只留语录（七堂课的 XX-01~04），在「仓位风控」汇总里作为\"单票硬止损/禁补仓/去杠杆\"的旁证",
+  "note": "docs/people/徐翔/蒸馏笔记.md"
+ },
+ {
+  "name": "乔帮主",
+  "scope": "独立资料",
+  "aliases": [
+   "乔帮主"
+  ],
+  "school": [
+   "低吸"
+  ],
+  "tagline": "低吸之王，3 年半 500 倍",
+  "book_label": "低吸鼻祖",
+  "score20": 12,
+  "verdict": "并入\"低吸/弱市流派\" skill（作为低吸对象与买卖点的主样本），不单独成 skill",
+  "note": "docs/people/乔帮主/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2012-08-08",
+    "2015-01-21"
+   ],
+   "episodes": 24,
+   "win": 0.75,
+   "pf": 24.99,
+   "hold1": 0.875,
+   "src": "OCR",
+   "sell_match": 0.64
+  },
+  "entry_mix": {
+   "平盘": 0.208,
+   "低吸": 0.792
+  }
+ },
+ {
+  "name": "赵老哥",
+  "scope": "独立资料",
+  "aliases": [
+   "赵老哥",
+   "赵亿万"
+  ],
+  "school": [
+   "龙头接力",
+   "连板打板"
+  ],
+  "tagline": "八年一万倍，「二板定龙头」",
+  "book_label": "超短选股要诀",
+  "score20": 14,
+  "verdict": "并入「龙头接力/打板」流派 skill 作为有实盘校验的锚点人物；语录部分只留语录（标注归属待核）",
+  "note": "docs/people/赵老哥/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2010-01-07",
+    "2011-06-16"
+   ],
+   "episodes": 203,
+   "win": 0.512,
+   "pf": 2.28,
+   "hold1": 0.862,
+   "src": "OCR",
+   "sell_match": 0.8
+  },
+  "entry_mix": {
+   "打板": 0.601,
+   "半路": 0.256,
+   "平盘": 0.089,
+   "低吸": 0.054
+  }
+ },
+ {
+  "name": "Asking",
+  "scope": "独立资料",
+  "aliases": [
+   "Asking"
+  ],
+  "school": [
+   "情绪周期"
+  ],
+  "tagline": "短线节奏的把握",
+  "book_label": "超短节奏把握",
+  "score20": 10,
+  "verdict": "并入流派 skill**，作为「市场强弱 / 量能闸门」模块的源头之一（与涅盘重升的大周期判据合并）",
+  "note": "docs/people/Asking/蒸馏笔记.md"
+ },
+ {
+  "name": "职业炒手",
+  "scope": "独立资料",
+  "aliases": [
+   "职业炒手",
+   "王元杰",
+   "游资校长",
+   "校长"
+  ],
+  "school": [
+   "综合",
+   "熊市生存"
+  ],
+  "tagline": "游资校长，交易的本质 / 弱市操作",
+  "book_label": "交易的本质",
+  "score20": 9,
+  "verdict": "并入流派 skill（「仓位风控」引用 ZYCS-01/02/06/08；手法进「综合/熊市生存」流派），不做独立 skill",
+  "note": "docs/people/职业炒手/蒸馏笔记.md"
+ },
+ {
+  "name": "章盟主",
+  "scope": "独立资料",
+  "aliases": [
+   "章盟主"
+  ],
+  "school": [
+   "趋势波段"
+  ],
+  "tagline": "大资金重仓，大神之路",
+  "book_label": "趋势追击",
+  "score20": 5,
+  "verdict": "只留语录，并在「仓位风控」汇总里作为\"单票集中度反面教材\"引用；58 位后半篇超短文章标为归属待核",
+  "note": "docs/people/章盟主/蒸馏笔记.md"
+ },
+ {
+  "name": "令胡冲",
+  "scope": "独立资料",
+  "aliases": [
+   "令胡冲",
+   "令狐冲"
+  ],
+  "school": [
+   "首板打板",
+   "连板打板"
+  ],
+  "tagline": "盘感训练及打板技术，50 万到 800 万",
+  "book_label": "盘感训练及打板技术",
+  "score20": 12,
+  "verdict": "并入「龙头接力/打板」流派 skill（环境判断章节的主要来源）",
+  "note": "docs/people/令胡冲/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2015-05-12",
+    "2016-01-08"
+   ],
+   "episodes": 41,
+   "win": 0.659,
+   "pf": 4.45,
+   "hold1": 0.829,
+   "src": "OCR",
+   "sell_match": 0.44
+  },
+  "entry_mix": {
+   "打板": 0.415,
+   "半路": 0.439,
+   "低吸": 0.146
+  }
+ },
+ {
+  "name": "退学炒股",
+  "scope": "独立资料",
+  "aliases": [
+   "退学炒股",
+   "退学",
+   "退神"
+  ],
+  "school": [
+   "龙头接力",
+   "情绪周期"
+  ],
+  "tagline": "一万到千万的蜕变，一年近 150 倍",
+  "book_label": "一万到千万的蜕变",
+  "score20": 12,
+  "verdict": "并入「龙头接力/情绪」流派 skill（\"弱转强/超预期\"买点与回撤线控仓两节）；心态语录只留语录",
+  "note": "docs/people/退学炒股/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2017-04-24",
+    "2017-08-28"
+   ],
+   "episodes": 49,
+   "win": 0.694,
+   "pf": 3.37,
+   "hold1": 0.918,
+   "src": "OCR",
+   "sell_match": 0.86
+  },
+  "entry_mix": {
+   "打板": 0.347,
+   "半路": 0.245,
+   "平盘": 0.143,
+   "低吸": 0.204,
+   "竞价": 0.061
+  }
+ },
+ {
+  "name": "明王",
+  "scope": "独立资料",
+  "aliases": [
+   "明王"
+  ],
+  "school": [
+   "熊市生存"
+  ],
+  "tagline": "熊市生存之道",
+  "book_label": "熊市生存之道",
+  "score20": 12,
+  "verdict": "并入\"低吸/弱市流派\" skill，作为\"弱市生存（仓位上限 + 见底三信号）\"模块的核心规则来源；参数先回测再用",
+  "note": "docs/people/明王/蒸馏笔记.md"
+ },
+ {
+  "name": "瑞鹤仙",
+  "scope": "独立资料",
+  "aliases": [
+   "瑞鹤仙"
+  ],
+  "school": [
+   "熊市生存",
+   "半路"
+  ],
+  "tagline": "熊市中走出的英雄",
+  "book_label": "熊市出英雄",
+  "score20": 8,
+  "verdict": "只留语录，熊市仓位思想（RHX-09/10）并入\"弱市生存\"模块",
+  "note": "docs/people/瑞鹤仙/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2012-09-27",
+    "2017-01-24"
+   ],
+   "episodes": 28,
+   "win": 0.607,
+   "pf": 11.38,
+   "hold1": 0.571,
+   "src": "OCR",
+   "sell_match": 0.76
+  },
+  "entry_mix": {
+   "打板": 0.107,
+   "半路": 0.5,
+   "平盘": 0.179,
+   "低吸": 0.179,
+   "竞价": 0.036
+  }
+ },
+ {
+  "name": "龙飞虎",
+  "scope": "独立资料",
+  "aliases": [
+   "龙飞虎"
+  ],
+  "school": [
+   "仓位风控"
+  ],
+  "tagline": "动态仓位管理",
+  "book_label": "动态仓位管理",
+  "score20": 14,
+  "verdict": "并入「仓位风控」流派 skill，作为主干人物（规则以他为骨架，其余人做共识/冲突标注），不单独做人格 skill",
+  "note": "docs/people/龙飞虎/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2009-10-09",
+    "2010-06-24"
+   ],
+   "episodes": 80,
+   "win": 0.562,
+   "pf": 3.1,
+   "hold1": 0.562,
+   "src": "OCR",
+   "sell_match": 0.73
+  },
+  "entry_mix": {
+   "打板": 0.087,
+   "半路": 0.175,
+   "平盘": 0.3,
+   "低吸": 0.438
+  }
+ },
+ {
+  "name": "小鳄鱼",
+  "scope": "独立资料",
+  "aliases": [
+   "小鳄鱼"
+  ],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "超短线的核心，8000 到 10 亿",
+  "book_label": "超短线的核心",
+  "score20": 6,
+  "verdict": "并入\"龙头接力/情绪周期\"流派 skill，只留语录 + 2-3 条可编码规则",
+  "note": "docs/people/小鳄鱼/蒸馏笔记.md"
+ },
+ {
+  "name": "作手新一",
+  "scope": "独立资料",
+  "aliases": [
+   "作手新一"
+  ],
+  "school": [
+   "连板打板",
+   "龙头接力"
+  ],
+  "tagline": "7 年 3000 倍，「围魏救赵」",
+  "book_label": "新生代打板高手",
+  "score20": 9,
+  "verdict": "并入「龙头接力/打板」流派 skill（\"排一字第三板\"\"反包板\"作为可回测的候选形态，需用户自己回测）",
+  "note": "docs/people/作手新一/蒸馏笔记.md"
+ },
+ {
+  "name": "著名刺客",
+  "scope": "独立资料",
+  "aliases": [
+   "著名刺客",
+   "刺客"
+  ],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "6 年破亿",
+  "book_label": "龙头战法执行者",
+  "score20": 10,
+  "verdict": "并入流派 skill**（「龙头/主流接力」流派；ZMCK-02/03 可作为 A 股情绪环境开关的候选因子单独回测）",
+  "note": "docs/people/著名刺客/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2016-04-15",
+    "2016-12-22"
+   ],
+   "episodes": 1,
+   "win": 1.0,
+   "pf": 0,
+   "hold1": 1.0,
+   "src": "OCR",
+   "sell_match": 0.33
+  },
+  "entry_mix": {
+   "低吸": 1.0
+  }
+ },
+ {
+  "name": "92科比",
+  "scope": "独立资料",
+  "aliases": [
+   "92科比",
+   "科比"
+  ],
+  "school": [
+   "情绪周期",
+   "龙头接力"
+  ],
+  "tagline": "新生代游资，4 年破亿；58位标「首板高手」，实盘首板仅 24%（2020Q1）",
+  "book_label": "新生代首板高手",
+  "score20": 11,
+  "verdict": "并入「情绪周期」流派 skill（不是首板流派）**；首板部分作为补涨、切换的一个子工具，在首板对照表里列出",
+  "note": "docs/people/92科比/蒸馏笔记.md"
+ },
+ {
+  "name": "浓汤野人",
+  "scope": "独立资料",
+  "aliases": [
+   "浓汤野人"
+  ],
+  "school": [
+   "期货"
+  ],
+  "tagline": "600 万到 28 亿棉花之战（期货，不是 A 股超短）",
+  "book_label": "棉花期货大鳄",
+  "score20": 3,
+  "verdict": "只留语录，在「仓位风控」汇总中作为\"满仓加仓 + 归零准备\"的反例和\"钟摆出金\"的旁证",
+  "note": "docs/people/浓汤野人/蒸馏笔记.md"
+ },
+ {
+  "name": "涅盘重升",
+  "scope": "独立资料",
+  "aliases": [
+   "涅盘重升",
+   "涅槃重升"
+  ],
+  "school": [
+   "情绪周期",
+   "龙头接力"
+  ],
+  "tagline": "情绪演变的认知，100 万到一亿",
+  "book_label": "情绪演变的认知",
+  "score20": 13,
+  "verdict": "并入「情绪周期」流派 skill，作为其中的主干**（情绪指标定义 + 大周期 / 补跌周期闸门），不单独做 skill",
+  "note": "docs/people/涅盘重升/蒸馏笔记.md"
+ },
+ {
+  "name": "独股一箭",
+  "scope": "独立资料",
+  "aliases": [
+   "独股一箭",
+   "独孤一箭",
+   "独谷一箭"
+  ],
+  "school": [
+   "情绪周期"
+  ],
+  "tagline": "赚钱效应的精髓",
+  "book_label": "万物皆周期",
+  "score20": 12,
+  "verdict": "并入流派 skill**，作为「低吸 / 隔日惯性」子模块，同时作为「打板派」的对照样本（他是情绪周期合集里少见的**不打板**派）",
+  "note": "docs/people/独股一箭/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2010-02-26",
+    "2011-09-29"
+   ],
+   "episodes": 42,
+   "win": 0.595,
+   "pf": 2.6,
+   "hold1": 0.833,
+   "src": "OCR",
+   "sell_match": 0.63
+  },
+  "entry_mix": {
+   "半路": 0.262,
+   "平盘": 0.429,
+   "低吸": 0.31
+  }
+ },
+ {
+  "name": "万法归宗",
+  "scope": "独立资料",
+  "aliases": [
+   "万法归宗"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "市场永远是对的",
+  "book_label": "市场永远是对的",
+  "score20": 10,
+  "verdict": "",
+  "note": "docs/people/万法归宗/蒸馏笔记.md"
+ },
+ {
+  "name": "孤独牛背",
+  "scope": "独立资料",
+  "aliases": [
+   "孤独牛背"
+  ],
+  "school": [
+   "龙头接力",
+   "仓位风控"
+  ],
+  "tagline": "龙头妖股战法，控制回撤",
+  "book_label": "超短高手",
+  "score20": 6,
+  "verdict": "并入流派 skill",
+  "note": "docs/people/孤独牛背/蒸馏笔记.md"
+ },
+ {
+  "name": "余哥",
+  "scope": "独立资料",
+  "aliases": [
+   "余哥"
+  ],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "95 后十位数游资",
+  "book_label": "模式的多样性",
+  "score20": 6,
+  "verdict": "只留语录（在流派 skill 中作为\"高位接力/不止损\"的反例条目）",
+  "note": "docs/people/余哥/蒸馏笔记.md"
+ },
+ {
+  "name": "北京炒家",
+  "scope": "独立资料",
+  "aliases": [
+   "北京炒家",
+   "BJ炒家"
+  ],
+  "school": [
+   "首板打板"
+  ],
+  "tagline": "5 年 1000 倍的首板模式",
+  "book_label": "专一的首板客",
+  "score20": 13,
+  "verdict": "并入「首板打板」流派 skill，作为该流派唯一有原始成交校验的主样本**；不单独做 skill",
+  "note": "docs/people/北京炒家/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2019-01-02",
+    "2019-06-28"
+   ],
+   "episodes": 128,
+   "win": 0.562,
+   "pf": 2.57,
+   "hold1": 0.922,
+   "src": "xls",
+   "sell_match": 0.99
+  },
+  "entry_mix": {
+   "打板": 0.984,
+   "半路": 0.016
+  }
+ },
+ {
+  "name": "陈小群",
+  "scope": "独立资料",
+  "aliases": [
+   "陈小群",
+   "心跳r"
+  ],
+  "school": [
+   "情绪周期",
+   "龙头接力"
+  ],
+  "tagline": "新生代一年 30 倍",
+  "book_label": "情绪合力龙头",
+  "score20": 9,
+  "verdict": "并入「龙头接力/情绪」流派 skill（\"总龙头温度计\"一节的主要来源）",
+  "note": "docs/people/陈小群/蒸馏笔记.md"
+ },
+ {
+  "name": "一瞬流光",
+  "scope": "独立资料",
+  "aliases": [
+   "一瞬流光"
+  ],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "10 万到上亿",
+  "book_label": "新晋超短线游资",
+  "score20": 10,
+  "verdict": "并入\"龙头接力/情绪周期\"流派 skill（作为该流派语料最完整的原帖样本之一）；trades/ 生成后可复核升级",
+  "note": "docs/people/一瞬流光/蒸馏笔记.md"
+ },
+ {
+  "name": "小睿睿",
+  "scope": "独立资料",
+  "aliases": [
+   "小睿睿"
+  ],
+  "school": [
+   "龙头接力",
+   "情绪周期"
+  ],
+  "tagline": "5 个月 23 倍",
+  "book_label": "如何判断主流",
+  "score20": 12,
+  "verdict": "并入\"情绪周期/主流识别\"流派 skill，作为\"主流板块判定\"的量化模块来源；不单独成 skill",
+  "note": "docs/people/小睿睿/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2021-01-18",
+    "2021-05-31"
+   ],
+   "episodes": 14,
+   "win": 0.571,
+   "pf": 3.2,
+   "hold1": 0.714,
+   "src": "OCR",
+   "sell_match": 0.83
+  },
+  "entry_mix": {
+   "打板": 0.214,
+   "半路": 0.071,
+   "平盘": 0.071,
+   "低吸": 0.571,
+   "竞价": 0.071
+  }
+ },
+ {
+  "name": "林疯狂",
+  "scope": "独立资料",
+  "aliases": [
+   "林疯狂",
+   "Linsanity"
+  ],
+  "school": [
+   "半路"
+  ],
+  "tagline": "9 个月 10 倍；58位标「低吸强势股」，实为盘中突破半路（成交数据 + 本人原话，见蒸馏笔记）",
+  "book_label": "低吸强势股",
+  "score20": 10,
+  "verdict": "并入流派 skill，但改归\"强势股半路追涨\"，不归低吸；在低吸流派里只作反例（标签与数据冲突）",
+  "note": "docs/people/林疯狂/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2016-03-14",
+    "2016-12-12"
+   ],
+   "episodes": 36,
+   "win": 0.528,
+   "pf": 2.09,
+   "hold1": 0.972,
+   "src": "xls",
+   "sell_match": 0.83
+  },
+  "entry_mix": {
+   "打板": 0.028,
+   "半路": 0.444,
+   "平盘": 0.306,
+   "低吸": 0.222
+  }
+ },
+ {
+  "name": "太牛啦",
+  "scope": "独立资料",
+  "aliases": [
+   "太牛啦"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "2022-2023 交割单拆解 + 交易战法",
+  "book_label": "",
+  "score20": 10,
+  "verdict": "并入流派 skill**（「主线龙头 + 一日一换」超短流派，作为 entry_types 实证样本；TNL-04 作情绪修复因子候选）",
+  "note": "docs/people/太牛啦/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2022-05-06",
+    "2023-08-31"
+   ],
+   "episodes": 41,
+   "win": 0.561,
+   "pf": 0.75,
+   "hold1": 0.732,
+   "src": "OCR",
+   "sell_match": 0.7
+  },
+  "entry_mix": {
+   "打板": 0.171,
+   "半路": 0.463,
+   "平盘": 0.171,
+   "低吸": 0.171,
+   "竞价": 0.024
+  }
+ },
+ {
+  "name": "华东大导弹",
+  "scope": "独立资料",
+  "aliases": [
+   "华东大导弹"
+  ],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "十个月十倍",
+  "book_label": "龙空龙高手",
+  "score20": 11,
+  "verdict": "并入「龙头接力 / 情绪周期」流派 skill**（作为「低频满仓接力 + 被动空仓」样例），不单独立 skill",
+  "note": "docs/people/华东大导弹/蒸馏笔记.md"
+ },
+ {
+  "name": "水哥割股",
+  "scope": "独立资料",
+  "aliases": [
+   "水哥割股",
+   "水哥"
+  ],
+  "school": [
+   "半路"
+  ],
+  "tagline": "100W 到 900W，2023 全年交割单 + 每日复盘",
+  "book_label": "半路高手",
+  "score20": null,
+  "verdict": "并入「半路/接力」流派 skill**，作为 A 级实盘锚点：半路 r_buy 分布、封板命中率、60-80% 陷阱、说做冲突（仓位、连亏停手）",
+  "note": "docs/people/水哥割股/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2023-01-04",
+    "2023-10-09"
+   ],
+   "episodes": 272,
+   "win": 0.529,
+   "pf": 1.67,
+   "hold1": 0.801,
+   "src": "xls",
+   "sell_match": 1.0
+  },
+  "entry_mix": {
+   "打板": 0.007,
+   "半路": 0.559,
+   "平盘": 0.188,
+   "低吸": 0.232,
+   "竞价": 0.015
+  }
+ },
+ {
+  "name": "爱在冰川",
+  "scope": "独立资料",
+  "aliases": [
+   "爱在冰川"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "干货合集",
+  "book_label": "",
+  "score20": 8,
+  "verdict": "并入流派 skill（\"上班族隔日超短·开盘买开盘卖\"），不独立",
+  "note": "docs/people/爱在冰川/蒸馏笔记.md"
+ },
+ {
+  "name": "二池",
+  "scope": "独立资料",
+  "aliases": [
+   "二池"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "淘股吧第五届百万杯 20 倍",
+  "book_label": "",
+  "score20": null,
+  "verdict": "只留实盘画像**（作为「比赛型单票满仓」的反例样本），不做 skill",
+  "note": "docs/people/二池/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2024-09-04",
+    "2024-12-31"
+   ],
+   "episodes": 56,
+   "win": 0.429,
+   "pf": 1.86,
+   "hold1": 0.661,
+   "src": "xls",
+   "sell_match": 0.98
+  },
+  "entry_mix": {
+   "半路": 0.304,
+   "平盘": 0.214,
+   "低吸": 0.411,
+   "竞价": 0.054,
+   "无行情": 0.018
+  }
+ },
+ {
+  "name": "归因",
+  "scope": "独立资料",
+  "aliases": [
+   "归因"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "2025 交割单",
+  "book_label": "",
+  "score20": null,
+  "verdict": "只留实盘画像，并入「综合/混合买点」流派**作为对照样本，不做独立 skill",
+  "note": "docs/people/归因/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2024-07-15",
+    "2024-12-31"
+   ],
+   "episodes": 216,
+   "win": 0.491,
+   "pf": 3.21,
+   "hold1": 0.829,
+   "src": "xls",
+   "sell_match": 0.99
+  },
+  "entry_mix": {
+   "打板": 0.088,
+   "半路": 0.352,
+   "平盘": 0.213,
+   "低吸": 0.306,
+   "无行情": 0.042
+  }
+ },
+ {
+  "name": "善行天助",
+  "scope": "独立资料",
+  "aliases": [
+   "善行天助"
+  ],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "2018-04 ~ 2019-06 帖子合集 + 交割单",
+  "book_label": "接力高手",
+  "score20": null,
+  "verdict": "并入「打板/接力」流派 skill**（和北京炒家放在一起做「首板 vs 1 进 2」对照），不单独做 skill",
+  "note": "docs/people/善行天助/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2018-06-06",
+    "2019-07-01"
+   ],
+   "episodes": 224,
+   "win": 0.491,
+   "pf": 1.9,
+   "hold1": 0.714,
+   "src": "xls",
+   "sell_match": 0.99
+  },
+  "entry_mix": {
+   "打板": 0.679,
+   "半路": 0.214,
+   "平盘": 0.018,
+   "低吸": 0.045,
+   "竞价": 0.045
+  }
+ },
+ {
+  "name": "轮回666",
+  "scope": "独立资料",
+  "aliases": [
+   "轮回666"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "时光杯交割单 + 2019 上半年历史成交",
+  "book_label": "",
+  "score20": null,
+  "verdict": "只留实盘画像**，作为「妖股长持 + 融资」反例和「送转除权」数据坑案例，不做 skill",
+  "note": "docs/people/轮回666/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2018-05-03",
+    "2019-06-28"
+   ],
+   "episodes": 68,
+   "win": 0.529,
+   "pf": 2.16,
+   "hold1": 0.588,
+   "src": "xls",
+   "sell_match": 0.89
+  },
+  "entry_mix": {
+   "打板": 0.029,
+   "半路": 0.294,
+   "平盘": 0.368,
+   "低吸": 0.309
+  }
+ },
+ {
+  "name": "不颜不语",
+  "scope": "独立资料",
+  "aliases": [
+   "不颜不语"
+  ],
+  "school": [
+   "情绪周期"
+  ],
+  "tagline": "交割单",
+  "book_label": "跟着情绪走",
+  "score20": 8,
+  "verdict": "并入流派 skill**，提供「龙头断板 → 补涨 / 次高位 → 二波」这一段状态转移规则；交割单解析出来后再复核",
+  "note": "docs/people/不颜不语/蒸馏笔记.md"
+ },
+ {
+  "name": "rxybgb",
+  "scope": "独立资料",
+  "aliases": [
+   "rxybgb",
+   "三年一百六十倍"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "三年一百六十倍心得与交割单",
+  "book_label": "",
+  "score20": 11,
+  "verdict": "并入\"低吸/弱市流派\" skill（作为\"人气股深绿盘低吸\"的样本），不单独成 skill",
+  "note": "docs/people/rxybgb/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2019-03-01",
+    "2021-04-21"
+   ],
+   "episodes": 41,
+   "win": 0.634,
+   "pf": 2.48,
+   "hold1": 0.927,
+   "src": "OCR",
+   "sell_match": 0.65
+  },
+  "entry_mix": {
+   "打板": 0.024,
+   "半路": 0.122,
+   "平盘": 0.024,
+   "低吸": 0.805,
+   "竞价": 0.024
+  }
+ },
+ {
+  "name": "字母哥",
+  "scope": "独立资料",
+  "aliases": [
+   "字母哥"
+  ],
+  "school": [
+   "半路"
+  ],
+  "tagline": "半路买点卖点问题及半路买入逻辑",
+  "book_label": "",
+  "score20": null,
+  "verdict": "",
+  "note": "docs/people/字母哥/蒸馏笔记.md"
+ },
+ {
+  "name": "新疆坚果哥",
+  "scope": "独立资料",
+  "aliases": [
+   "新疆坚果哥"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "2 个月十倍 + 操作模式总结",
+  "book_label": "",
+  "score20": 6,
+  "verdict": "只留语录（作为\"杠杆幸存者\"反例归档），不做 skill",
+  "note": "docs/people/新疆坚果哥/蒸馏笔记.md"
+ },
+ {
+  "name": "相城采莲路",
+  "scope": "独立资料",
+  "aliases": [
+   "相城采莲路"
+  ],
+  "school": [
+   "仓位风控",
+   "龙头接力"
+  ],
+  "tagline": "3 年 500 倍",
+  "book_label": "控制回撤的高手",
+  "score20": 7,
+  "verdict": "只留语录（\"慢就是快\"\"没有机会就空仓\"\"股市只放 10%\"）；待 trades/ 生成后复评，若比赛期回撤和仓位数据成立，可作为「仓位风控」流派的旁证",
+  "note": "docs/people/相城采莲路/蒸馏笔记.md"
+ },
+ {
+  "name": "bike770",
+  "scope": "独立资料",
+  "aliases": [
+   "bike770"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "19 梦想杯",
+  "book_label": "",
+  "score20": 8,
+  "verdict": "只留数据**（作为「打板接力」流派的交割单样本，等 trades/ 生成后并入流派 skill 的统计对照，不单独蒸馏）",
+  "note": "docs/people/bike770/蒸馏笔记.md"
+ },
+ {
+  "name": "榜中榜",
+  "scope": "独立资料",
+  "aliases": [
+   "榜中榜"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "一年半 150 倍",
+  "book_label": "理解力才是王道",
+  "score20": 6,
+  "verdict": "只留语录**（并入「超短情绪流派」skill 作引用；BZB-07 可作为一次独立回测题）",
+  "note": "docs/people/榜中榜/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2015-04-01",
+    "2015-06-04"
+   ],
+   "episodes": 4,
+   "win": 0.75,
+   "pf": 8339.86,
+   "hold1": 0.5,
+   "src": "OCR",
+   "sell_match": 0.55
+  },
+  "entry_mix": {
+   "半路": 1.0
+  }
+ },
+ {
+  "name": "万战寻道",
+  "scope": "独立资料",
+  "aliases": [
+   "万战寻道"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "交割单高清 1822 页",
+  "book_label": "",
+  "score20": 9,
+  "verdict": "并入流派 skill**（「情绪周期 / 龙头二波」流派），贡献「正向 / 逆向周期四读数」和「正向有卖点缩量」两条可编码规则，其余只留语录",
+  "note": "docs/people/万战寻道/蒸馏笔记.md"
+ },
+ {
+  "name": "短线炒牛",
+  "scope": "独立资料",
+  "aliases": [
+   "短线炒牛"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "5 年一万到一亿",
+  "book_label": "",
+  "score20": 6,
+  "verdict": "只留语录**（作为「半路分时突破」流派的一个案例，挂在半路/接力流派下）",
+  "note": "docs/people/短线炒牛/蒸馏笔记.md"
+ },
+ {
+  "name": "若茶",
+  "scope": "独立资料",
+  "aliases": [
+   "若茶"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "10 个月 20 倍",
+  "book_label": "",
+  "score20": 6,
+  "verdict": "只留语录（实为只留交割单画像），并入\"超短隔日换股\"流派作为一个样本，不做独立 skill",
+  "note": "docs/people/若茶/蒸馏笔记.md",
+  "trades": {
+   "period": [
+    "2013-09-03",
+    "2014-02-18"
+   ],
+   "episodes": 11,
+   "win": 0.545,
+   "pf": 1.72,
+   "hold1": 0.909,
+   "src": "OCR",
+   "sell_match": 0.69
+  },
+  "entry_mix": {
+   "打板": 0.273,
+   "半路": 0.455,
+   "平盘": 0.182,
+   "低吸": 0.091
+  }
+ },
+ {
+  "name": "素衣不染尘",
+  "scope": "独立资料",
+  "aliases": [
+   "素衣不染尘"
+  ],
+  "school": [
+   "综合"
+  ],
+  "tagline": "2023 年 25 倍",
+  "book_label": "",
+  "score20": 8,
+  "verdict": "并入流派 skill（\"强势股回踩低吸·次日开盘走\"一派，与独股一箭同组），不独立",
+  "note": "docs/people/素衣不染尘/蒸馏笔记.md"
+ },
+ {
+  "name": "艾琳歆",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "趋势波段"
+  ],
+  "tagline": "如何抓住大波段（58位·上册·第7章）",
+  "book_label": "如何抓住大波段",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "六哥",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "知道 做到 赚到（58位·上册·第10章）",
+  "book_label": "知道 做到 赚到",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "缠中说禅",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "高手都是哲学家（58位·上册·第11章）",
+  "book_label": "高手都是哲学家",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "无门问禅",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "趋势波段"
+  ],
+  "tagline": "势是市场之王（58位·上册·第12章）",
+  "book_label": "势是市场之王",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "灯心人",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "趋势波段"
+  ],
+  "tagline": "你离成功只差十个牛股（58位·上册·第14章）",
+  "book_label": "你离成功只差十个牛股",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "仓促的句号",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "只做已经，不做如果（58位·上册·第16章）",
+  "book_label": "只做已经，不做如果",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "小草骑墙",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "假如你做庄（58位·上册·第17章）",
+  "book_label": "假如你做庄",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "葵花宝典",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "输在意淫（58位·上册·第19章）",
+  "book_label": "输在意淫",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "江南神鹰",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "守正出奇（58位·上册·第20章）",
+  "book_label": "守正出奇",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "好运2008",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "信念是财富的催化剂（58位·上册·第21章）",
+  "book_label": "信念是财富的催化剂",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "御剑飞鱼",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "情绪周期",
+   "龙头接力"
+  ],
+  "tagline": "熊市出英雄（58位·上册·第23章）",
+  "book_label": "熊市出英雄",
+  "score20": 6,
+  "verdict": "",
+  "note": "docs/people/御剑飞鱼/蒸馏笔记.md"
+ },
+ {
+  "name": "创世纪888888",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "首板打板"
+  ],
+  "tagline": "（58位·上册·第24章）",
+  "book_label": "",
+  "score20": 9,
+  "verdict": "只留语录，并把 CS-03 / CS-04 / CS-05 并入「首板打板」流派 skill 的「环境闸门」小节，标注「无实盘校验、阈值待回测」",
+  "note": "docs/people/创世纪888888/蒸馏笔记.md"
+ },
+ {
+  "name": "丁一熊",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "长者的智慧（58位·中册·第5章）",
+  "book_label": "长者的智慧",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "大田连板",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "连板打板"
+  ],
+  "tagline": "技法和心法都要硬（58位·中册·第10章）",
+  "book_label": "技法和心法都要硬",
+  "score20": 8,
+  "verdict": "只留语录（\"龙头生命周期\"\"龙头分类\"\"分歧信号\"可作流派 skill 的术语表）",
+  "note": "docs/people/大田连板/蒸馏笔记.md"
+ },
+ {
+  "name": "庖丁解牛",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "股市中给自己定位（58位·中册·第11章）",
+  "book_label": "股市中给自己定位",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "糊涂118",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "低吸"
+  ],
+  "tagline": "左侧低吸潜伏（58位·中册·第12章）",
+  "book_label": "左侧低吸潜伏",
+  "score20": 7,
+  "verdict": "",
+  "note": "docs/people/糊涂118/蒸馏笔记.md"
+ },
+ {
+  "name": "我是K",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "交易不需要反人性（58位·中册·第13章）",
+  "book_label": "交易不需要反人性",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "陶永根",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "只要确定性的%（58位·中册·第15章）",
+  "book_label": "只要确定性的%",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "彭道富",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "龙头接力"
+  ],
+  "tagline": "做龙头不是追涨（58位·中册·第16章）",
+  "book_label": "做龙头不是追涨",
+  "score20": 8,
+  "verdict": "只留语录（七条止损可并入流派 skill 的\"止损\"通用节，标注无实盘）",
+  "note": "docs/people/彭道富/蒸馏笔记.md"
+ },
+ {
+  "name": "永兴",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "短线快刀客（58位·中册·第17章）",
+  "book_label": "短线快刀客",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "廖国沛",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "来去自如（58位·中册·第23章）",
+  "book_label": "来去自如",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "欢乐海岸",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "情绪周期",
+   "龙头接力"
+  ],
+  "tagline": "情绪高潮交易者（58位·中册·第24章）",
+  "book_label": "情绪高潮交易者",
+  "score20": 6,
+  "verdict": "只留语录**，作为对照表里「高位接力 / 分歧转一致」的一个注脚；如果以后接入龙虎榜，可以重新评估",
+  "note": "docs/people/欢乐海岸/蒸馏笔记.md"
+ },
+ {
+  "name": "方新侠",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "确定性机会（58位·下册·第1章）",
+  "book_label": "确定性机会",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "闻少",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "综合"
+  ],
+  "tagline": "超短模式核心拆解（58位·下册·第4章）",
+  "book_label": "超短模式核心拆解",
+  "score20": null,
+  "verdict": "",
+  "note": null
+ },
+ {
+  "name": "挑战12345",
+  "scope": "仅合集",
+  "aliases": [],
+  "school": [
+   "仓位风控"
+  ],
+  "tagline": "零回测交易系统（58位·下册·第5章）",
+  "book_label": "零回测交易系统",
+  "score20": 9,
+  "verdict": "并入流派 skill（「仓位风控」引用 TZ-01/02/03；均线阶梯 TZ-04~07 作为「低吸」流派的可回测假设），不做独立 skill",
+  "note": "docs/people/挑战12345/蒸馏笔记.md"
+ }
+]
